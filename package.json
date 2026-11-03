@@ -46,7 +46,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test dist/tests/*.test.js && node --test tests/builder.test.mjs",
+    "test": "npm run build && node --test dist/tests/*.test.js && node --test tests/*.test.mjs",
     "verify": "npm run check:tokens && npm run check && npm test",
     "generate:tokens": "node scripts/generate-tokens.mjs",
     "check:tokens": "node scripts/generate-tokens.mjs --check",
