@@ -104,13 +104,9 @@ test.describe("interactive semantics and keyboard behavior",()=>{
     await expect(page.getByRole("dialog",{name:"An independent design decision"})).toBeVisible();
     await expect(page.getByRole("button",{name:"Close dialog"})).toBeFocused();
     await page.keyboard.press("Tab");
-    // Native <dialog> may wrap focus to its container rather than the button.
-    // Require confinement to the modal, not a specific focused child.
-    const modalContainsFocus=await page.evaluate(()=>{
-      const dialog=document.getElementById("demo-dialog");
-      return document.activeElement===dialog || dialog.contains(document.activeElement);
-    });
-    expect(modalContainsFocus).toBe(true);
+    await expect(page.getByRole("button",{name:"Close dialog"})).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(page.getByRole("button",{name:"Close dialog"})).toBeFocused();
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog",{name:"An independent design decision"})).toBeHidden();
     await expect(trigger).toBeFocused();

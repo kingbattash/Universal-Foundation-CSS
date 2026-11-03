@@ -142,6 +142,21 @@
     const dialog=document.getElementById('demo-dialog');
     open.addEventListener('click',()=>{dialog.showModal();close.focus();});
     close.addEventListener('click',()=>dialog.close());
+    // Native modal top-layer semantics are preserved, but a single-focusable
+    // child needs explicit wrap handling for reliable keyboard confinement.
+    dialog.addEventListener('keydown',event=>{
+      if(event.key!=='Tab')return;
+      const focusables=[...dialog.querySelectorAll(
+        'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
+      )].filter(el=>!el.hidden && getComputedStyle(el).display!=='none');
+      if(!focusables.length){event.preventDefault();dialog.focus();return;}
+      const first=focusables[0],last=focusables[focusables.length-1];
+      if(event.shiftKey && (document.activeElement===first || document.activeElement===dialog)){
+        event.preventDefault();last.focus();
+      }else if(!event.shiftKey && (document.activeElement===last || document.activeElement===dialog)){
+        event.preventDefault();first.focus();
+      }
+    });
     dialog.addEventListener('close',()=>open.focus());
   </script>
 </body>
