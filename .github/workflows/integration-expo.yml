@@ -9,16 +9,27 @@ permissions:
 jobs:
   expo-adapter:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: integration/expo/package-lock.json
-      - name: Install Expo SDK 57 fixture
-        run: npm ci --prefix integration/expo --no-audit --no-fund
+          cache-dependency-path: |
+            package-lock.json
+            integration/expo/package-lock.json
+      - name: Install locked package and Expo SDK 57 fixture
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --prefix integration/expo --no-audit --no-fund
+      - name: Build and install packed UF-CSS into Expo
+        run: |
+          npm run build
+          node integration/prepare-consumer.mjs expo
+      - name: Type-check independent native theme fixture
+        working-directory: integration/expo
+        run: npm run typecheck
       - name: Export Android JavaScript via Expo Metro
         working-directory: integration/expo
         run: npm run export:android
