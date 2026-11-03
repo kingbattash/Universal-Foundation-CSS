@@ -19,7 +19,8 @@
     .card{padding:clamp(1rem,2vw,1.7rem);border:1px solid currentColor;border-radius:var(--harbor-operations-corners-card)}
     .stat{font-size:clamp(2rem,4vw,3rem);font-weight:var(--harbor-operations-typography-weight);letter-spacing:-.05em;line-height:1.4}
     .tag{color:var(--harbor-operations-ui-link);font-size:.82rem;font-weight:600}
-    .panel{margin-top:var(--harbor-operations-spacing-comfortable);padding:1.5rem;border:1px solid currentColor;border-radius:var(--harbor-operations-corners-card)}
+    .panel{margin-top:var(--harbor-operations-spacing-comfortable);padding:1.5rem;border:1px solid currentColor;border-radius:var(--harbor-operations-corners-card);min-inline-size:0}
+    .table-scroll{max-inline-size:100%;overflow-x:auto;overscroll-behavior-inline:contain}
     .table{width:100%;border-collapse:collapse;text-align:left}
     .table th,.table td{padding:1rem .5rem;border-bottom:1px solid currentColor}
     .table td{text-align:left}
@@ -42,11 +43,13 @@
         <article class="card"><h2>Workspaces</h2><div class="stat">08</div><span class="tag">Example organization</span></article>
       </section>
       <section class="panel" aria-labelledby="latest"><h2 id="latest">Recent work</h2>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable recent work table">
         <table class="table"><thead><tr><th>Reference</th><th>Team</th><th>Status</th></tr></thead>
           <tbody><tr><td>OPS-1084</td><td>Customer Support</td><td><span class="pill">Reviewed</span></td></tr>
           <tr><td>OPS-1085</td><td>Fulfillment</td><td><span class="pill">Pending</span></td></tr>
           <tr><td>OPS-1086</td><td>Finance</td><td><span class="pill">Complete</span></td></tr></tbody>
         </table>
+        </div>
       </section>
     </main>
   </div>
