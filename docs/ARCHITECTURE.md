@@ -33,7 +33,7 @@ UF-CSS is a **design foundation** with minimal implementation assumptions.
 
 For product projects, create a canonical token-and-contract source. Web, StyleX and native adapters should be generated from or validated against that source; allow documented, platform-specific overrides (e.g. safe areas, type metrics, pointer/hover states). Behavioral parity is more important than pixel parity.
 
-**Current 0.x limitation:** the optional CSS adapter duplicates a small starter token selection manually. Automated token generation and parity tests are a roadmap item. Do not treat parity as already enforced.
+**Current 0.x state:** `tokens/source.tokens.json` is the canonical source for neutral primitive and semantic token values. `scripts/generate-tokens.mjs` produces `src/css/tokens.generated.css`, `src/tokens/generated.ts`, and all framework adapter outputs, with CI drift detection. Some broader role recommendations still live as TS specifications; custom project themes and real framework build tests are not yet complete.
 
 ## Naming
 

@@ -7,7 +7,7 @@
 
 Universal Foundation CSS (**UF-CSS**) is an open-source library of design principles, typed mathematical formulas, semantic roles, hierarchy, grid systems, and component contracts. It helps teams build web and mobile interfaces from a consistent methodology **without making every product look the same**.
 
-> **Status: 0.x experimental.** The repository provides a working TypeScript foundation and an optional CSS starter adapter. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
+> **Status: 0.x experimental.** The repository provides a working TypeScript foundation, canonical token generation, an optional CSS starter adapter, and generated framework mappings. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
 
 ## The problem it solves
 
@@ -87,6 +87,27 @@ UF-CSS offers **choices, not 37 mandatory styles**. A grid registry entry declar
 
 See the [grid catalog](docs/GRIDS.md) before selecting a layout.
 
+## Cross-framework adapters
+
+All adapters derive from [`tokens/source.tokens.json`](tokens/source.tokens.json), which uses a supported subset of the DTCG 2025.10 typed-token format. **Do not edit generated files directly.**
+
+| Stack | Output | Status |
+| --- | --- | --- |
+| Vanilla HTML/CSS | `src/css/foundation.css` and `tokens.generated.css` | Opt-in layout + semantic variables |
+| Tailwind CSS v4 | `adapters/tailwind-v4/theme.generated.css` | Generated `@theme inline` mapping; consumer integration pending |
+| Tailwind CSS v3 | `adapters/tailwind-v3/preset.generated.cjs` | Generated theme preset; consumer integration pending |
+| Bootstrap 5.3 | `adapters/bootstrap/bootstrap.generated.css` | Body/semantic variable and button mapping; component-specific coverage incomplete |
+| StyleX | `adapters/stylex/tokens.generated.stylex.ts` | Generated `defineVars`/dark theme; requires StyleX compile setup |
+| React Native/Expo | `adapters/react-native/tokens.generated.ts` | Generated typed native values; Expo runtime testing pending |
+
+See [adapter installation instructions](docs/ADAPTERS.md) for exact import order, examples, and limitations.
+
+```bash
+npm run generate:tokens  # Regenerate all adapters from canonical source
+npm run check:tokens     # Verify no generated file was edited or missed
+```
+
+
 ## AI agent skill
 
 A portable, open [Agent Skills](https://agentskills.io/specification) workflow helps coding agents audit, generate and migrate design foundations **while preserving the project's brand**. The canonical instructions live at [`.agents/skills/universal-foundation-css/SKILL.md`](.agents/skills/universal-foundation-css/SKILL.md).
@@ -102,13 +123,14 @@ This copies the skill to supported Codex, Claude and Copilot project locations w
 ## Development quality
 
 ```bash
+npm run check:tokens # Canonical generated-output drift check
 npm run check  # TypeScript type checking
 npm run build  # Compiled .js and .d.ts files
 npm test       # Formula, registry and contract tests
 npm run verify # Type-check and tests
 ```
 
-CI runs the verification for pull requests. Automated browser-level accessibility and cross-device visual tests remain future work.
+CI checks generated token parity and the TypeScript/test suite for pull requests. Automated browser-level accessibility and cross-device visual tests remain future work.
 
 ## Architecture and roadmap
 

@@ -1,10 +1,14 @@
+/** Values derived from canonical DTCG tokens; breakpoints are structural rules. */
+import { foundation } from "../foundation-formular/foundation.js"
+import { generatedTokens } from "./generated.js"
+
 export const layoutTokens = {
-  containerMaxPx: 1200,
-  containerWidePx: 1440,
-  readingMeasureCh: 68,
-  gutterMobilePx: 16,
-  gutterDesktopPx: 48,
+  containerMaxPx: generatedTokens.layout.containerMax,
+  containerWidePx: generatedTokens.layout.containerWide,
+  readingMeasureCh: generatedTokens.layout.readingMeasure,
+  gutterMobilePx: generatedTokens.layout.gutterMobile,
+  gutterDesktopPx: generatedTokens.layout.gutterDesktop,
   gridColumnCount: 12,
-  touchTargetRecommendedPx: 44,
-  breakpointsPx: { sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 1536 },
+  touchTargetRecommendedPx: generatedTokens.layout.touchTarget,
+  breakpointsPx: foundation.breakpointsPx,
 } as const

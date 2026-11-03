@@ -18,11 +18,18 @@
       "default": "./dist/src/index.js"
     },
     "./css": "./src/css/foundation.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./tokens.css": "./src/css/tokens.generated.css",
+    "./tailwind-v4": "./adapters/tailwind-v4/theme.generated.css",
+    "./tailwind-v3": "./adapters/tailwind-v3/preset.generated.cjs",
+    "./bootstrap": "./adapters/bootstrap/bootstrap.generated.css",
+    "./stylex": "./adapters/stylex/tokens.generated.stylex.ts",
+    "./react-native": "./adapters/react-native/tokens.generated.ts"
   },
   "files": [
     "dist",
     "src/css",
+    "adapters",
     "LICENSE",
     "README.md",
     "CHANGELOG.md"
@@ -34,7 +41,9 @@
     "check": "tsc --noEmit",
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test dist/tests/*.test.js",
-    "verify": "npm run check && npm test"
+    "verify": "npm run check:tokens && npm run check && npm test",
+    "generate:tokens": "node scripts/generate-tokens.mjs",
+    "check:tokens": "node scripts/generate-tokens.mjs --check"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

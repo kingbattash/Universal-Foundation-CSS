@@ -11,6 +11,8 @@ Thank you for considering a contribution. UF-CSS is an independent open-source p
 ## Development
 - Use Node.js 22 or later.
 - Install dependencies using `npm install` during early bootstrap; a locked, reproducible installation will be introduced before release.
+- Run `npm run generate:tokens` after changing `tokens/source.tokens.json`. Never hand-edit generated adapters.
+- Run `npm run check:tokens` to detect drift across framework outputs.
 - Run `npm run check` after changing TypeScript.
 - Run `npm test` for formula and registry tests.
 - Keep changes narrow; write or update tests and docs with new behavior.
