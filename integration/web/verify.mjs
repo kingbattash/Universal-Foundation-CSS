@@ -8,6 +8,7 @@ import { createRequire } from "node:module";
 import assert from "node:assert/strict";
 import babel from "@babel/core";
 import stylexPlugin from "@stylexjs/babel-plugin";
+import transformTypescript from "@babel/plugin-transform-typescript";
 import postcss from "postcss";
 import postcssImport from "postcss-import";
 
@@ -72,7 +73,7 @@ async function verifyStyleX() {
       parserOpts:{plugins:["typescript"]},
       plugins:[
         [stylexPlugin,{dev:false,unstable_moduleResolution:{type:"commonJS",rootDir:root}}],
-        ["@babel/plugin-transform-typescript",{}],
+        [transformTypescript,{}],
       ],
     });
     assert.ok(result?.code,"No Babel output");
