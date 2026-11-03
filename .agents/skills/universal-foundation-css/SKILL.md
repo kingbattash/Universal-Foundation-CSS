@@ -30,7 +30,7 @@ UF-CSS is a **toolkit for constructing a user's own design system**. It is **not
 - Component behavior and accessibility contracts
 - Validation evidence and known exceptions
 
-Read [design freedom philosophy](../../../../docs/PHILOSOPHY.md) and [implementation guidance](references/IMPLEMENTATION.md) for new projects and [audit checklist](references/AUDIT-CHECKLIST.md) for inconsistent products.
+Read [design freedom philosophy](../../../docs/PHILOSOPHY.md) and [implementation guidance](references/IMPLEMENTATION.md) for new projects and [audit checklist](references/AUDIT-CHECKLIST.md) for inconsistent products.
 
 ## Safety and scope
 
