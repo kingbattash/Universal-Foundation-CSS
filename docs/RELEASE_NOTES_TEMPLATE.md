@@ -1,48 +1,25 @@
-# UF-CSS prerelease notes — TEMPLATE (not a published release)
+# UF-CSS <approved-version>
 
-**Proposed version:** `<approved-version>`  
 **Source commit:** `<verified-main-sha>`  
-**Publication status:** NOT PUBLISHED until registry confirmation  
-**Date:** `<date-after-actual-approval>`
+**Publication status:** DRAFT — not yet published  
+**Review date:** `<date>`
 
-## Scope
+## Changes
+- Describe the optional capabilities included in this exact candidate.
 
-Describe what can be done with this exact candidate, including its optional features and framework-neutral design-system construction purpose. Do not claim a visual UI kit, required theme, full WCAG compliance or cross-device testing that has not occurred.
+## Compatibility
+- Name Node, browser, Tailwind, Bootstrap, StyleX and Expo consumer boundaries where applicable.
+- State that the package is a construction toolkit, not a mandatory UI design system.
 
-## Public exports and CLI
+## Breaking changes
+- State “None” or list every changed export, token schema, CSS hook, framework mapping and migration.
 
-List the published JavaScript/TypeScript entry point, optional CSS, Tailwind v3/v4, Bootstrap, StyleX, React Native entries, and available `uf-css init`, `generate`, `theme`, `audit` commands, with any current limitations. Verify against the generated tarball file listing.
+## Verification
+- Record all six GitHub checks on the exact main commit SHA, the tarball file count, checksums and independent packed install evidence.
 
-## Changes since prior version
+## Remaining limitations
+- Explicitly record any pending real-device, screen-reader and native browser zoom tests, and that this is not WCAG certification.
 
-- Added:
-- Changed:
-- Fixed:
-- Deprecated:
-- Removed:
+---
 
-## Compatibility and breaking changes
-
-State all intentional changes to token schemas, hierarchy/grid reference names, CSS custom properties, framework adapter behavior or CLI flags. Provide exact before/after examples and migration instructions. If none, say so explicitly.
-
-## Verification evidence
-
-- Exact commit SHA:
-- All six CI workflow results:
-- `npm run verify:release` result:
-- Offline packed consumer result:
-- Screenshot/axe artifacts and limitations:
-- npm tarball filename and SHA-256:
-- Browser/Android/iOS/assistive-tech checks still pending:
-
-## Approved release and installation (fill **only after** publication)
-
-- npm registry URL / exact version:
-- npm dist-tag:
-- npm provenance link if available:
-- GitHub environment reviewer(s):
-- Independent clean install result:
-- Feedback/issues:
-- Next candidate decision:
-
-**This file is a template.** Creating or filling it does not authorize publication, tag creation or merger.
+Only after a maintainer approves a version, save an edited, placeholder-free copy as `docs/releases/<approved-version>.md`, and create a dated `## [<approved-version>] - YYYY-MM-DD` entry in `CHANGELOG.md`. The manual prerelease workflow refuses to publish without matching, substantive release notes. Never mark a version as published until npm registry verification confirms it.

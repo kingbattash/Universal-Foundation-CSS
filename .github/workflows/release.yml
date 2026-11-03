@@ -58,6 +58,7 @@ jobs:
         run: |
           npm run build
           node scripts/verify-release-artifact.mjs --candidate "$CANDIDATE_VERSION" --require-prerelease
+          node scripts/verify-release-notes.mjs --candidate "$CANDIDATE_VERSION"
       - name: Verify installed tarball without accessing registry
         run: node scripts/verify-packed-package.mjs
       - name: Require six green checks on this exact source commit

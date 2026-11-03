@@ -5,6 +5,7 @@ import {resolve} from "node:path";
 import {spawnSync} from "node:child_process";
 import {isPrereleaseVersion,validateManifest,validatePackedFiles,EXPECTED_PACKAGE} from "../scripts/lib/release/manifest.mjs";
 import {evaluateCI,REQUIRED_CI_CHECKS} from "../scripts/lib/release/checks.mjs";
+import {validateReleaseNotes} from "../scripts/lib/release/notes.mjs";
 const root=process.cwd();
 const manifest=JSON.parse(readFileSync(resolve(root,"package.json"),"utf8"));
 
@@ -87,4 +88,22 @@ test("publish action is opt-in manual only, branch and environment gated",()=>{
   assert.match(yaml,/--tag beta/);
   assert.match(yaml,/scripts\/check-release-ci\.mjs/);
   assert.match(yaml,/npm ci/);
+});
+
+test("release notes gate requires exact version, dated changelog and substantive migration/verification text",()=>{
+  const version="0.2.0-beta.1";
+  const changelog="## Unreleased\n\n## [0.2.0-beta.1] - 2026-11-03\n- Reviewed release notes.\n";
+  const notes=[
+    "# UF-CSS 0.2.0-beta.1",
+    "## Changes","- Added a guarded package distribution path.",
+    "## Compatibility","- Node 20+ source; Node 24 release runner.",
+    "## Breaking changes","- None identified for this candidate.",
+    "## Verification","- Core and six workflows passed at a verified SHA.",
+    "## Remaining limitations","- Physical Android/iOS device testing pending.",
+  ].join("\n");
+  assert.deepEqual(validateReleaseNotes(version,changelog,notes),[]);
+  assert.ok(validateReleaseNotes(version,"## Unreleased",notes).some(e=>e.includes("CHANGELOG.md")));
+  assert.ok(validateReleaseNotes(version,changelog,notes.replace("## Verification","## Checks")).some(e=>e.includes("Verification")));
+  assert.ok(validateReleaseNotes(version,changelog,notes.replace("None identified for this candidate.","TODO")).some(e=>e.includes("placeholder")));
+  assert.ok(validateReleaseNotes("0.1.0",changelog,notes).length>0);
 });
