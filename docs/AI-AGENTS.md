@@ -6,6 +6,18 @@ The repository includes a portable [Agent Skills](https://agentskills.io/specifi
 
 The skill describes a repeatable, brand-independent workflow for auditing and creating design foundations. It **does not itself run scheduled jobs or install across AI products automatically**.
 
+## First: inspect the project without editing it
+
+```sh
+# From this repository, reports print to stdout only
+node scripts/cli.mjs audit --project ../your-project
+node scripts/cli.mjs audit --project ../your-project --format json
+```
+
+The audit records grounded framework/version indicators, duplicate CSS custom properties, potential import and navigation/state risks, supported adapter choices and coverage limits. It skips symlinks and private file types and **never writes to the target or runs its code**. An unsupported stack or an unknown version needs manual review, not a forced dependency install.
+
+**Host workflow:** run the audit, present findings with file evidence and uncertain cases, ask the developer to confirm which design choices/changes they want, preview exact configuration/output files via `uf-css init --dry-run`, and only then perform explicitly approved generation. A request to audit is **not** authorization to install libraries, migrate components, overwrite files or change a brand. Read [AUDIT.md](AUDIT.md) for report schema, supported stack and safety boundaries.
+
 ## Install into another project
 
 From your UF-CSS clone:
@@ -26,6 +38,32 @@ The installer is intentionally conservative: it **skips existing skill folders**
 - **ChatGPT**: a repository file is not automatically installed as a ChatGPT skill. Use supported ChatGPT skill or plugin installation workflows when available; publishing a compatible plugin is a separate project milestone.
 
 The repository's `AGENTS.md` and `.github/copilot-instructions.md` provide smaller always-on guidance in compatible tools. See the skill's `references/` for detail.
+
+## Suggested prompts and repeatable agent acceptance checks
+
+The same inspect-first workflow applies to **Codex CLI/IDE, Claude Code and GitHub Copilot**, subject to each host's tools and permissions. A coding agent should prove that it can locate the exact project, choose the read-only command, explain the version evidence, and refrain from changing files without explicit approval.
+
+```text
+Project A: Next.js with Tailwind v4, several custom CSS tokens.
+Task: Audit duplicate tokens and assess accessibility risks. Report conflicts; do not edit.
+Expected: tailwind-v4 with evidence, optional tailwind-v4 adapter, token-conflict suggestions, no writes.
+
+Project B: Expo/React Native with a custom design system.
+Task: Identify safe native choices while preserving current brand and navigation.
+Expected: Expo/React Native evidence, optional native adapter only, no CSS-injection or web reset.
+
+Project C: unknown library or Tailwind workspace:* dependency.
+Task: Recommend a safe integration plan.
+Expected: unknown/unverified version, no forced Tailwind adapter, ask for version and user approval.
+
+Project D: plain HTML/CSS with no prescribed grid or hierarchy.
+Task: Propose a project-owned foundation.
+Expected: vanilla-css detection, optional CSS adapter, explicit zero-grid and zero-hierarchy support.
+
+Project E: legacy Tailwind v3/Bootstrap 5 application.
+Task: Compare current styling and propose non-destructive adoption.
+Expected: version-specific adapters, audit-first plan, no package installation or overwrite.
+```
 
 ## Suggested prompts
 

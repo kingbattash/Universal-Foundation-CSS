@@ -4,6 +4,10 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 10 inspect-only project auditor CLI (`uf-css audit --project DIR --format text|json`) with bounded symlink-safe scans, evidence-based framework/version detection and unknown-stack safeguards.
+- Cross-file CSS custom-property duplicate/conflict inventory and heuristic navigation, component-state, import-order and clickable-element review.
+- Audit-first guidance for Codex, Claude and Copilot with user-owned brand/stack preservation, dry-run/approval workflow and ChatGPT installation caveat.
+- CLI safety regression tests and packed npm consumer audit coverage; no automatic generation, dependencies, migrations or publishing.
 - Phase 09 real Chromium automation: 25 Playwright/axe tests for two unrelated themes, twelve light/dark viewport screenshots, keyboard flows, accessible labels, zoom-equivalent reflow, reduced motion and RTL/long text stress.
 - Separate browser quality CI with a committed Playwright/axe lockfile, Chromium installation, generated theme fixtures and screenshot/trace artifact reporting.
 - Expo specimen safe-area scrolling and accessible metric context; separate static native quality tests and device/manual QA checklist.

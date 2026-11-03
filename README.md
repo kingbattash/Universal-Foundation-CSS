@@ -179,6 +179,15 @@ node scripts/install-skill.mjs --target all --project ../your-project
 
 This copies the skill to supported Codex, Claude and Copilot project locations without overwriting an existing skill. Skills are not automatically installed in ChatGPT or every AI product. See [AI agent setup](docs/AI-AGENTS.md).
 
+## Inspect an existing project without changing it
+
+```sh
+node scripts/cli.mjs audit --project ../your-project --format text
+node scripts/cli.mjs audit --project ../your-project --format json
+```
+
+The Phase 10 auditor uses bounded, read-only project inspection to report stack/version evidence, CSS token duplication and potential interaction/import issues. It never runs your app, installs packages or changes any files. Its adapter suggestions are optional and require your review. For safe agent adoption and limitations, see [the audit guide](docs/AUDIT.md) and [AI agents](docs/AI-AGENTS.md). Unknown versions are never assumed supported.
+
 ## Development quality
 
 ```bash

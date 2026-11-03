@@ -232,20 +232,20 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate status:** browser automation and compilation checks passed on the implementation baseline. Final Phase 09 quality/certification gate is **OPEN** until approved screenshot baselines, manual screen-reader/browser zoom tests and real mobile execution are complete. The system remains user-owned, framework-neutral and free of mandatory UI presets.
 
-### Phase 10 — AI agent automation and project CLI
+### Phase 10 — AI agent automation and project CLI (DONE for inspect-first and consent-gated generation scope)
 
-**Goal:** An AI agent or developer can adopt UF-CSS in a new/existing project without silently changing its stack or branding.
+**Goal met:** Help agents adopt a creator-owned foundation in existing projects, without enforcing styles or changing code on the basis of an automatic audit.
 
-| Step | Work | Location |
+| Step | Result | Location |
 | --- | --- | --- |
-| 10.1 | Extend the skill to detect Vanilla, Tailwind v3/v4, Bootstrap, StyleX, Expo and unsupported stacks | `.agents/skills/universal-foundation-css/SKILL.md` |
-| 10.2 | Create an inspect-only project audit report: tokens, duplicates, import order, navigation, component states, framework version | `scripts/audit-project.mjs`, `docs/AI-AGENTS.md` |
-| 10.3 | **MVP COMPLETE:** user-owned `init` wizard and config/preview/confirmation scaffold; future agent-led audit and richer project integration remain | `scripts/init-project.mjs`, `scripts/lib/init/`, `docs/WIZARD.md` |
-| 10.4 | Keep safe non-overwrite/dry-run behavior; require user consent for package installs, migrations and destructive actions | `scripts/`, `tests/` |
-| 10.5 | Test skill installation and example prompts with compatible Codex/Claude/Copilot workflows | `.agents/skills/`, `tests/skill-installer.test.ts` |
-| 10.6 | Document ChatGPT compatibility honestly: repository skill files are not automatically installed in the ChatGPT app | `docs/AI-AGENTS.md` |
+| 10.1 | **DONE:** Agent skill explicitly detects Vanilla, Tailwind v3/v4, Bootstrap 5, StyleX, Expo/React Native and unknown stacks, preserves existing version and identity | `.agents/skills/universal-foundation-css/SKILL.md`, `docs/AI-AGENTS.md` |
+| 10.2 | **DONE:** Read-only `uf-css audit --project PATH [--format text|json]`; bounded, deterministic filesystem scan, evidence-based token duplicate/conflict reports, framework signals, CSS import/order and semantic review heuristics; safe unknown handling | `scripts/audit-project.mjs`, `scripts/lib/audit/project.mjs`, [AUDIT.md](AUDIT.md) |
+| 10.3 | **DONE (existing MVP):** Interactive user-owned `init` wizard and JSON config; dry-run preview and explicit `--yes` confirmation; opt-in output; no predetermined system | `scripts/init-project.mjs`, `scripts/lib/init/`, [WIZARD.md](WIZARD.md) |
+| 10.4 | **DONE:** Audit is stdout-only, never executes project scripts or writes project files; `init` keeps non-overwrite policy, prohibits symlink output and requires approval for actual generation. Installs/migrations are never implied by audit. | `scripts/`, `tests/audit-project.test.mjs`, `tests/builder.test.mjs` |
+| 10.5 | **DONE for portable skill/CLI tests:** Codex/Claude/Copilot agent guidance, example test prompts and skill installer coverage; test the installed packed `audit` on an independent project | `docs/AI-AGENTS.md`, `tests/skill-installer.test.ts`, `scripts/verify-packed-package.mjs` |
+| 10.6 | **DONE:** Explicit ChatGPT caveat: repository skill files are not installed automatically into ChatGPT or unrelated hosts | `docs/AI-AGENTS.md` |
 
-**Gate:** in a sample existing project the agent can produce a readable **audit first**, recommend only compatible adapters, and make no unapproved changes.
+**Gate:** A sample existing project can be audited with a readable JSON/text report before any modification; adapters are recommended only with compatible evidence and never installed automatically. Changes are separately previewed and approved. **Future enhancement:** monorepo-aware visual inspection, interactive resume/edit, and actual product migrations require explicit scope/authorization and are not claimed complete here.
 
 ### Phase 11 — Open-source prerelease and governance
 

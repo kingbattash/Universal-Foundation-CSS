@@ -5,7 +5,7 @@
  */
 import assert from "node:assert/strict"
 import { spawnSync } from "node:child_process"
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { mkdtemp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises"
 import { dirname, join, resolve } from "node:path"
 import { tmpdir } from "node:os"
 import { fileURLToPath } from "node:url"
@@ -62,6 +62,20 @@ console.log("PASS: installed tarball exports usable outside repository");
   const builderOut=join(scratch,"generated-by-wizard")
   await writeFile(builderInput,JSON.stringify(builderConfig))
   const executable=join(scratch,"node_modules","@kingbattash","universal-foundation-css","scripts","cli.mjs")
+  // This checks the shipped audit (not just checkout-local scripts). It must
+  // never alter the target project or attempt dependency installation.
+  const auditTarget=join(scratch,"isolated-audit-project")
+  await mkdir(auditTarget)
+  await writeFile(join(auditTarget,"package.json"),JSON.stringify({dependencies:{tailwindcss:"^4.1.0"}}))
+  await writeFile(join(auditTarget,"app.css"),'@import "tailwindcss";\n:root {--creator-space: 13px;}')
+  const auditBefore=(await readdir(auditTarget)).sort()
+  const auditResult=JSON.parse(run(process.execPath,[executable,"audit","--project",auditTarget,"--format","json"],scratch))
+  assert.equal(auditResult.readonly,true)
+  assert.ok(auditResult.frameworks.some(f=>f.id==="tailwind-v4"))
+  assert.ok(auditResult.adapterChoices.some(a=>a.adapter==="tailwind-v4"))
+  assert.deepEqual((await readdir(auditTarget)).sort(),auditBefore)
+  console.log("PASS: installed UF-CSS audit inspects independent project without mutation")
+
   const preview=run(process.execPath,[executable,"init","--config",builderInput,"--out",builderOut,"--dry-run"],scratch)
   assert.match(preview,/Design system preview/)
   const created=run(process.execPath,[executable,"init","--config",builderInput,"--out",builderOut,"--yes"],scratch)

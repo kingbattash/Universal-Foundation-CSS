@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 (agent automation) can proceed while manual quality gates are pending. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 inspect-only agent automation and explicit-confirmation CLI is implemented; remaining Phase 09 manual/device gates and product-specific migrations are separate. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -111,6 +111,15 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [ ] Approved cross-version pixel-diff screenshot baselines; images currently provide evidence for review
 - [ ] Manual NVDA/VoiceOver/TalkBack audits and real browser 200%/400% zoom; Firefox/WebKit as applicable
 - [ ] Android and iOS emulator/physical-device runtime validation, safe areas, dynamic fonts, orientations and accessibility
+
+## Phase 10 — audit-first AI agents and project CLI (DONE for inspected static scope)
+- [x] New `uf-css audit --project DIR --format text|json` with no writes, no network, no project-script execution and symlink/private file exclusions
+- [x] Evidence-based detection for plain CSS, Tailwind v3/v4, Bootstrap 5, StyleX, Next.js, Expo/React Native and unsupported versions
+- [x] Token duplicate/conflict inventory, import order and static navigation/component-state review
+- [x] Partial-coverage reporting and conservative unknown-framework adapter decisions
+- [x] Separate `init --dry-run` preview and explicit `--yes` generation maintained, no forced palette/grid/hierarchy
+- [x] CLI safety regression tests, packed-install audit test, Codex/Claude/Copilot prompts and ChatGPT compatibility caveat
+- [ ] Product-specific auto-migrations or interactive project editing; require separate authorization and implementation
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples

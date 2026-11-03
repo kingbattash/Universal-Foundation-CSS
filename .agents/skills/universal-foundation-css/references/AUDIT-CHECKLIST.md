@@ -2,6 +2,12 @@
 
 Compare **meaning and behavior**, not pixel-identical screens.
 
+## Before reviewing any designs
+- Run `uf-css audit --project PATH --format json` from the approved project scope.
+- Verify framework versions, project root, ignored paths and `coverage.truncated`. An unknown stack stays unmodified until reviewed.
+- Record token conflicts and intentional light/dark overrides separately; never bulk-replace values based on heuristics.
+- No code edits, installs or output writes follow automatically from an audit.
+
 ## Foundation
 - Are font-role names and semantic colors consistent? Actual font families may vary intentionally by platform.
 - Are spacing scale, radii, density and motion centralized? Are exceptions documented?

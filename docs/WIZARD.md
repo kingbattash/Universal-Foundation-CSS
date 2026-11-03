@@ -60,6 +60,15 @@ The generator produces simple opt-in grid CSS classes **only for the structural 
 
 **Examples, not rules:** twelve-column + golden-ratio, manuscript + baseline, or a custom five-column layout with an original composition guide. A project with **no grid or hierarchy** is also valid.
 
+## Audit an existing project before generating anything
+
+```sh
+# Read-only, no project changes
+node scripts/cli.mjs audit --project ../your-app --format json
+```
+
+Use the evidence to decide whether you want to keep the existing framework, use a compatible adapter or create a completely custom foundation. The audit is a separate command and **never automatically invokes** the builder. Review [AUDIT.md](AUDIT.md) before adopting into an existing app.
+
 ## Non-interactive / AI-agent setup
 
 AI agents and build systems should use explicit JSON configuration and preview it before asking for approval.
