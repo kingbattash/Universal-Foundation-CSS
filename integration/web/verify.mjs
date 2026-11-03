@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join, dirname, resolve, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { generateCustomSystem } from "../../scripts/lib/custom-tokens.mjs";
 import assert from "node:assert/strict";
 import babel from "@babel/core";
 import stylexPlugin from "@stylexjs/babel-plugin";
@@ -82,12 +83,80 @@ async function verifyStyleX() {
   console.log("PASS: StyleX Babel compiler accepted generated tokens and consumer styles");
   passed++;
 }
+
+async function verifyUserOwnedSystems() {
+  // Generate two different systems without loading any default UF-CSS palette.
+  for (const [name, prefix, expected] of [
+    ["editorial", "press", ["bg-press-paper", "text-press-ink", "p-press-reading", "rounded-press-sharp"]],
+    ["operations", "ops", ["bg-ops-canvas", "text-ops-ink", "p-ops-standard", "rounded-ops-elevated"]],
+  ]) {
+    const source = JSON.parse(await readFile(join(root, "examples/custom-systems", name, "tokens.json"), "utf8"));
+    const mapping = JSON.parse(await readFile(join(root, "examples/custom-systems", name, "mapping.json"), "utf8"));
+    const outputs = generateCustomSystem({ source, prefix, mapping });
+    // Keep files inside integration/web so the Tailwind toolchains resolve packages.
+    const temp = await mkdtemp(join(current, "temp-custom-"));
+    try {
+      for (const [file, content] of Object.entries(outputs)) await writeFile(join(temp, file), content, "utf8");
+      const fixture = '<div class="' + expected.join(" ") + '">Custom</div>';
+      await writeFile(join(temp, "fixture.html"), fixture, "utf8");
+
+      const sourceCss = [
+        '@import "tailwindcss";',
+        '@import "./tokens.css";',
+        '@import "./tailwind-v4.css";',
+        '@source "./fixture.html";',
+        '',
+      ].join("\n");
+      await writeFile(join(temp, "input.css"), sourceCss, "utf8");
+      const v4out = join(temp, "compiled-v4.css");
+      run(process.execPath, [binPath("@tailwindcss/cli", "tailwindcss"), "-i", join(temp, "input.css"), "-o", v4out]);
+      const compiled = await readFile(v4out, "utf8");
+      for (const cls of expected) cssContains(compiled, "." + cls);
+      cssContains(compiled, "--" + prefix + "-");
+
+      const config = [
+        'module.exports = {presets:[require("./tailwind-v3.cjs")],content:["./fixture.html"]};',
+        '',
+      ].join("\n");
+      await writeFile(join(temp, "tailwind.config.cjs"), config, "utf8");
+      await writeFile(join(temp, "legacy.css"), "@tailwind utilities;\n", "utf8");
+      const v3out = join(temp, "compiled-v3.css");
+      run(process.execPath, [binPath("tailwindcss-v3", "tailwindcss"), "-c", join(temp, "tailwind.config.cjs"), "-i", join(temp, "legacy.css"), "-o", v3out]);
+      const compiledLegacy = await readFile(v3out, "utf8");
+      for (const cls of expected) cssContains(compiledLegacy, "." + cls);
+
+      const bs = await postcss().process(outputs["bootstrap.css"], { from: undefined });
+      cssContains(bs.css, "--bs-primary-rgb");
+      const sxFile = join(temp, "stylex.stylex.ts");
+      const result = babel.transformSync(outputs["stylex.stylex.ts"], {
+        filename: sxFile, configFile: false, babelrc: false, sourceType: "module",
+        parserOpts: { plugins: ["typescript"] },
+        plugins: [
+          [stylexPlugin, { dev: false, unstable_moduleResolution: { type: "commonJS", rootDir: root } }],
+          [transformTypescript, {}],
+        ],
+      });
+      assert.ok(result?.code && result?.metadata && "stylex" in result.metadata, "Custom StyleX compilation failed");
+      const native = babel.transformSync(outputs["native.ts"], {
+        filename: join(temp, "native.ts"), configFile: false, babelrc: false,
+        parserOpts: { plugins: ["typescript"] }, plugins: [[transformTypescript, {}]],
+      });
+      assert.ok(native?.code, "Custom React Native token TypeScript compilation failed");
+      console.log("PASS: independent " + name + " design system compiled by Tailwind v3/v4 and StyleX");
+      passed++;
+    } finally {
+      await rm(temp, { recursive: true, force: true });
+    }
+  }
+}
+
 try {
   await verifyTailwindV4();
   await verifyTailwindV3();
   await verifyBootstrap();
   await verifyStyleX();
-  console.log(`Web framework integrations: ${passed}/4 passed.`);
+  await verifyUserOwnedSystems();
+  console.log(`Web framework integrations: ${passed}/6 passed.`);
 } finally {
   await rm(out,{recursive:true,force:true});
 }
