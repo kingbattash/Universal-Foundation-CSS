@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–07 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 08 — patterns and accessible component contracts.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 09 — accessibility, visual regression and runtime quality gates.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -90,6 +90,15 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Document Van de Graaf, Rosarivo, Villard, Golden Canon as researched references; actual masonry stays reference with ordinary-grid fallback
 - [x] Add responsive/long-content HTML examples, numeric and static tests, web CSS import and packed-package smoke tests
 - [ ] Real browser, 200%/400% zoom, keyboard, RTL and assistive-technology validation (Phase 09)
+
+## Phase 08 — task and component contracts (DONE for code/static scope)
+- [x] Ten framework-neutral component specifications with original five names retained
+- [x] Explicit web/native keyboard, screen-reader and applicable state semantics
+- [x] Pure idle/loading/success/error/empty/disabled operation transitions and creator-defined components
+- [x] Ten optional patterns with reading order and platform behavior; fully custom definitions allowed
+- [x] Unbranded opt-in layout-only `./patterns.css` and real CSS compiler/package import verification
+- [x] Two interactive local HTML specimens, native-equivalence guidance and source/test audits
+- [ ] Browser screenshot, keyboard/tab/pointer, screen reader, 200% zoom and physical-device QA (Phase 09)
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples

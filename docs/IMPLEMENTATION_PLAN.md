@@ -204,19 +204,19 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** All 37 entries accurately report support; a CSS-recipe entry has its selector. User-authored grids require no UF-CSS styling identity. The two specimens are static and do NOT certify real browser zoom, visual, keyboard or assistive-technology operation (Phase 09).
 
-### Phase 08 — Patterns and component contracts
+### Phase 08 — Patterns and component contracts (DONE for contract, specimen and static-integration scope)
 
-**Goal:** UI reuse without forcing a global visual style or cloning components across frameworks.
+**Goal met:** Optional behavior-first UI contracts across platforms without a forced component library, design language or styling framework.
 
-| Step | Work | Location |
+| Step | Result | Location |
 | --- | --- | --- |
-| 08.1 | Formalize behavior/state contracts for buttons, input, select, feedback, dialog, tabs, navigation, lists and tables | `src/components/` |
-| 08.2 | Define compositional contracts for hero, section, editorial split, dashboard, filters, table, form and auth layouts | `src/patterns/` |
-| 08.3 | Put only optional styles into CSS/StyleX/native adapters; keep universal contracts framework-agnostic | `src/css/`, `adapters/` |
-| 08.4 | Document web keyboard and screen-reader behavior and native touch/accessibility alternatives | `docs/COMPONENTS.md`, `examples/` |
-| 08.5 | Add interaction examples and explicit success/error/loading/empty/disabled state reviews | `integration/`, `tests/` |
+| 08.1 | **DONE:** Ten component task contracts (existing five preserved) with web/native semantics, keyboard/screen-reader guidance and applicable state reviews; pure operation transitions | `src/components/`, [COMPONENTS.md](COMPONENTS.md) |
+| 08.2 | **DONE:** Ten reference patterns (existing five preserved) with reading order, responsive rules, platform semantics and review states; custom patterns without built-in defaults | `src/patterns/`, [PATTERNS.md](PATTERNS.md) |
+| 08.3 | **DONE:** Optional `./patterns.css` export with prefixed layout-only hooks; real Tailwind v4, Bootstrap and packed-package import checks; no StyleX/native renderer forced into core | `src/css/pattern-recipes.css`, `integration/web/` |
+| 08.4 | **DONE for documented scope:** Keyboard, focus, screen-reader and native/Expo equivalent behavior, including limitations of source-only contracts | [COMPONENTS.md](COMPONENTS.md), `examples/components/native-mapping.md` |
+| 08.5 | **DONE for source/static scope:** Two locally interactive HTML specimens covering tabs, dialog, form, feedback, filters, table and empty states; state-transition and markup/source tests. Browser/device verification remains Phase 09 | `examples/components/`, `tests/components-patterns.test.ts` |
 
-**Gate:** a web component and a native component can have different rendering but satisfy the same **task and semantic contract**. No requirement to clone pixels.
+**Gate:** Web and native may render differently but describe equivalent tasks and outcomes. Passing package compilation and source-level tests is NOT real keyboard/assistive-technology/device validation. User-authored contracts and zero built-in patterns are acceptable. **Next: Phase 09 — accessibility, visual regression and real runtime quality gates.**
 
 ### Phase 09 — Accessibility, visual regression and quality gates
 

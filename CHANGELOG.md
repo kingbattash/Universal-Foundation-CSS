@@ -4,6 +4,11 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 08 behavior-first contracts for ten components with keyboard, screen reader, native equivalents, constraints and explicit review states.
+- Pure operation state transitions requiring explicit completion, and creator-owned component and pattern contract APIs with no required visual presets.
+- Ten task-based pattern references (five preserved and five added) with platform semantics, reading order and responsive cautions.
+- Separate opt-in `./patterns.css` export of layout-only hooks and independent web/packed consumer compilation tests.
+- Local tab, modal, form, filter and sortable-table specimens; documented native mapping, static semantic tests and accessibility limitations.
 - Phase 07 grid audit: accurate CSS recipe and reference statuses, source/method notes for 37 grid entries.
 - Creator-owned responsive weighted tracks, custom composition guides, deterministic safe CSS emission and independent zero-grid systems.
 - Pure web/editorial/geometric helpers for tracks, auto-fit, container bounds, manuscript/baselines, diagonals and root rectangle guides.

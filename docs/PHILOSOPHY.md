@@ -28,6 +28,8 @@ The 4px spacing seed, neutral palette, example 12-column layout, 20 hierarchy ca
 
 The canonical `tokens/source.tokens.json` currently holds the **starter's default values** for reproducible output generation. It must not be mistaken for the one palette, scale or theme every consumer must use. A separate `scripts/generate-custom-system.mjs` compiler now accepts a consumer's token file with **no inherited neutral defaults**. Creator-defined hierarchy models and semantic names are supported in Phase 06; fully user-authored grid systems and optional CSS emission are available as of Phase 07.
 
+Phase 08 adds optional behavior-first component and pattern specifications, local interaction examples and creator-defined contracts. These are **not** a mandatory component library or shared visual theme; actual rendering and accessibility assurance remain the consumer's responsibility.
+
 ## Core constraints (about interoperability, not design taste)
 
 - **No organizational branding in universal source.** Company identity belongs to its consuming package.
