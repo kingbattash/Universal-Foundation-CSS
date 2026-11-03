@@ -52,6 +52,8 @@ test("npm pack dry-run includes all advertised entry points and excludes tests",
   assert.ok(paths.has("scripts/lib/init/config.mjs"))
   assert.ok(paths.has("scripts/lib/project-theme.mjs"))
   assert.ok(paths.has("scripts/lib/tokens/parse.mjs"))
+  assert.ok(paths.has("scripts/lib/tokens/custom-renderer.mjs"))
+  assert.ok(paths.has("scripts/lib/tokens/format.mjs"))
   assert.equal(pkg.bin["uf-css"], "./scripts/cli.mjs")
   assert.ok(paths.has("LICENSE"))
   assert.ok(paths.has("README.md"))

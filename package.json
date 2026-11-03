@@ -39,7 +39,7 @@
     "scripts/init-project.mjs",
     "scripts/lib/init",
     "scripts/lib/project-theme.mjs",
-    "scripts/lib/tokens/parse.mjs"
+    "scripts/lib/tokens"
   ],
   "engines": {
     "node": ">=20"
