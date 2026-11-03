@@ -1,0 +1,99 @@
+/*
+ * Phase 07: opt-in, framework-neutral grid recipes.
+ * No tag reset, no mandatory colors, font, density or rhythm.
+ * All classes and custom properties are optional. The -12/-8/adaptive
+ * examples use a 48rem reference breakpoint; use custom CSS for your own.
+ */
+@layer uf.grid {
+  .uf-g-grid {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    min-inline-size: 0;
+  }
+  .uf-g-grid > *, .uf-g-auto > *, .uf-g-fluid > *, .uf-g-nested > * {
+    min-inline-size: 0;
+  }
+  .uf-g-12, .uf-g-8 { grid-template-columns: minmax(0,1fr); }
+  .uf-g-auto {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--uf-g-min-track, 16rem)), 1fr));
+  }
+  .uf-g-fluid {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: repeat(var(--uf-g-count, 1), minmax(0, 1fr));
+  }
+  .uf-g-fixed {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: var(--uf-g-max, 100%);
+    margin-inline: auto;
+    padding-inline: var(--uf-g-padding, 0px);
+  }
+  .uf-g-adaptive {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: repeat(var(--uf-g-small-count, 1), minmax(0, 1fr));
+  }
+  .uf-g-nested {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: repeat(var(--uf-g-nested-count, 1), minmax(0, 1fr));
+  }
+  .uf-g-subgrid {
+    display: grid;
+    grid-column: span var(--uf-g-parent-span, 1);
+    grid-template-columns: repeat(var(--uf-g-subgrid-fallback, 1), minmax(0, 1fr));
+    gap: var(--uf-g-gap, 0);
+  }
+  @supports (grid-template-columns: subgrid) {
+    .uf-g-subgrid { grid-template-columns: subgrid; }
+  }
+  .uf-g-bento {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .uf-g-bento > * { min-inline-size: 0; }
+  /* Regular grid only; not a cross-browser CSS masonry guarantee. */
+  .uf-g-masonry-fallback {
+    display: grid;
+    gap: var(--uf-g-gap, 0);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--uf-g-min-track, 15rem)), 1fr));
+    align-items: start;
+  }
+  .uf-g-masonry-fallback > * { min-inline-size: 0; }
+  .uf-g-manuscript {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: var(--uf-g-reading-max, 100%);
+    margin-inline: auto;
+    padding: var(--uf-g-page-padding, 0px);
+  }
+  .uf-g-column {
+    columns: var(--uf-g-editorial-count, 1);
+    column-gap: var(--uf-g-gap, 1.5rem);
+  }
+  .uf-g-modular {
+    display: grid;
+    grid-template-columns: repeat(var(--uf-g-count, 1), minmax(0, 1fr));
+    grid-auto-rows: minmax(var(--uf-g-row-min, 0px), auto);
+    gap: var(--uf-g-gap, 0);
+  }
+  .uf-g-modular > * { min-inline-size: 0; }
+  .uf-g-baseline { line-height: var(--uf-g-baseline, inherit); }
+
+  @media (min-width: 48rem) {
+    .uf-g-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .uf-g-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .uf-g-adaptive {
+      grid-template-columns: repeat(var(--uf-g-wide-count, 3), minmax(0, 1fr));
+    }
+    .uf-g-bento {
+      grid-template-columns: repeat(var(--uf-g-bento-count, 4), minmax(0, 1fr));
+    }
+    .uf-g-bento > [data-uf-g-span="2"] { grid-column: span 2; }
+    .uf-g-bento > [data-uf-g-span="3"] { grid-column: span 3; }
+  }
+}

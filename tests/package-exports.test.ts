@@ -11,6 +11,7 @@ const expectedExports: Record<string,string> = {
   ".":"./dist/src/index.js",
   "./css":"./src/css/foundation.css",
   "./hierarchy.css":"./src/css/hierarchy-strategies.css",
+  "./grid.css":"./src/css/grid-recipes.css",
   "./tokens.css":"./src/css/tokens.generated.css",
   "./tailwind-v3":"./adapters/tailwind-v3/preset.generated.cjs",
   "./tailwind-v4":"./adapters/tailwind-v4/theme.generated.css",
