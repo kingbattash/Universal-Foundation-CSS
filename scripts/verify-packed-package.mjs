@@ -68,6 +68,30 @@ console.log("PASS: installed tarball exports usable outside repository");
   assert.match(created,/Created your own design system/)
   assert.match(await readFile(join(builderOut,"generated","tokens.css"),"utf8"),/--portable-demo-palette-accent: #147d87/)
   console.log("PASS: packaged uf-css init previews before creating a custom system")
+  const miniV2={
+    schemaVersion:2,name:"portable-theme",
+    tokens:{ui:{
+      foreground:{$type:"color",$value:{colorSpace:"srgb",components:[0,0,0],hex:"#000000"}},
+      background:{$type:"color",$value:{colorSpace:"srgb",components:[1,1,1],hex:"#ffffff"}}
+    },spacing:{comfortable:{$type:"dimension",$value:{value:13,unit:"px"}}}},
+    modes:{dark:{ui:{foreground:{$value:{colorSpace:"srgb",components:[1,1,1],hex:"#ffffff"}},background:{$value:{colorSpace:"srgb",components:[0,0,0],hex:"#000000"}}}}},
+    mapping:{tailwind:{colors:{foreground:"ui.foreground",background:"ui.background"},spacing:{comfortable:"spacing.comfortable"}}},
+    contrastChecks:[{name:"body",foreground:"ui.foreground",background:"ui.background",minimum:4.5}]
+  }
+  const v2Input=join(scratch,"portable-theme.json")
+  const v2Out=join(scratch,"portable-theme-output")
+  await writeFile(v2Input,JSON.stringify(miniV2))
+  run(process.execPath,[executable,"theme","--config",v2Input,"--out",v2Out],scratch)
+  assert.match(await readFile(join(v2Out,"theme.css"),"utf8"),/--portable-theme-spacing-comfortable: 13px/)
+  assert.match(await readFile(join(v2Out,"stylex-theme.stylex.ts"),"utf8"),/stylex.createTheme/)
+  run(process.execPath,[executable,"theme","--config",v2Input,"--out",v2Out,"--check"],scratch)
+  console.log("PASS: installed CLI generates a wholly independent theme without starter defaults")
+  const legacyInput=join(scratch,"legacy-theme.json")
+  const legacyOut=join(scratch,"legacy-theme-output")
+  await writeFile(legacyInput,JSON.stringify({name:"legacy-starter-example"}))
+  run(process.execPath,[executable,"theme","--config",legacyInput,"--out",legacyOut],scratch)
+  assert.match(await readFile(join(legacyOut,"theme.css"),"utf8"),/--uf-canvas: #ffffff/)
+  console.log("PASS: installed CLI preserves legacy neutral-starter theme compatibility")
 }finally{
   await rm(scratch,{recursive:true,force:true})
 }

@@ -35,7 +35,8 @@ async function main() {
     files=renderThemeV2Files(theme);
   } else if(input.schemaVersion===undefined||input.schemaVersion===1) {
     const source=JSON.parse(await readFile(join(root,"tokens/source.tokens.json"),"utf8"));
-    theme=normalizeProjectTheme(input,source);
+    const {schemaVersion: ignoredLegacyVersion,...legacy}=input;
+    theme=normalizeProjectTheme(legacy,source);
     files=renderThemeFiles(theme);
   } else throw new Error("Unsupported project-theme schemaVersion");
 
