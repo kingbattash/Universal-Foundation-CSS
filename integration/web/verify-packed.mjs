@@ -99,6 +99,11 @@ try{
   const installedRequire=createRequire(join(consumer,"consumer.cjs"));
   const foundationCss=installedRequire.resolve("@kingbattash/universal-foundation-css/css");
   const adapterCss=installedRequire.resolve("@kingbattash/universal-foundation-css/bootstrap");
+  const optionalGridCss=installedRequire.resolve("@kingbattash/universal-foundation-css/grid.css");
+  const importedGrid=await postcss([postcssImport()]).process(
+    '@import "'+optionalGridCss+'";',{from:join(consumer,"grid-smoke.css")});
+  includes(importedGrid.css,".uf-g-auto",".uf-g-subgrid",".uf-g-masonry-fallback");
+  console.log("PASS: installed opt-in grid CSS is an importable package export");
   await writeFile(bootstrapFile,[
     '@import "'+bootstrapPath+'";',
     '@import "'+foundationCss+'";',

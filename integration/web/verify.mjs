@@ -41,6 +41,8 @@ async function verifyTailwindV4() {
   const output=await readFile(target,"utf8");
   for(const cls of [".bg-uf-action",".bg-uf-canvas",".text-uf-text",".p-uf-4",".rounded-uf-lg"])cssContains(output,cls);
   cssContains(output,"--uf-action");
+  cssContains(output,".uf-g-auto");
+  cssContains(output,".uf-g-subgrid");
   console.log("PASS: Tailwind v4 CLI generated UF-CSS utilities");
   passed++;
 }
@@ -58,6 +60,8 @@ async function verifyBootstrap() {
   const output=await postcss([postcssImport()]).process(await readFile(file,"utf8"),{from:file});
   cssContains(output.css,".btn-primary");
   cssContains(output.css,"--uf-action");
+  cssContains(output.css,".uf-g-manuscript");
+  cssContains(output.css,".uf-g-masonry-fallback");
   cssContains(output.css,"--bs-btn-bg: var(--uf-action)");
   cssContains(output.css,"--bs-primary-rgb: 140, 180, 255");
   assert.ok(output.css.length>100000,"Bootstrap CSS did not appear in compiled bundle");

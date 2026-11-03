@@ -1,4 +1,5 @@
 @import "tailwindcss";
 @import "../../../src/css/foundation.css";
+@import "../../../src/css/grid-recipes.css";
 @import "../../../adapters/tailwind-v4/theme.generated.css";
 @source "./fixture.html";
