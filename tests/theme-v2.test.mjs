@@ -105,3 +105,14 @@ test("theme generation rejects symlinked output directories, including with --fo
    assert.deepEqual(await readdir(real),[]);
  }finally{await rm(temp,{recursive:true,force:true});}
 });
+
+test("two viewable HTML specimens use separate project-owned CSS variables and toggle modes",async()=>{
+  for(const [name,prefix] of [["editorial","copper-editorial"],["operations","harbor-operations"]]){
+    const html=await readFile(resolve(root,"examples/project-theme/preview-"+name+".html"),"utf8");
+    assert.ok(html.includes("../../generated/"+name+"/theme.css"));
+    assert.ok(html.includes("--"+prefix+"-ui-canvas"));
+    assert.ok(html.includes('data-uf-theme="light"'));
+    assert.ok(html.includes('dataset.ufTheme=dark?"dark":"light"'));
+    assert.ok(!html.includes("--uf-canvas"),"Do not import the optional neutral starter");
+  }
+});
