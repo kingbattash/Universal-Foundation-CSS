@@ -130,6 +130,12 @@ The generated values are numbers appropriate as **density-independent layout sta
 
 Vue, Angular, Svelte, Astro, Rails, Laravel, plain HTML or templating systems can use the Vanilla CSS output. An additional native or CSS-in-JS framework can consume the canonical DTCG-style tokens and implement its own generator.
 
+## An entirely original system (no UF-CSS visual defaults)
+
+For a developer who doesn't want the neutral starter theme, use the [custom system compiler](CUSTOM_SYSTEMS.md) with **their own** DTCG-style token file and optional framework mappings. This creates only the tokens the developer provided; none of the starter palette, scale, or grid choices are inherited.
+
+The two included custom systems are compiled by the Tailwind v3/v4 and StyleX smoke tests. Bootstrap CSS mappings and native TypeScript generated output are also validated.
+
 ## Product theme integration
 
 The [theme generator](THEMES.md) creates CSS variables, Bootstrap RGB overrides, StyleX themes and native palettes for an **independent project**, without editing UF-CSS tokens. You must import the project's generated theme **after** the UF-CSS adapter.

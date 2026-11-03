@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 underway:** a standalone custom token compiler and two independent examples now support wholly user-owned tokens; full DTCG validation and deeper framework checks remain.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 underway:** the user-owned token compiler, two independent example systems, packaged CLI and real Tailwind/StyleX checks are implemented. Full DTCG conformance, canonical generator sharing, and richer token types are pending.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -22,6 +22,14 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Generate a StyleX token adapter without tying core to React (consuming-app integration tests pending)
 - [x] Generate a React Native token adapter; runtime Expo example and cross-platform UI contract tests pending
 - [ ] Add WCAG-focused accessibility audit examples
+
+## User-owned design system extensions
+- [x] Compile arbitrary consumer-defined token groups without mandatory starter palette, scale, semantic roles, grids, or hierarchy
+- [x] Allow explicit optional Tailwind/Bootstrap adapter aliases without hardcoded design choices
+- [x] Ship safe non-overwriting CLI in packed package, with two distinct custom-system examples
+- [x] Verify editorial and operations systems in real Tailwind v3/v4 and StyleX builds
+- [ ] Unify neutral-starter and custom-system token parsers without losing backwards compatibility
+- [ ] Add official full DTCG schema/reference handling and richer consumer-defined role types
 
 ## Integration gaps
 - [x] Smoke-test the real Tailwind v3/v4 CSS compilers, Bootstrap CSS import pipeline, StyleX Babel plugin and Expo SDK 57 Metro Android JS export

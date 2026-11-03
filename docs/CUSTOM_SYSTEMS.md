@@ -99,6 +99,12 @@ node scripts/generate-custom-system.mjs \
 
 The editorial example uses a cream background, Georgia headings, unusual spacing and sharp corners; the operational example uses a dark navy palette, Inter, larger curves and its own density scale. Neither inherits the neutral starter's values, grid choices or hierarchy categories.
 
+## CI verification
+
+The independent editorial and operations example systems are compiled in `integration/web/verify.mjs` through both Tailwind v3 and Tailwind v4 CLI, and the generated StyleX values are processed by the StyleX Babel plugin. Bootstrap output is parsed by PostCSS and native TypeScript is transpiled. Tests verify no cross-project token leakage, optional mapping, validation errors, and safe overwrite behavior.
+
+These smoke checks are **not** proof of accessible rendering or UI equivalence; there are no mandatory aesthetics to compare.
+
 ## 5. Limitations to resolve before a public stable release
 
 - This is a strict supported DTCG subset, not full JSON Schema conformance.

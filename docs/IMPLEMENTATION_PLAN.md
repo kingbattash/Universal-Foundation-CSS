@@ -98,7 +98,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | 02.3 | Add appropriate typography roles, responsive constraints, density, radii, elevation, z-order, and motion; avoid forcing product brand | `tokens/source.tokens.json` |
 | 02.4 | Prefer official DTCG schema validation plus explicit checks for references, unsupported types, cycles and invalid units | `scripts/lib/token-validator.mjs`, `tests/tokens.test.ts` |
 | 02.5 | Split generator into validators, formatters and per-platform writers while preserving deterministic output | `scripts/lib/tokens/`, `scripts/generate-tokens.mjs` |
-| 02.6 | **PARTIAL:** Add collision, missing-alias, malicious-input, custom-generator and output-parity tests; expand to official schema validation later | `tests/custom-system.test.ts`, `tests/`, `.github/workflows/ci.yml` |
+| 02.6 | **PARTIAL:** Test collisions, missing/circular aliases, unsafe input, output parity and real web adapter compilers; official DTCG schema conformance remains | `tests/custom-system.test.ts`, `integration/web/verify.mjs`, `.github/workflows/ci.yml` |
 
 **Gate:** changing a canonical token regenerates the correct outputs in **all six adapters**. Unchanged inputs produce byte-identical outputs. No adapter must reimplement fundamental token calculations.
 
@@ -347,7 +347,7 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Continue Phase 02.** User-defined tokens are now generated without neutral presets; schema normalization and deeper adapter verification remain. Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
+**Continue Phase 02.** User-defined tokens now generate without neutral presets, and two independent systems compile through Tailwind v3/v4 and StyleX. Full DTCG schema validation and unifying the two generator implementations are still pending. Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
 
 - [ ] Inventory all core/hierarchy/grid values and split experimental defaults from reusable validation rules.
 - [ ] Define user-authorable project token manifests, including custom roles and optional/empty presets.

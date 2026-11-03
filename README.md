@@ -105,7 +105,7 @@ node scripts/generate-custom-system.mjs \
   --out ./generated/press
 ```
 
-Two very different examples are included at `examples/custom-systems/{editorial,operations}/`. Read the [complete custom system guide](docs/CUSTOM_SYSTEMS.md).
+Two very different examples are included at `examples/custom-systems/{editorial,operations}/`. Both are compiled by the actual Tailwind v3/v4 and StyleX toolchains in CI, with Bootstrap output and native TypeScript checked. Read the [complete custom system guide](docs/CUSTOM_SYSTEMS.md).
 
 ## Cross-framework adapters
 
