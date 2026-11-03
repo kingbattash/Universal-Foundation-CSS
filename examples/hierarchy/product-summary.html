@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creator-defined product hierarchy specimen</title>
+  <link rel="stylesheet" href="../../src/css/hierarchy-strategies.css">
+  <style>
+    /* Every size, color, font and gap below belongs to this specimen alone. */
+    :root { font: 17px/1.6 system-ui,sans-serif; color: #1e293b; background:#f7fafc; }
+    body { margin:0; }
+    .canvas { max-width:74rem; padding:clamp(1rem,4vw,3rem); margin:auto; }
+    .title { --uf-h-size:clamp(1.8rem,4vw,3rem); --uf-h-weight:700; }
+    .lede { --uf-h-reading-max:60ch; }
+    .regions { --uf-h-column-min:19rem; --uf-h-flow-gap:1.5rem; margin-block:2rem; }
+    .summary { --uf-h-group-gap:1rem; }
+    .action { display:inline-block; padding:0.7rem 1rem; background:#164e63; color:#fff; }
+    a:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
+    .small { font-size:0.85em; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="small">Skip to content</a>
+  <main id="main" class="canvas">
+    <h1 data-uf-order-id="page-heading" class="uf-h-level title">Understand your product</h1>
+    <p data-uf-order-id="task-summary" class="uf-h-measure lede">This intentionally fictional summary demonstrates a task-first reading sequence without imposing a visual theme.</p>
+    <p data-uf-order-id="key-action"><a class="action" href="#evidence">Review evidence</a></p>
+    <div class="uf-h-flow regions">
+      <section data-uf-order-id="evidence" id="evidence" aria-labelledby="evidence-heading" class="uf-h-group summary">
+        <h2 id="evidence-heading">Evidence</h2>
+        <p>Keep claims, documentation and source links available before a decision.</p>
+        <a href="#details">Inspect details</a>
+      </section>
+      <section data-uf-order-id="details" id="details" aria-labelledby="details-heading">
+        <h2 id="details-heading">Details</h2>
+        <p>The grid reflows without using visual order properties.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

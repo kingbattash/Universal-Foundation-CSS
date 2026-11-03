@@ -1,0 +1,33 @@
+name: Verify foundation
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Type-check and test
+        run: npm run verify
+      - name: Validate npm release file manifest (no publish)
+        run: npm run verify:release
+      - name: Verify an actual packed-package installation
+        run: node scripts/verify-packed-package.mjs
+      - name: Ensure framework adapters were generated from source
+        run: npm run check:tokens
+      - name: Inspect public files
+        run: |
+          test -s LICENSE
+          test -s README.md
+          test -s .agents/skills/universal-foundation-css/SKILL.md

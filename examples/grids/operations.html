@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Creator-owned operational grid — specimen</title>
+  <link rel="stylesheet" href="../../src/css/grid-recipes.css">
+  <style>
+    /* Example values belong to this document only; not to the library. */
+    body { margin:0; font:16px/1.6 system-ui,sans-serif; background:#f8fafc; color:#172334; }
+    main { max-width:100%; padding:1.25rem; }
+    .regions { --uf-g-gap:1rem; }
+    .panel { min-inline-size:0; border:1px solid #95a3b5; border-radius:.5rem; padding:1rem; background:white; }
+    .long-word { overflow-wrap:anywhere; }
+    a:focus-visible { outline:3px solid #b45b00; outline-offset:.25rem; }
+    @media (min-width:48rem) {
+      .exceptions { grid-column:span 5; }
+      .records { grid-column:span 7; }
+    }
+    /* 12-column class falls back to one column on narrow devices. */
+  </style>
+</head>
+<body>
+  <a href="#main">Skip to content</a>
+  <main id="main">
+    <h1 data-uf-grid-node="page-title">Operations overview</h1>
+    <p data-uf-grid-node="context">The critical actions remain first at all widths, independent of CSS grid placement.</p>
+    <p data-uf-grid-node="action"><a href="#exceptions">Review exceptions</a></p>
+    <div class="uf-g-grid uf-g-12 regions">
+      <section class="panel exceptions" id="exceptions" data-uf-grid-node="exceptions">
+        <h2>Exceptions</h2><p>Review issues needing attention. <span class="long-word">ThisIsAnIntentionallyVeryLongUnbrokenReferenceIdentifierThatMustWrapInNarrowAndZoomedLayouts0123456789</span></p>
+      </section>
+      <section class="panel records" data-uf-grid-node="records">
+        <h2>Records</h2><p>Useful tables and task details, never visually reordered by dense placement.</p>
+        <div style="max-inline-size:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable record table">
+          <table><caption>Example records</caption><thead><tr><th scope="col">Reference</th><th scope="col">Status</th></tr></thead>
+            <tbody><tr><td>R-123</td><td>Pending review</td></tr><tr><td>R-124</td><td>Complete</td></tr></tbody></table>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

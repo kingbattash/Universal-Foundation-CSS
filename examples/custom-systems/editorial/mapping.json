@@ -1,0 +1,25 @@
+{
+  "tailwind": {
+    "colors": {
+      "paper": "paper.canvas",
+      "ink": "roles.readingInk",
+      "highlight": "roles.feature"
+    },
+    "spacing": {
+      "small": "rhythm.small",
+      "reading": "rhythm.reading"
+    },
+    "radii": {
+      "sharp": "corners.sharp"
+    },
+    "fonts": {
+      "title": "typography.title"
+    }
+  },
+  "bootstrap": {
+    "--bs-body-bg": "paper.canvas",
+    "--bs-body-color": "roles.readingInk",
+    "--bs-primary": "paper.highlight",
+    "--bs-primary-rgb": "paper.highlight"
+  }
+}

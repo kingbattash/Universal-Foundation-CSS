@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-uf-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor Operations — Independent UF-CSS Theme Example</title>
+  <!-- From repo root, first generate ./generated/operations using docs/THEMES.md. -->
+  <link rel="stylesheet" href="../../generated/operations/theme.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;background:var(--harbor-operations-ui-canvas);color:var(--harbor-operations-ui-ink);font-family:var(--harbor-operations-typography-body);font-size:15px}
+    .shell{max-width:1180px;margin:auto;padding:clamp(1rem,3.5vw,2.5rem)}
+    header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:0 0 1.3rem;border-bottom:1px solid currentColor}
+    .logo{font-weight:700;letter-spacing:-.05em;font-size:1.5rem}
+    .muted{opacity:.7}.heading{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;padding:3rem 0 1.5rem}
+    h1{font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.045em;margin:.2rem 0}
+    h2{font-size:1rem;margin:0 0 1rem}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--harbor-operations-spacing-comfortable)}
+    .card{padding:clamp(1rem,2vw,1.7rem);border:1px solid currentColor;border-radius:var(--harbor-operations-corners-card)}
+    .stat{font-size:clamp(2rem,4vw,3rem);font-weight:var(--harbor-operations-typography-weight);letter-spacing:-.05em;line-height:1.4}
+    .tag{color:var(--harbor-operations-ui-link);font-size:.82rem;font-weight:600}
+    .panel{margin-top:var(--harbor-operations-spacing-comfortable);padding:1.5rem;border:1px solid currentColor;border-radius:var(--harbor-operations-corners-card);min-inline-size:0}
+    .table-scroll{max-inline-size:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+    .table{width:100%;border-collapse:collapse;text-align:left}
+    .table th,.table td{padding:1rem .5rem;border-bottom:1px solid currentColor}
+    .table td{text-align:left}
+    .pill{padding:.25rem .65rem;border-radius:100px;border:1px solid var(--harbor-operations-ui-action);font-size:.8rem}
+    button{padding:.7rem 1rem;border-radius:var(--harbor-operations-corners-card);border:0;background:var(--harbor-operations-ui-action);color:var(--harbor-operations-ui-on-action);font:600 .9rem system-ui,sans-serif;cursor:pointer}
+    button:hover{background:var(--harbor-operations-ui-action-hover)}
+    button:focus-visible{outline:3px solid var(--harbor-operations-ui-focus);outline-offset:4px}
+    @media(max-width:700px){.stats{grid-template-columns:1fr}.table{font-size:.86rem}}
+    @media(prefers-reduced-motion:no-preference){body{transition:background var(--harbor-operations-motion-enter),color var(--harbor-operations-motion-enter)}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="logo">Harbor / Operations</div><button type="button" id="switch">Dark mode</button></header>
+    <main>
+      <div class="heading"><div><p class="muted">Fictional operations overview</p><h1>Workspace activity</h1></div><span class="tag">Independent theme example</span></div>
+      <section class="stats" aria-label="Sample metrics">
+        <article class="card"><h2>Active requests</h2><div class="stat">128</div><span class="tag">12 more this week</span></article>
+        <article class="card"><h2>Resolved today</h2><div class="stat">64</div><span class="tag">Across three teams</span></article>
+        <article class="card"><h2>Workspaces</h2><div class="stat">08</div><span class="tag">Example organization</span></article>
+      </section>
+      <section class="panel" aria-labelledby="latest"><h2 id="latest">Recent work</h2>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable recent work table">
+        <table class="table"><thead><tr><th>Reference</th><th>Team</th><th>Status</th></tr></thead>
+          <tbody><tr><td>OPS-1084</td><td>Customer Support</td><td><span class="pill">Reviewed</span></td></tr>
+          <tr><td>OPS-1085</td><td>Fulfillment</td><td><span class="pill">Pending</span></td></tr>
+          <tr><td>OPS-1086</td><td>Finance</td><td><span class="pill">Complete</span></td></tr></tbody>
+        </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const button=document.getElementById("switch");
+    button.addEventListener("click",()=>{
+      const dark=document.documentElement.dataset.ufTheme!=="dark";
+      document.documentElement.dataset.ufTheme=dark?"dark":"light";
+      button.textContent=dark?"Light mode":"Dark mode";
+    });
+  </script>
+</body>
+</html>

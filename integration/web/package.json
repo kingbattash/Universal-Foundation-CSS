@@ -1,0 +1,21 @@
+{
+  "name": "uf-css-framework-smoke-tests",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "verify": "node ./verify.mjs"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-typescript": "^7.28.5",
+    "@stylexjs/babel-plugin": "^0.19.1",
+    "@stylexjs/stylex": "^0.19.1",
+    "@tailwindcss/cli": "^4.1.17",
+    "bootstrap": "^5.3.8",
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
+    "tailwindcss": "^4.1.17",
+    "tailwindcss-v3": "npm:tailwindcss@^3.4.17"
+  }
+}

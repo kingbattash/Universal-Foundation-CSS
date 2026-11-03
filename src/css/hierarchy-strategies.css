@@ -1,0 +1,43 @@
+/*
+ * Phase 06: OPT-IN hierarchy technique hooks, not a branded design system.
+ * Import this CSS subpath explicitly and set your OWN custom properties.
+ * No tag resets, global selectors, required type scale or color palette.
+ */
+@layer uf.hierarchy {
+  .uf-h-level {
+    font-size: var(--uf-h-size, inherit);
+    font-weight: var(--uf-h-weight, inherit);
+    line-height: var(--uf-h-line-height, inherit);
+  }
+  .uf-h-emphasis {
+    color: var(--uf-h-color, inherit);
+    font-weight: var(--uf-h-emphasis-weight, inherit);
+  }
+  .uf-h-measure { max-inline-size: var(--uf-h-reading-max, none); }
+  .uf-h-group {
+    display: grid;
+    gap: var(--uf-h-group-gap, 1rem);
+  }
+  .uf-h-flow {
+    display: grid;
+    gap: var(--uf-h-flow-gap, 1rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--uf-h-column-min, 18rem)), 1fr));
+  }
+  .uf-h-flow > * { min-inline-size: 0; }
+  .uf-h-layer {
+    position: relative;
+    isolation: isolate;
+  }
+  .uf-h-state {
+    border-inline-start: var(--uf-h-state-border, none);
+    padding-inline-start: var(--uf-h-state-padding, 0);
+  }
+  .uf-h-motion {
+    transition-property: var(--uf-h-motion-property, none);
+    transition-duration: var(--uf-h-motion-duration, 0s);
+    transition-timing-function: var(--uf-h-motion-easing, ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .uf-h-motion { transition: none; animation: none; }
+  }
+}

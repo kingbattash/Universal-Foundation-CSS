@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "UF-CSS Expo Integration",
+    "slug": "uf-css-expo-integration",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "newArchEnabled": true,
+    "experiments": {}
+  }
+}

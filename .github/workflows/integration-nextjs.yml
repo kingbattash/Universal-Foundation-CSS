@@ -1,0 +1,39 @@
+name: Verify Next.js StyleX package consumer
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  nextjs-consumer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            integration/nextjs/package-lock.json
+      - name: Install locked dependencies
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --prefix integration/nextjs --no-audit --no-fund
+      - name: Build and install real UF-CSS tarball into Next.js
+        run: |
+          npm run build
+          node integration/prepare-consumer.mjs nextjs
+      - name: Compile Next.js App Router with StyleX
+        working-directory: integration/nextjs
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+          CI: "1"
+        run: npm run build
+      - name: Check exported production HTML
+        run: |
+          test -s integration/nextjs/out/index.html
+          grep -q "design system that belongs to its creator" integration/nextjs/out/index.html

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Independent filter, list and table specimen</title>
+  <link rel="stylesheet" href="../../src/css/pattern-recipes.css">
+  <style>
+    body { margin:0; background:#fffaf4; color:#332c28; font:17px/1.55 Georgia,serif; }
+    main { max-width:65rem; margin:auto; padding:clamp(1rem,4vw,3rem); }
+    table { border-collapse:collapse; inline-size:100%; }
+    th,td { border-block-end:1px solid #9b8b7b; padding:.6rem; text-align:start; }
+    button,select { font:inherit; min-block-size:2.5rem; }
+    button:focus-visible,select:focus-visible,a:focus-visible,[tabindex="0"]:focus-visible {
+      outline:3px solid #a04b08; outline-offset:2px;
+    }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+  <a href="#main">Skip to records</a>
+  <nav aria-label="Page navigation"><a href="#records">View records</a></nav>
+  <main id="main">
+    <h1>Records, filters and explicit feedback</h1>
+    <form id="filters" class="uf-p-toolbar" aria-label="Filter records">
+      <label for="filter-status">Filter by status</label>
+      <select id="filter-status">
+        <option value="all">All records</option>
+        <option value="active">Active</option>
+        <option value="archived">Archived</option>
+        <option value="missing">No matching items</option>
+      </select>
+      <button type="submit">Apply filters</button>
+      <button id="clear" type="button">Clear filters</button>
+    </form>
+    <p id="filter-summary">Showing all records.</p>
+    <section id="records" aria-labelledby="records-heading">
+      <h2 id="records-heading">Record table</h2>
+      <div class="uf-p-table-scroll" role="region" aria-label="Scrollable record table" tabindex="0">
+        <table id="records-table">
+          <caption>Local example records</caption>
+          <thead><tr><th scope="col" id="name-header" aria-sort="none">
+            <button id="sort-name" type="button">Sort by record name</button>
+          </th><th scope="col">Status</th></tr></thead>
+          <tbody id="records-body">
+            <tr data-status="active"><td>Alpha</td><td>Active</td></tr>
+            <tr data-status="archived"><td>Bravo</td><td>Archived</td></tr>
+            <tr data-status="active"><td>Charlie</td><td>Active</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="empty" hidden>No records match these filters. Clear filters to return to all records.</p>
+      <p role="status" aria-live="polite" class="uf-p-feedback" id="results-status"></p>
+    </section>
+    <section aria-labelledby="list-heading">
+      <h2 id="list-heading">Related tasks</h2>
+      <ul><li><a href="#filters">Review filters</a></li><li><a href="#records">Inspect records</a></li></ul>
+    </section>
+  </main>
+  <script type="module">
+    const form=document.getElementById('filters');
+    const select=document.getElementById('filter-status');
+    const rows=[...document.querySelectorAll('#records-body tr')];
+    const summary=document.getElementById('filter-summary');
+    const live=document.getElementById('results-status');
+    const empty=document.getElementById('empty');
+    const table=document.getElementById('records-table');
+    function applyFilter(){
+      const value=select.value;
+      let count=0;
+      for(const row of rows){
+        const visible=value==='all'||row.dataset.status===value;
+        row.hidden=!visible;
+        if(visible)count++;
+      }
+      const isEmpty=count===0;
+      empty.hidden=!isEmpty;
+      table.hidden=isEmpty;
+      const descriptor=value==='all'?'all statuses':value;
+      summary.textContent='Applied: '+descriptor+'.';
+      live.textContent=isEmpty?'No matching records.':count+' records shown.';
+    }
+    form.addEventListener('submit',event=>{event.preventDefault();applyFilter();});
+    document.getElementById('clear').addEventListener('click',()=>{
+      select.value='all';applyFilter();select.focus();
+    });
+    const head=document.getElementById('name-header');
+    document.getElementById('sort-name').addEventListener('click',()=>{
+      const reverse=head.getAttribute('aria-sort')==='ascending';
+      const direction=reverse?'descending':'ascending';
+      const sorted=[...rows].sort((a,b)=>a.cells[0].textContent.localeCompare(b.cells[0].textContent));
+      if(reverse)sorted.reverse();
+      for(const row of sorted)row.parentElement.appendChild(row);
+      head.setAttribute('aria-sort',direction);
+      live.textContent='Records sorted '+direction+' by name.';
+    });
+  </script>
+</body>
+</html>

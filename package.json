@@ -1,0 +1,89 @@
+{
+  "name": "@kingbattash/universal-foundation-css",
+  "version": "1.0.0",
+  "description": "Framework-independent UI design rules, tokens, hierarchy and grid foundations",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingbattash/Universal-Foundation-CSS.git"
+  },
+  "homepage": "https://github.com/kingbattash/Universal-Foundation-CSS#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./css": "./src/css/foundation.css",
+    "./package.json": "./package.json",
+    "./tokens.css": "./src/css/tokens.generated.css",
+    "./tailwind-v4": "./adapters/tailwind-v4/theme.generated.css",
+    "./tailwind-v3": "./adapters/tailwind-v3/preset.generated.cjs",
+    "./bootstrap": "./adapters/bootstrap/bootstrap.generated.css",
+    "./stylex": "./adapters/stylex/tokens.generated.stylex.ts",
+    "./react-native": "./adapters/react-native/tokens.generated.ts",
+    "./hierarchy.css": "./src/css/hierarchy-strategies.css",
+    "./grid.css": "./src/css/grid-recipes.css",
+    "./patterns.css": "./src/css/pattern-recipes.css"
+  },
+  "files": [
+    "dist/src",
+    "src/css",
+    "adapters",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "scripts/generate-custom-system.mjs",
+    "scripts/lib/custom-tokens.mjs",
+    "scripts/cli.mjs",
+    "scripts/init-project.mjs",
+    "scripts/lib/init",
+    "scripts/lib/project-theme.mjs",
+    "scripts/lib/tokens",
+    "scripts/generate-project-theme.mjs",
+    "scripts/lib/theme-v2.mjs",
+    "tokens/source.tokens.json",
+    "scripts/audit-project.mjs",
+    "scripts/lib/audit",
+    "scripts/verify-release-artifact.mjs",
+    "scripts/lib/release"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/*.test.js && node --test tests/*.test.mjs",
+    "verify": "npm run check:tokens && npm run check && npm test",
+    "generate:tokens": "node scripts/generate-tokens.mjs",
+    "check:tokens": "node scripts/generate-tokens.mjs --check",
+    "check:package": "npm run build && node --test dist/tests/package-exports.test.js",
+    "check:pack": "npm run build && node scripts/verify-packed-package.mjs",
+    "generate:custom": "node scripts/generate-custom-system.mjs",
+    "generate:theme": "node scripts/generate-project-theme.mjs",
+    "audit:project": "node scripts/cli.mjs audit",
+    "verify:release": "npm run build && node scripts/verify-release-artifact.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "^0.19.0"
+  },
+  "peerDependenciesMeta": {
+    "@stylexjs/stylex": {
+      "optional": true
+    }
+  },
+  "bin": {
+    "uf-css": "./scripts/cli.mjs"
+  }
+}

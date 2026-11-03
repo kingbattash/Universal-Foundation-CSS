@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 2,
+  "name": "harbor-operations",
+  "tokens": {
+    "ui": {
+      "canvas": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.94901961,
+            0.98039216,
+            1
+          ],
+          "hex": "#f2faff"
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.03529412,
+            0.09803922,
+            0.15686275
+          ],
+          "hex": "#091928"
+        }
+      },
+      "action": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02745098,
+            0.33333333,
+            0.72941176
+          ],
+          "hex": "#0755ba"
+        }
+      },
+      "onAction": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff"
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02745098,
+            0.33333333,
+            0.72941176
+          ],
+          "hex": "#0755ba"
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02745098,
+            0.33333333,
+            0.72941176
+          ],
+          "hex": "#0755ba"
+        }
+      },
+      "actionHover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02352941,
+            0.27058824,
+            0.60784314
+          ],
+          "hex": "#06459b"
+        }
+      }
+    },
+    "typography": {
+      "heading": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "system-ui"
+        ]
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "system-ui"
+        ]
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 500
+      }
+    },
+    "spacing": {
+      "compact": {
+        "$type": "dimension",
+        "$value": {
+          "value": 5,
+          "unit": "px"
+        }
+      },
+      "comfortable": {
+        "$type": "dimension",
+        "$value": {
+          "value": 17,
+          "unit": "px"
+        }
+      }
+    },
+    "corners": {
+      "card": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      }
+    },
+    "motion": {
+      "enter": {
+        "$type": "duration",
+        "$value": {
+          "value": 125,
+          "unit": "ms"
+        }
+      }
+    }
+  },
+  "modes": {
+    "dark": {
+      "ui": {
+        "canvas": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.02745098,
+              0.07843137,
+              0.12941176
+            ],
+            "hex": "#071421"
+          }
+        },
+        "ink": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.89411765,
+              0.96862745,
+              1
+            ],
+            "hex": "#e4f7ff"
+          }
+        },
+        "action": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.47058824,
+              0.8627451,
+              1
+            ],
+            "hex": "#78dcff"
+          }
+        },
+        "onAction": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.02745098,
+              0.07843137,
+              0.12941176
+            ],
+            "hex": "#071421"
+          }
+        },
+        "link": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.47058824,
+              0.8627451,
+              1
+            ],
+            "hex": "#78dcff"
+          }
+        },
+        "focus": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.47058824,
+              0.8627451,
+              1
+            ],
+            "hex": "#78dcff"
+          }
+        },
+        "actionHover": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.66666667,
+              0.9254902,
+              1
+            ],
+            "hex": "#aaecff"
+          }
+        }
+      }
+    }
+  },
+  "mapping": {
+    "tailwind": {
+      "colors": {
+        "canvas": "ui.canvas",
+        "ink": "ui.ink",
+        "action": "ui.action",
+        "link": "ui.link",
+        "focus": "ui.focus",
+        "actionHover": "ui.actionHover"
+      },
+      "spacing": {
+        "compact": "spacing.compact",
+        "comfortable": "spacing.comfortable"
+      },
+      "radii": {
+        "card": "corners.card"
+      },
+      "fonts": {
+        "heading": "typography.heading",
+        "body": "typography.body"
+      }
+    },
+    "bootstrap": {
+      "--bs-body-bg": "ui.canvas",
+      "--bs-body-color": "ui.ink",
+      "--bs-primary": "ui.action",
+      "--bs-primary-rgb": "ui.action",
+      "--bs-body-bg-rgb": "ui.canvas",
+      "--bs-body-color-rgb": "ui.ink"
+    }
+  },
+  "contrastChecks": [
+    {
+      "name": "body-copy",
+      "type": "text",
+      "foreground": "ui.ink",
+      "background": "ui.canvas",
+      "minimum": 4.5
+    },
+    {
+      "name": "action-label",
+      "type": "text",
+      "foreground": "ui.onAction",
+      "background": "ui.action",
+      "minimum": 4.5
+    },
+    {
+      "name": "inline-link",
+      "type": "text",
+      "foreground": "ui.link",
+      "background": "ui.canvas",
+      "minimum": 4.5
+    },
+    {
+      "name": "hover-action-label",
+      "type": "text",
+      "foreground": "ui.onAction",
+      "background": "ui.actionHover",
+      "minimum": 4.5
+    },
+    {
+      "name": "focus-ring",
+      "type": "focus",
+      "foreground": "ui.focus",
+      "background": "ui.canvas",
+      "minimum": 3
+    }
+  ]
+}

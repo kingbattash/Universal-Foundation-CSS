@@ -1,0 +1,25 @@
+{
+  "tailwind": {
+    "colors": {
+      "canvas": "navy.canvas",
+      "signal": "states.callToAction",
+      "ink": "states.alertInk"
+    },
+    "spacing": {
+      "close": "density.close",
+      "standard": "density.standard"
+    },
+    "radii": {
+      "elevated": "curves.elevated"
+    },
+    "fonts": {
+      "interface": "families.interface"
+    }
+  },
+  "bootstrap": {
+    "--bs-body-bg": "navy.canvas",
+    "--bs-body-color": "navy.ink",
+    "--bs-primary": "navy.signal",
+    "--bs-primary-rgb": "navy.signal"
+  }
+}

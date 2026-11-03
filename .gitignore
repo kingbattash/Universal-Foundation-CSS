@@ -6,3 +6,17 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Framework smoke-test generated outputs
+integration/nextjs/.next/
+integration/nextjs/out/
+integration/nextjs/generated/
+integration/expo/generated/
+integration/web/temp-packed-*/
+integration/web/temp-custom-*/
+integration/web/temp-theme-*/
+
+# Phase 09 generated theme and browser screenshot artifacts
+generated/
+integration/browser/playwright-report/
+integration/browser/test-results/

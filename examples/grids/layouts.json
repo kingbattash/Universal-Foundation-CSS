@@ -1,0 +1,88 @@
+{
+  "examples": [
+    {
+      "file": "operations.html",
+      "ids": [
+        "page-title",
+        "context",
+        "action",
+        "exceptions",
+        "records"
+      ],
+      "viewports": [
+        {
+          "widthPx": 320,
+          "visualOrder": [
+            "page-title",
+            "context",
+            "action",
+            "exceptions",
+            "records"
+          ]
+        },
+        {
+          "widthPx": 768,
+          "visualOrder": [
+            "page-title",
+            "context",
+            "action",
+            "exceptions",
+            "records"
+          ]
+        },
+        {
+          "widthPx": 1440,
+          "visualOrder": [
+            "page-title",
+            "context",
+            "action",
+            "exceptions",
+            "records"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "editorial.html",
+      "ids": [
+        "article-title",
+        "attribution",
+        "introduction",
+        "article-body",
+        "references"
+      ],
+      "viewports": [
+        {
+          "widthPx": 320,
+          "visualOrder": [
+            "article-title",
+            "attribution",
+            "introduction",
+            "article-body",
+            "references"
+          ]
+        },
+        {
+          "widthPx": 768,
+          "visualOrder": [
+            "article-title",
+            "attribution",
+            "introduction",
+            "article-body",
+            "references"
+          ]
+        },
+        {
+          "widthPx": 1440,
+          "visualOrder": [
+            "article-title",
+            "attribution",
+            "introduction",
+            "article-body",
+            "references"
+          ]
+        }
+      ]
+    }
+  ]
+}

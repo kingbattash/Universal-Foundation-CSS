@@ -1,0 +1,137 @@
+# Manual, fail-closed prerelease preparation and optional npm publication.
+# Not activated by a tag, push or GitHub release.
+# The maintainer MUST configure:
+# - Repository variable UF_CSS_RELEASE_ENABLED=true (otherwise publish is skipped)
+# - GitHub Environment npm-prerelease with required human reviewers
+# - npm Trusted Publisher for this exact repo/workflow/environment
+# No long-lived npm token is used. This file is NOT approval to publish.
+name: Manually prepare or publish npm prerelease
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_version:
+        description: "Exact prerelease version already committed in package.json, e.g. 0.2.0-beta.1"
+        required: true
+        type: string
+      confirm_publish:
+        description: "I explicitly authorize npm publication (requires other gates)"
+        required: true
+        type: boolean
+        default: false
+      approval_phrase:
+        description: "For publication only, type: PUBLISH UF-CSS PRERELEASE"
+        required: false
+        type: string
+        default: ""
+permissions:
+  contents: read
+concurrency:
+  group: uf-css-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    if: github.repository == 'kingbattash/Universal-Foundation-CSS' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      checks: read
+    env:
+      CANDIDATE_VERSION: ${{ inputs.candidate_version }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Verify the exact candidate version and prerelease nature
+        run: node -e 'const p=require("./package.json");if(p.version!==process.env.CANDIDATE_VERSION||!p.version.includes("-"))process.exit(1)'
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Recheck code and semantics
+        run: npm run verify
+      - name: Verify the exact candidate tarball and all public entry points
+        run: |
+          npm run build
+          node scripts/verify-release-artifact.mjs --candidate "$CANDIDATE_VERSION" --require-prerelease
+          node scripts/verify-release-notes.mjs --candidate "$CANDIDATE_VERSION"
+      - name: Verify installed tarball without accessing registry
+        run: node scripts/verify-packed-package.mjs
+      - name: Require six green checks on this exact source commit
+        run: node scripts/check-release-ci.mjs
+      - name: Create prerelease artifact without publishing
+        run: |
+          mkdir release-artifact
+          npm pack --ignore-scripts --pack-destination release-artifact
+          sha256sum release-artifact/*.tgz
+      - name: Upload prerelease artifact for approval
+        uses: actions/upload-artifact@v4
+        with:
+          name: uf-css-prerelease-candidate
+          path: release-artifact/*.tgz
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    if: >-
+      github.repository == 'kingbattash/Universal-Foundation-CSS' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.confirm_publish == true &&
+      inputs.approval_phrase == 'PUBLISH UF-CSS PRERELEASE' &&
+      vars.UF_CSS_RELEASE_ENABLED == 'true'
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: npm-prerelease
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Require a supported npm trusted publisher CLI
+        run: |
+          node -e 'const {execFileSync}=require("node:child_process");const [major,minor,patch]=execFileSync("npm",["--version"],{encoding:"utf8"}).trim().split(".").map(Number);if(major<11||(major===11&&(minor<5||(minor===5&&patch<1))))throw Error("npm >=11.5.1 required for OIDC");'
+      - uses: actions/download-artifact@v4
+        with:
+          name: uf-css-prerelease-candidate
+          path: release-artifact
+      - name: Verify downloaded artifact is exactly the candidate package
+        env:
+          CANDIDATE_VERSION: ${{ inputs.candidate_version }}
+        run: |
+          shopt -s nullglob
+          files=(release-artifact/*.tgz)
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "Expected exactly one reviewed tarball" >&2
+            exit 1
+          fi
+          tar -xOf "${files[0]}" package/package.json | node -e '
+            let data="";
+            process.stdin.setEncoding("utf8");
+            process.stdin.on("data",part=>data+=part);
+            process.stdin.on("end",()=>{
+              const packed=JSON.parse(data);
+              const source=require("./package.json");
+              if(packed.name!==source.name ||
+                 packed.version!==process.env.CANDIDATE_VERSION ||
+                 source.version!==process.env.CANDIDATE_VERSION)
+                throw Error("Downloaded tarball does not match reviewed candidate");
+              console.log("PASS: downloaded tarball name/version match authorized candidate");
+            });
+          '
+      - name: Publish only after environment review and npm OIDC trusted publisher authentication
+        env:
+          NPM_CONFIG_AUDIT: "false"
+        run: |
+          files=(release-artifact/*.tgz)
+          npm publish "${files[0]}" --access public --tag beta

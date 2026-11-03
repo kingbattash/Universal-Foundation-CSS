@@ -1,0 +1,60 @@
+/*
+ * Universal Foundation CSS — opt-in neutral layout adapter.
+ * Generated --uf-* variables come from tokens/source.tokens.json.
+ * To customize a product, override semantic roles in the consumer project.
+ */
+@import "./tokens.generated.css";
+
+@layer uf.patterns {
+  .uf-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--uf-content-max);
+    padding-inline: var(--uf-gutter);
+    margin-inline: auto;
+  }
+  .uf-reading {
+    max-width: var(--uf-reading-max);
+    text-wrap: pretty;
+  }
+  .uf-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uf-stack-gap, var(--uf-space-4));
+  }
+  .uf-cluster {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--uf-cluster-gap, var(--uf-space-4));
+  }
+  .uf-grid {
+    display: grid;
+    gap: var(--uf-grid-gap, var(--uf-space-6));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--uf-grid-min, 260px)), 1fr));
+  }
+  .uf-grid > * { min-width: 0; }
+  .uf-grid--12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .uf-grid--8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .uf-grid--12 > * { grid-column: span 12; }
+  .uf-grid--8 > * { grid-column: span 8; }
+  @media (min-width: 48rem) {
+    .uf-grid--12 > .uf-span-3 { grid-column: span 3; }
+    .uf-grid--12 > .uf-span-4 { grid-column: span 4; }
+    .uf-grid--12 > .uf-span-6 { grid-column: span 6; }
+    .uf-grid--12 > .uf-span-8 { grid-column: span 8; }
+    .uf-grid--8 > .uf-span-4 { grid-column: span 4; }
+  }
+  .uf-focus:focus-visible {
+    outline: 2px solid var(--uf-focus);
+    outline-offset: 3px;
+  }
+  .uf-visually-hidden:not(:focus):not(:active) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

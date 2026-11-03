@@ -1,0 +1,23 @@
+name: Verify framework integration
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  web-adapters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: integration/web/package-lock.json
+      - name: Install framework toolchains
+        run: npm ci --prefix integration/web --no-audit --no-fund
+      - name: Compile Tailwind v3/v4, Bootstrap and StyleX fixtures
+        run: node integration/web/verify.mjs

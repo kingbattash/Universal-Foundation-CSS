@@ -10,11 +10,20 @@ Thank you for considering a contribution. UF-CSS is an independent open-source p
 
 ## Development
 - Use Node.js 22 or later.
-- Install dependencies using `npm install` during early bootstrap; a locked, reproducible installation will be introduced before release.
+- Install dependencies using `npm ci` from the committed lockfile; do not regenerate lockfiles unless the dependency change is reviewed.
+- Run `npm run generate:tokens` after changing `tokens/source.tokens.json`. Never hand-edit generated adapters.
+- Run `npm run check:tokens` to detect drift across framework outputs.
 - Run `npm run check` after changing TypeScript.
-- Run `npm test` for formula and registry tests.
+- Run `npm test` for formula, registry and contract tests.
+- Run `npm run verify:release` when public APIs, CLI, package files or exports change.\n- Browser and native compatibility changes require their corresponding CI workflow. Don't claim device or WCAG certification from compilation.
 - Keep changes narrow; write or update tests and docs with new behavior.
 - Do not add hardcoded organization branding or nonessential runtime dependencies.
+
+## Distribution and breaking API changes
+
+The `1.0.0` source is available for user testing but is not yet a published stable API; breaking changes still require changelog explanations and migration steps. Check that every new exported path is included in the npm tarball, that TypeScript declarations resolve, and that optional adapters do not impose a visual identity on existing products. Review the [versioning and release policy](docs/RELEASE.md).
+
+Release publishing, version bumps, tags and merges are separate maintainer decisions. Opening or updating a PR does not authorize publication. The automated release workflow is manual-only and cannot substitute for the configured GitHub required-reviewer environment.
 
 ## Pull requests
 Describe what changed, why, migration compatibility and any accessibility impacts. Keep PRs reviewable. Maintainers may request design discussions for breaking contracts. All contributions are made under Apache-2.0; contributors must have the rights to contribute their work.

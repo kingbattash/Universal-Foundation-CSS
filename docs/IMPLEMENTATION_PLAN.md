@@ -1,0 +1,374 @@
+# Universal Foundation CSS — Step-by-step implementation plan
+
+**Repository:** `kingbattash/Universal-Foundation-CSS`  
+**Status:** Working execution plan for the **experimental 0.x** public foundation  
+**Baseline:** `feat/foundation-v0`, reviewed 2026-11-03  
+**Companion docs:** [Architecture](ARCHITECTURE.md) · [Roadmap](ROADMAP.md) · [Adapters](ADAPTERS.md) · [Project themes](THEMES.md) · [AI agents](AI-AGENTS.md)
+
+> **Mission:** An open, brand-independent **toolkit for creating original design systems**, with reusable mathematics, token generation, optional references and framework adapters. UF-CSS itself is **not** a prescribed design system. Consumers may replace all example values and choose—or define—their own hierarchy, typography, grids, interactions and component styles. UF-CSS must never depend on AMGYNA (or another consumer). See [PHILOSOPHY.md](PHILOSOPHY.md).
+
+## 1. How to read and execute this plan
+
+**Status legend:** `DONE` = demonstrated by code and/or CI; `PARTIAL` = first implementation exists but acceptance criteria below are not yet met; `TODO` = planned; `EXTERNAL` = work in a consuming repository, not in UF-CSS.
+
+**Work rule:** Complete phases in order, except independent documentation or tests. Each phase gets a focused PR or reviewable group of commits. Record evidence in its PR: changed files, generated artifacts, test commands, screenshots if visual, known limitations, and **why** each new public API is necessary. Do not claim `DONE` just because a file exists.
+
+**Design-freedom rule:** No scale, grid, hierarchy category, neutral palette, component shape, or visual style is mandatory for the consuming project. Treat the present 20 hierarchy entries and 37 grid entries as optional reference catalogs, not exhaustive or exclusive definitions. Future design-system creation APIs must accept custom definitions.
+
+**Source-of-truth rule:** For the current UF-CSS neutral starter, hand-edit `tokens/source.tokens.json` for its canonical values. Run `npm run generate:tokens`. All `*.generated.*` files are outputs; do not manually patch them. Product colors and fonts belong to a **consumer theme**, not the universal defaults.
+
+**Current working location:** the initial scaffold is in `feat/foundation-v0` in [draft PR #1](https://github.com/kingbattash/Universal-Foundation-CSS/pull/1). `main` contains the original open-source initialization, not yet the entire experimental implementation. Do not merge or publish automatically.
+
+## 2. Current baseline — Phase 00 (DONE)
+
+| Capability | Existing location | Verified scope |
+| --- | --- | --- |
+| Open-source repo | `LICENSE`, `README.md`, `CONTRIBUTING.md`, `SECURITY.md` | Apache-2.0 public project docs |
+| Seven core domains | `src/{foundation-formular,semantic,hierarchy,tokens,patterns,components,grid}/` | TS specs, formulas, basic contracts |
+| Canonical tokens | `tokens/source.tokens.json` | Supported subset of DTCG token format; typed aliases |
+| Token generator | `scripts/generate-tokens.mjs` | Generates CSS, TS, Tailwind v3/v4, Bootstrap, StyleX, native |
+| Project theme generator | `scripts/generate-project-theme.mjs` | Light/dark semantic colors; limited contrast checks; safe overwrite |
+| Optional CSS | `src/css/foundation.css` | Neutral layout helpers and generated CSS variables |
+| AI skill | `.agents/skills/universal-foundation-css/` | Portable instructions and safe installer |
+| Web integration smoke tests | `integration/web/` | Tailwind v3/v4 CSS compilation, Bootstrap CSS bundling, StyleX Babel transformation |
+| Native smoke tests | `integration/expo/` | Expo SDK 57 Metro Android **JS export**, not a compiled Android binary |
+| CI | `.github/workflows/{ci,integration-web,integration-expo}.yml` | Latest observed runs passed; 17 unit tests passed |
+
+**Important incomplete work:** 20 hierarchy categories are registry entries, not 20 finished style modules. The 37 grid entries are a **catalog**, not 37 CSS implementations. Project themes currently customize semantic colors, not every typography/layout/motion role. Browser/device screenshots and complete keyboard/assistive-technology validation are not yet in CI.
+
+---
+
+## 3. Delivery sequence and dependencies
+
+```text
+Phase 00  Working public scaffold (DONE)
+   ↓
+Phase 01  Reproducible installs + stable package/export boundaries
+   ↓
+Phase 02  Canonical design tokens + schema integrity
+   ↓
+Phase 03  Consumer theme configuration + generated themes
+   ↓
+Phase 04  Production-adapter contracts + real framework examples
+   ↓
+Phase 05  Foundation formulas, laws and quantitative rules
+   ↓
+Phase 06  Semantic model and 20 hierarchy category specifications
+   ↓
+Phase 07  Grid recipes, mathematical constructions and guides
+   ↓
+Phase 08  Pattern specs and platform-neutral component contracts
+   ↓
+Phase 09  Visual regression, accessibility and design quality gates
+   ↓
+Phase 10  AI skill + CLI project creation/audit automation
+   ↓
+Phase 11  Versioned beta release + documentation + public governance
+   ↓
+Phase 12  Consume in independent projects (AMGYNA separately)
+```
+
+Cross-cutting requirement: add tests and documentation **in each phase**, not only in Phase 09 or 11.
+
+## 4. Phase-by-phase instructions
+
+### Phase 01 — Reproducible builds and package boundaries (DONE)
+
+**Goal:** Anyone can clone the repository, run one documented install sequence, and get the same verified artifacts.
+
+| Step | Work | Exact location |
+| --- | --- | --- |
+| 01.1 | **DONE:** Generate/commit root `package-lock.json`; convert root CI to `npm ci` | `package-lock.json`, `.github/workflows/ci.yml` |
+| 01.2 | **DONE:** Pin integration fixture dependencies with their own lockfiles | `integration/web/package-lock.json`, `integration/expo/package-lock.json` |
+| 01.3 | **DONE:** Convert integration CI from unlocked `npm install` to `npm ci` | `.github/workflows/integration-*.yml` |
+| 01.4 | **DONE:** Validate npm `exports` paths, CSS subpath imports, generated TS importability, `npm pack --dry-run`, and an offline installed tarball | `package.json`, `tests/package-exports.test.ts`, `scripts/verify-packed-package.mjs` |
+| 01.5 | **DONE:** Set engine, optional peers, supported Node versions, and semver compatibility policy | `package.json`, `docs/COMPATIBILITY.md` |
+| 01.6 | Check CSS layer/import order and package side effects in built consumer fixtures | `src/css/`, `integration/web/` |
+
+**Gate PASSED on commit `8db67ef` (2026-11-03):** clean GitHub Actions locked installs, 19/19 unit tests, real offline tarball consumer and all three CI workflows passed (foundation, real web toolchains, Expo Android JS export). This is still an experimental library; no npm release has been published.
+
+### Phase 02 — Canonical tokens and normalization (DONE: supported DTCG profile)
+
+**Goal met:** All neutral-starter generated values originate from a validated canonical source, and completely independent products can generate their own token systems without inheriting any neutral defaults. Both generator paths share token parsing and formatting. The phase intentionally supports a **documented subset** of DTCG 2025.10; comprehensive standard conformance remains a future capability.
+
+| Step | Result | Exact location |
+| --- | --- | --- |
+| 02.1 | **DONE:** Audited optional preset values vs mathematical constants, semantic vocabulary, and opt-in CSS recipe fallbacks | [TOKEN-INVENTORY.md](TOKEN-INVENTORY.md) |
+| 02.2 | **DONE:** Specified consumer-owned arbitrary token paths, typed aliases, output-safe naming rules, units and optional framework mappings | [TOKEN-CONTRACT.md](TOKEN-CONTRACT.md), `scripts/lib/tokens/parse.mjs` |
+| 02.3 | **DONE:** Canonicalized optional typography roles, breakpoints, scale ratio, density, elevation levels, z-layer and easing; removed duplicated foundation defaults | `tokens/source.tokens.json`, `src/foundation-formular/foundation.ts`, `src/tokens/` |
+| 02.4 | **DONE for declared supported profile:** Type and metadata checks, missing/circular alias rejection, type inheritance, collision prevention and safe value validation. The DTCG publication does not yet ship a finalized official JSON Schema; UF-CSS does **not** claim full DTCG conformance | `scripts/lib/tokens/parse.mjs`, `tests/token-validator.test.mjs` |
+| 02.5 | **DONE:** Separated shared validator and formatters from optional neutral and consumer-owned adapter renderers; preserved public command/CLI compatibility | `scripts/lib/tokens/{parse,format,starter-renderer,custom-renderer}.mjs` |
+| 02.6 | **DONE:** Byte-for-byte generated-output parity, in-memory token-mutation tests across web/native mappings, two independent consumer examples, real framework builds and packed-CLI installation checks | `tests/token-parity.test.mjs`, `tests/custom-system.test.ts`, `integration/`, CI |
+
+**Acceptance gate passed (2026-11-03):** `npm run check:tokens`, 37 foundation/builder tests, offline packed tarball verification, Tailwind v3/v4 and StyleX/Babel integration, Bootstrap parsing and Expo Android JS export. The neutral starter outputs are deterministic; modifying relevant canonical tokens propagates into all applicable generated mappings. User-defined systems do not inherit a single required style or hierarchy.
+
+**Deferred to later releases (not represented as Phase 02 functionality):** complete DTCG 2025.10 coverage (advanced color spaces, composites, `$extends`, JSON Pointer references, arbitrary Unicode names), package-wide graphical/visual accessibility validation and full component adaptation. These are separate enhancements and must not be misrepresented as currently implemented.
+
+### Phase 02W — Interactive builder before further expansion (MVP IMPLEMENTED)
+
+**Goal:** The developer answers only the design questions they want to answer, reviews the future file tree, and confirms **before** any directory or CSS is written. This capability is prioritized before expanding the next design-domain catalogs.
+
+| Step | Work | Location |
+| --- | --- | --- |
+| W.1 | Terminal wizard for project name/output, framework selection, custom colors, fonts, type size and spacing | `scripts/init-project.mjs`, `scripts/lib/init/wizard.mjs` |
+| W.2 | Multiple structural grids, optional mathematical composition guides, arbitrary custom hierarchy names | `scripts/lib/init/config.mjs`, `scripts/lib/init/scaffold.mjs` |
+| W.3 | Print a configuration and file-tree preview without touching the filesystem; ask for explicit `yes` | `scripts/init-project.mjs` |
+| W.4 | Generate only requested adapters, token CSS, selected layout CSS and composition/hierarchy JSON | `scripts/lib/init/scaffold.mjs` |
+| W.5 | Safe non-interactive `--config --out --dry-run` or `--yes` flows for AI agents and CI | `scripts/cli.mjs`, `tests/builder.test.mjs` |
+| W.6 | Packaged `uf-css init` command, documentation and integration verification | `package.json`, `scripts/verify-packed-package.mjs`, `docs/WIZARD.md` |
+| W.7 | Future: edit/resume wizard, richer token schema, responsive custom grid definitions and visual preview | Planned; not implemented |
+
+**MVP gate:** no decisions mandatory, no writes without confirmation, no irrelevant adapter folders, no forced brand or aesthetic rules. The CI test suite verifies this; full graphical preview is not in scope yet.
+
+### Phase 03 — Consumer themes and branding isolation (DONE: independent themes and legacy compatibility)
+
+**Goal met:** A developer can define an entirely unique light/dark theme, with a custom palette, typography, spacing, radii, density, motion, CSS/Tailwind/Bootstrap/StyleX/native mappings and optional contrast checks—without editing or importing universal neutral design values.
+
+| Step | Result | Exact location |
+| --- | --- | --- |
+| 03.1 | **DONE:** Add optional creator-owned theme tokens (including type, density, spacing, radii, motion and other supported DTCG types). Keep v1 neutral themes unchanged for compatibility | `scripts/lib/theme-v2.mjs`, `examples/project-theme/*.v2.json` |
+| 03.2 | **DONE:** Document precedence: project tokens → authored light/dark overrides → app-owned component state styles; distinguish legacy neutral inheritance | [THEME-CONTRACT.md](THEME-CONTRACT.md) |
+| 03.3 | **DONE:** Generate Vanilla CSS, Tailwind v3/v4, Bootstrap mappings, StyleX variables/themes and native values from one independent theme | `scripts/generate-project-theme.mjs`, `scripts/lib/theme-v2.mjs` |
+| 03.4 | **DONE for explicit checks:** Validate user-selected text, link, action/hover and focus color pairs separately for each authored mode. Invalid ratios fail without silently altering chosen palette | `tests/theme-v2.test.mjs`, `scripts/lib/theme-v2.mjs` |
+| 03.5 | **DONE:** Non-destructive `--check` and `--force`, symlink-path preflight, strict config schema, deterministic manifests, documented v1→v2 migration and packed CLI test | `scripts/generate-project-theme.mjs`, [THEMES.md](THEMES.md), `scripts/verify-packed-package.mjs` |
+| 03.6 | **DONE for code/build scope:** Two radically different example themes, two Vanilla HTML specimens, and independent real-framework smoke builds. Full screenshots and device audits remain Phase 09 work | `examples/project-theme/`, `integration/web/verify.mjs`, `tests/theme-v2.test.mjs` |
+| 03.7 | **DONE:** Arbitrary creator-defined token paths and roles, entirely independent of the fixed UF-CSS neutral palette | `scripts/lib/tokens/`, `scripts/lib/theme-v2.mjs`, [THEME-CONTRACT.md](THEME-CONTRACT.md) |
+
+**Acceptance gate:** Two unrelated products compile independent themed CSS/JS outputs, light/dark contrasts are validated, existing v1 output still works, and real framework builds and packed CLI checks pass. Do not claim visual or accessibility certification; screenshot/device testing is Phase 09.
+
+**Scope note:** Theme v2 consumes the strict supported DTCG profile. It does not automatically rewrite optional neutral starter component styles, generate arbitrary UI components, or implement the full DTCG resolver. Those behaviors are deliberately not part of the Phase 03 acceptance gate.
+
+### Phase 04 — Platform adapters and real consuming examples (DONE: locked builds and packaged consumers)
+
+**Goal met for the declared build scope:** Independent projects use the core naturally, without being forced into a framework or neutral styling system. CI verifies **the real packed UF-CSS artifact**, not only checkout-relative adapter files.
+
+| Step | Verified result | Exact location |
+| --- | --- | --- |
+| 04.1 | **DONE:** Standalone Vanilla CSS, native custom properties, optional neutral CSS layers, responsive layout references and independent project light/dark specimens | `examples/vanilla/`, `examples/project-theme/`, `src/css/` |
+| 04.2 | **DONE:** Tailwind v4 `@theme inline` color/type/spacing/radius mapping, light/dark theme variables and actual installed-package CLI compilation | `adapters/tailwind-v4/`, `integration/web/verify-packed.mjs` |
+| 04.3 | **DONE:** Tailwind v3 CJS preset support from actual packed package, real utility compilation and explicit opacity/class-discovery limits | `adapters/tailwind-v3/`, `integration/web/verify-packed.mjs` |
+| 04.4 | **DONE for mapped variables:** Bootstrap 5.3 CSS bundle, explicit semantic/RGB mappings, light/dark values and documented component/Sass limits | `adapters/bootstrap/`, `integration/web/` |
+| 04.5 | **DONE for production build:** StyleX token and theme compilation plus a real Next.js App Router **Webpack** consumer compiled from a locally packed UF-CSS tarball | `adapters/stylex/`, `integration/nextjs/`, `.github/workflows/integration-nextjs.yml` |
+| 04.6 | **DONE for native JS export:** React Native numeric values, independent light/dark theme, text scaling, safe-area context, TypeScript checks and Android Metro JavaScript export from a packed library | `adapters/react-native/`, `integration/expo/`, `.github/workflows/integration-expo.yml` |
+| 04.7 | **DONE:** Vue, Svelte, Angular, Astro and normal HTML consume the same Vanilla CSS variables; no duplicated mandatory runtime | [FRAMEWORK-CONSUMERS.md](FRAMEWORK-CONSUMERS.md), [ADAPTERS.md](ADAPTERS.md) |
+| 04.8 | **DONE for build and packaging gate:** Five locked CI workflows, including packed web consumers, Next.js Webpack build and Expo Metro export; **visual and interactive accessibility tests deferred to Phase 09** | `integration/`, `.github/workflows/` |
+
+**Gate passed (2026-11-03):** 43/43 foundation and builder tests, all eight web framework integrations, five independent GitHub workflows, a real packed web consumer, a Next.js production static export, an Expo Android JS export and custom semantic light/dark themes. The sample designs differ intentionally; an identical pixel layout is neither required nor expected.
+
+**Explicit limitations:** No automatic browser screenshot or keyboard/screen-reader audit, no physical Android/iOS device verification, no universal component styling system, no full Bootstrap Sass theme and no guarantee for every future Next.js or Expo version. These are outside the Phase 04 build acceptance gate and tracked in Phase 09 / later compatibility work. The Next.js example uses an optional community StyleX SWC plugin, not a core dependency.
+
+### Phase 05 — Mathematical foundation and UX principles (DONE: pure-library scope)
+
+**Goal met:** Reusable, tested mathematical calculations without requiring any specific palette, typographic style, framework, grid or UX aesthetic. Existing public helpers remain available.
+
+| Step | Result | Location |
+| --- | --- | --- |
+| 05.1 | **DONE:** Preserve existing `foundation`, `modularScale`, `fluidClamp`, `columnWidth` and contrast behavior, strengthen invalid-input validation | `src/foundation-formular/{foundation,formular}.ts` |
+| 05.2 | **DONE:** User-defined spacing series, finite interpolation, responsive fluid evaluation, arbitrary padded grid geometry and span calculations | `src/foundation-formular/formular.ts`, `src/grid/formulas.ts` |
+| 05.3 | **DONE:** Safe Fibonacci integers and convergent ratios, optional golden rectangles, root rectangles, rule-of-thirds and phi guide coordinates | `src/foundation-formular/ratios.ts`, `src/grid/formulas.ts` |
+| 05.4 | **DONE for documented model scope:** Calibrated Fitts / Hick–Hyman index and timing helpers, qualitative Jakob/Gestalt/disclosure and explicit evidence limitations | `src/foundation-formular/laws.ts`, [RESEARCH.md](RESEARCH.md) |
+| 05.5 | **DONE for TypeScript and numerical scope:** Bounds, monotonic behavior, grid reconstruction, overflow, rounding and no-framework dependency tests | `tests/formular.test.ts` |
+
+**Gate:** Public mathematics remain pure TypeScript and independent of DOM, Tailwind, React, StyleX and React Native. Formula outputs are unit-documented and testable. No claims of universal UX rules, model calibration, WCAG certification, browser visual QA or human preference optimization. Follow-on phase: **06 (semantic and hierarchy).**
+
+### Phase 06 — Semantics and hierarchy (DONE for specification, fixtures and static-validation scope)
+
+**Goal met:** The existing 20 references now have category-specific specifications; creators can define entirely independent hierarchies and arbitrary semantic role names without a compulsory taxonomy or framework.
+
+| Step | Work completed | Location |
+| --- | --- | --- |
+| 06.1 | **DONE:** Expanded optional semantic vocab for documents, regions, feedback, accessibility and responsiveness; creator-defined semantic roles | `src/semantic/semantic.ts` |
+| 06.2 | **DONE:** Preserved original 20-category registry and categorized major types vs techniques explicitly | `src/hierarchy/hierarchy.ts`, `src/hierarchy/specification.ts` |
+| 06.3 | **DONE:** Four family-specific specifications (5 communication, 5 structural, 7 visual techniques, 3 interaction), all independent of presentation code | `src/hierarchy/{communication,structural,visual-techniques,interactive}/` |
+| 06.4 | **DONE:** Each specification has priority rule, relationships, constraints, example, anti-pattern and possible strategies | `src/hierarchy/specifications.ts`, [HIERARCHY.md](HIERARCHY.md) |
+| 06.5 | **DONE:** Strategy catalog maps to independent opt-in vanilla CSS hooks, package subpath `./hierarchy.css`; no global reset or brand palette | `src/hierarchy/strategies.ts`, `src/css/hierarchy-strategies.css`, `package.json` |
+| 06.6 | **DONE for static test scope:** Two unrelated HTML specimens and source/visual-order fixture audits at 320/768/1440 widths. **No rendered browser or screen-reader validation claimed.** | `examples/hierarchy/`, `src/semantic/flow.ts`, `tests/hierarchy.test.ts` |
+| 06.7 | **DONE:** Creator-owned hierarchy IDs, priority levels, arbitrary strategy names and typed relationship definitions with cycle/reference checks; zero levels supported | `src/hierarchy/custom.ts`, `tests/hierarchy.test.ts` |
+
+**Gate:** All 20 references have actionable specifications and explicit support levels. Custom systems can be empty or fully independent of the 20 references and need not include a prescribed font, grid, spacing, hierarchy or CSS class. The optional CSS and semantic audits are **starting points**, not browser QA or an aesthetic compliance score. Phase 09 remains responsible for actual visual, keyboard and assistive technology verification.
+
+### Phase 07 — Grid catalog to grid implementation (DONE: declared pure library and static integration scope)
+
+**Goal met:** Preserve all 37 references with truthful support, deliver opt-in CSS and geometric guides, and allow user-authored zero/multiple independent grids.
+
+| Step | Result | Source |
+| --- | --- | --- |
+| 07.1 | DONE — reconciled all support statuses, research notes, selector-to-recipe mapping | `src/grid/{grid,registry}.ts`, [GRIDS.md](GRIDS.md) |
+| 07.2 | DONE — responsive 12/8, fluid, fixed/adaptive, nested and feature-guarded subgrid | `src/grid/web/`, `src/css/grid-recipes.css` |
+| 07.3 | DONE for practical scope — manuscript, columns, modular rows and baseline rhythm, geometry | `src/grid/editorial/`, `src/css/grid-recipes.css` |
+| 07.4 | DONE for simple constructions — thirds, phi, diagonals, root rectangles, a basic golden triangle guide | `src/grid/geometric/` |
+| 07.5 | DONE as historical references — Van de Graaf, Rosarivo, Villard, Golden Canon without invented fully working algorithms | `src/grid/golden-canons/`, [GRIDS.md](GRIDS.md) |
+| 07.6 | DONE — optional Bento spans, plain-grid fallback for unsupported actual masonry, tested CSS imports | `src/css/grid-recipes.css`, `integration/web/` |
+| 07.7 | DONE for static examples — two different specimen pages, long text and source-order fixture at 320/768/1440 | `examples/grids/`, `tests/grids.test.ts` |
+| 07.8 | DONE — creator-owned weighted tracks, arbitrary breakpoints, safe independent CSS generation and empty grid systems | `src/grid/custom.ts` |
+
+**Gate:** All 37 entries accurately report support; a CSS-recipe entry has its selector. User-authored grids require no UF-CSS styling identity. The two specimens are static and do NOT certify real browser zoom, visual, keyboard or assistive-technology operation (Phase 09).
+
+### Phase 08 — Patterns and component contracts (DONE for contract, specimen and static-integration scope)
+
+**Goal met:** Optional behavior-first UI contracts across platforms without a forced component library, design language or styling framework.
+
+| Step | Result | Location |
+| --- | --- | --- |
+| 08.1 | **DONE:** Ten component task contracts (existing five preserved) with web/native semantics, keyboard/screen-reader guidance and applicable state reviews; pure operation transitions | `src/components/`, [COMPONENTS.md](COMPONENTS.md) |
+| 08.2 | **DONE:** Ten reference patterns (existing five preserved) with reading order, responsive rules, platform semantics and review states; custom patterns without built-in defaults | `src/patterns/`, [PATTERNS.md](PATTERNS.md) |
+| 08.3 | **DONE:** Optional `./patterns.css` export with prefixed layout-only hooks; real Tailwind v4, Bootstrap and packed-package import checks; no StyleX/native renderer forced into core | `src/css/pattern-recipes.css`, `integration/web/` |
+| 08.4 | **DONE for documented scope:** Keyboard, focus, screen-reader and native/Expo equivalent behavior, including limitations of source-only contracts | [COMPONENTS.md](COMPONENTS.md), `examples/components/native-mapping.md` |
+| 08.5 | **DONE for source/static scope:** Two locally interactive HTML specimens covering tabs, dialog, form, feedback, filters, table and empty states; state-transition and markup/source tests. Browser/device verification remains Phase 09 | `examples/components/`, `tests/components-patterns.test.ts` |
+
+**Gate:** Web and native may render differently but describe equivalent tasks and outcomes. Passing package compilation and source-level tests is NOT real keyboard/assistive-technology/device validation. User-authored contracts and zero built-in patterns are acceptable. **Next: Phase 09 — accessibility, visual regression and real runtime quality gates.**
+
+### Phase 09 — Accessibility, visual evidence and quality gates (PARTIAL: browser CI implemented; device/human verification pending)
+
+**Goal:** Actual browser operation must be measured; code compilation alone must never be represented as a passed accessibility audit.
+
+| Step | Result | Location |
+| --- | --- | --- |
+| 09.1 | **DONE for screenshot evidence:** 12 full-page light/dark screenshots from two independent product themes at 320/768/1440 CSS px. **NOT DONE:** approved pixel-diff baselines and true cross-browser visual regression. | `integration/browser/tests/browser-quality.spec.mjs`, CI artifacts |
+| 09.2 | **DONE for automated scope:** axe-core A/AA checks (WCAG 2, 2.1, 2.2 tags), real keyboard tests for focus, tabs/dialog/form/table, visible focus and page errors. **NOT DONE:** manual screen readers and all WCAG success criteria. | `integration/browser/`, `docs/TESTING.md` |
+| 09.3 | **DONE for bounded specimens:** real browser narrow and wide layout geometry, overflow, long Arabic text, 200% root-size stress, reduced motion and 320 CSS px (400%-equivalent reflow scenario). **NOT DONE:** native browser 200%/400% zoom verification and full RTL audit. | `integration/browser/tests/`, `examples/` |
+| 09.4 | **DONE for code/build scope only:** safe-area scrolling/metric accessible labels and font-scaling checks in Expo, TypeScript and Android Metro JS export. **NOT DONE:** actual Android/iOS emulator or physical-device runtime; manual checklist supplied. | `integration/expo/App.tsx`, `tests/native-quality.test.mjs`, `docs/TESTING.md` |
+| 09.5 | **DONE for initial CI:** sixth locked Playwright+axe browser workflow, screenshot/trace/HTML report artifacts, failure thresholds and documentation distinguishing code, browser, human and native evidence. | `.github/workflows/integration-browser.yml`, `integration/browser/package-lock.json` |
+
+**Gate status:** browser automation and compilation checks passed on the implementation baseline. Final Phase 09 quality/certification gate is **OPEN** until approved screenshot baselines, manual screen-reader/browser zoom tests and real mobile execution are complete. The system remains user-owned, framework-neutral and free of mandatory UI presets.
+
+### Phase 10 — AI agent automation and project CLI (DONE for inspect-first and consent-gated generation scope)
+
+**Goal met:** Help agents adopt a creator-owned foundation in existing projects, without enforcing styles or changing code on the basis of an automatic audit.
+
+| Step | Result | Location |
+| --- | --- | --- |
+| 10.1 | **DONE:** Agent skill explicitly detects Vanilla, Tailwind v3/v4, Bootstrap 5, StyleX, Expo/React Native and unknown stacks, preserves existing version and identity | `.agents/skills/universal-foundation-css/SKILL.md`, `docs/AI-AGENTS.md` |
+| 10.2 | **DONE:** Read-only `uf-css audit --project PATH [--format text|json]`; bounded, deterministic filesystem scan, evidence-based token duplicate/conflict reports, framework signals, CSS import/order and semantic review heuristics; safe unknown handling | `scripts/audit-project.mjs`, `scripts/lib/audit/project.mjs`, [AUDIT.md](AUDIT.md) |
+| 10.3 | **DONE (existing MVP):** Interactive user-owned `init` wizard and JSON config; dry-run preview and explicit `--yes` confirmation; opt-in output; no predetermined system | `scripts/init-project.mjs`, `scripts/lib/init/`, [WIZARD.md](WIZARD.md) |
+| 10.4 | **DONE:** Audit is stdout-only, never executes project scripts or writes project files; `init` keeps non-overwrite policy, prohibits symlink output and requires approval for actual generation. Installs/migrations are never implied by audit. | `scripts/`, `tests/audit-project.test.mjs`, `tests/builder.test.mjs` |
+| 10.5 | **DONE for portable skill/CLI tests:** Codex/Claude/Copilot agent guidance, example test prompts and skill installer coverage; test the installed packed `audit` on an independent project | `docs/AI-AGENTS.md`, `tests/skill-installer.test.ts`, `scripts/verify-packed-package.mjs` |
+| 10.6 | **DONE:** Explicit ChatGPT caveat: repository skill files are not installed automatically into ChatGPT or unrelated hosts | `docs/AI-AGENTS.md` |
+
+**Gate:** A sample existing project can be audited with a readable JSON/text report before any modification; adapters are recommended only with compatible evidence and never installed automatically. Changes are separately previewed and approved. **Future enhancement:** monorepo-aware visual inspection, interactive resume/edit, and actual product migrations require explicit scope/authorization and are not claimed complete here.
+
+### Phase 11 — Open-source prerelease and governance (READY FOR MAINTAINER REVIEW; NO PUBLICATION)
+
+**Goal:** Make a public prerelease possible with a reproducible, audited tarball, exact version controls and explicit maintainer authorization. This milestone is **not complete as an actual npm release** until a reviewed version is published and independently consumed.
+
+| Step | Implementation | Location |
+| --- | --- | --- |
+| 11.1 | **DONE for documentation review:** Reconcile public exports, README use cases, compatibility, security and contributor rules; retain optional design-language freedom | `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/COMPATIBILITY.md` |
+| 11.2 | **DONE:** Tighten published package file list to `dist/src` (exclude compiled tests); verify JS/declarations, CSS, raw adapters, CLI runtime files and secrets/test exclusions using actual `npm pack --dry-run`. Add prerelease SemVer rules and notes template | `scripts/verify-release-artifact.mjs`, `tests/release-gates.test.mjs`, [RELEASE.md](RELEASE.md) |
+| 11.3 | **DONE as untriggered workflow:** Manual-only GitHub Actions preflight validates source main/SHA, all six CI checks, exact prerelease version, locked install, packed consumer and tarball. Optional publish job requires opt-in repository variable, confirmation phrase, boolean confirmation and `npm-prerelease` environment, using npm OIDC trusted publishing (no token) | `.github/workflows/release.yml`, `scripts/check-release-ci.mjs` |
+| 11.4 | **PARTIAL:** Source `package.json` and root lockfile updated to `1.0.0` for user testing. **NOT DONE:** authorize registry publication, configure npm publisher or create a Git tag/GitHub release | Maintainer actions, not invoked |
+| 11.5 | **DONE for local packed tarball**, **NOT DONE for real npm prerelease:** Offline external tarball installation and framework consumers tested; public registry version cannot be tested before publication | `scripts/verify-packed-package.mjs`, `integration/` |
+| 11.6 | **PENDING:** Actual feedback, breaking API cleanup, independent consumer usage and future stable 1.0 gate | GitHub issues/releases after release |
+
+**Gate status:** source version `1.0.0` set for hands-on testing; release-readiness engineering implemented, npm publication is NOT authorized or complete. Phase 09 manual assistive tech/real native device gates remain open; no stable/WCAG certification claim. [Release procedure](RELEASE.md) details preconditions and approval boundaries.
+
+### Phase 12 — Consume from independent projects (EXTERNAL)
+
+**Goal:** Demonstrate reuse without merging company-specific work into UF-CSS.
+
+| Step | Separate project | Where the changes belong |
+| --- | --- | --- |
+| 12.1 | `kingbattash/amgyna-design-system` | Own colors, fonts, specific hierarchy priorities, chosen grids, StyleX component styles |
+| 12.2 | AMGYNA website | Consume `amgyna-design-system` (which in turn depends on a **versioned** UF-CSS package) |
+| 12.3 | AmyMail | Consume UF-CSS directly or through an independent AmyMail theme; one behavior contract across web/mobile |
+| 12.4 | Other personal or client projects | Adopt UF-CSS directly with separate identity and framework-appropriate adapter |
+
+**Gate:** UF-CSS does **not** depend on, import or embed AMGYNA or AmyMail. Updating a brand in one product cannot alter the universal defaults or another product's design.
+
+---
+
+## 5. Exactly where changes belong
+
+| Responsibility | Correct directory | Do **not** put it in |
+| --- | --- | --- |
+| Mathematical formulas & law descriptions | `src/foundation-formular/` | Brand CSS or component files |
+| Semantic meaning, state, accessibility roles | `src/semantic/` | Hex-only or framework-specific color classes |
+| Hierarchy specifications | `src/hierarchy/` | Tailwind/StyleX-only helpers in core |
+| Canonical raw design values | `tokens/source.tokens.json` | Hand-maintained duplicate adapter values |
+| Generated TypeScript token exports | `src/tokens/generated.ts` | Manual edits |
+| Layout/composition catalogs and mathematics | `src/grid/` | Every page's copied CSS |
+| Component **behavior contracts** | `src/components/` | React component implementations in core |
+| Cross-page pattern specifications | `src/patterns/` | Product-specific page copy |
+| Browser CSS recipes | `src/css/` | React Native styles |
+| Framework-specific adapters | `adapters/{tailwind-v3,tailwind-v4,bootstrap,stylex,react-native}/` | Canonical design-domain folders |
+| Consuming-app build examples | `integration/` and `examples/` | Universal library public API |
+| Token/theme/skill tooling, interactive builder | `scripts/`, `scripts/lib/init/` and `.agents/` | App UI source |
+| CI, tests and quality gates | `tests/` and `.github/workflows/` | Static README claims |
+| An organization's visual identity | **its own repository** | Universal Foundation CSS |
+
+### Target folder expansion (create incrementally; not everything exists today)
+
+```text
+Universal-Foundation-CSS/
+├── tokens/
+│   └── source.tokens.json              # canonical values (exists)
+├── src/
+│   ├── foundation-formular/
+│   │   ├── foundation.ts               # exists
+│   │   ├── formular.ts                 # exists
+│   │   ├── laws.ts                     # exists
+│   │   └── ratios.ts                   # planned
+│   ├── semantic/                       # extend existing definitions
+│   ├── hierarchy/
+│   │   ├── communication/              # planned subtypes
+│   │   ├── structural/                 # planned subtypes
+│   │   ├── visual-techniques/          # planned subtypes
+│   │   └── interactive/                # planned subtypes
+│   ├── tokens/                          # generated TS + roles
+│   ├── patterns/                        # framework-neutral specs
+│   ├── components/                      # behavior/state contracts
+│   ├── grid/
+│   │   ├── web/                         # planned recipes
+│   │   ├── editorial/                   # planned recipes
+│   │   ├── geometric/                   # planned constructions
+│   │   └── golden-canons/               # planned references
+│   └── css/                             # optional Vanilla CSS
+├── adapters/
+│   ├── tailwind-v3/
+│   ├── tailwind-v4/
+│   ├── bootstrap/
+│   ├── stylex/
+│   └── react-native/
+├── scripts/
+│   ├── generate-tokens.mjs             # exists
+│   ├── generate-project-theme.mjs      # exists
+│   ├── init-project.mjs                # planned
+│   └── audit-project.mjs               # planned
+├── examples/
+├── integration/
+│   ├── web/                            # exists
+│   └── expo/                           # exists
+├── tests/
+├── docs/
+│   ├── IMPLEMENTATION_PLAN.md          # this file
+│   ├── ROADMAP.md
+│   └── ...
+├── .agents/skills/universal-foundation-css/
+└── .github/workflows/
+```
+
+## 6. Release milestones and decision gates
+
+| Milestone | Must contain | Recommended release state |
+| --- | --- | --- |
+| **M0 — Experiment** | Phase 00 baseline and ongoing review | Current draft PR, not published |
+| **M1 — Reproducible core** | Phases 01–02 pass; deterministic, packed exports and canonical tokens | Internal alpha |
+| **M2 — Usable cross-framework foundation** | Phases 03–04; product themes and framework examples actually build | Public prerelease candidate |
+| **M3 — Design knowledge system** | Phases 05–08; detailed typed hierarchy, grid and pattern contracts | Beta API |
+| **M4 — Trusted delivery** | Phases 09–11; visual/accessibility evidence, AI tooling and versioned release | Public beta |
+| **M5 — Proven reuse** | Phase 12; at least two independent products consume one version without brand leakage | Stable 1.0 evaluation, not automatic |
+
+### Non-negotiable acceptance checks for every phase
+
+1. **Build:** `npm run verify` passes; generated files agree with canonical values.
+2. **Adapters:** update integration fixtures affected by changed tokens or exports.
+3. **Accessibility:** document semantic/interaction impact; validate it where applicable.
+4. **Documentation:** README/example usage is accurate and points to existing paths.
+5. **Portability and freedom:** no AMGYNA, AmyMail, or other consumer's values enter the universal core; no preset is a requirement; user-defined design choices are supported.
+6. **Review:** a focused PR explains what was implemented and which limitations remain.
+
+## 7. Immediate next action
+
+**Proceed to Phase 05: foundation formulas, validated mathematical rules and design guidance.** Phases 00–04 are complete for their explicitly limited experimental scopes. Continue to support independent product decisions; a mathematical relationship or historical canon is a reference, not a required UI template.
+
+Run all five CI workflows and `npm run verify` after changes. Do **not** merge the draft PR or publish npm without maintainer authorization. Automated browser/device accessibility and visual regression remain Phase 09 work.

@@ -1,0 +1,29 @@
+name: Verify packed framework consumer
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  packed-frameworks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            integration/web/package-lock.json
+      - name: Install locked package and framework toolchains
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --prefix integration/web --no-audit --no-fund
+      - name: Build distributable package
+        run: npm run build
+      - name: Install packed UF-CSS and compile real consumers
+        run: node integration/web/verify-packed.mjs

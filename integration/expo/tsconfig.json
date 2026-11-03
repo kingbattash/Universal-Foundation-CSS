@@ -1,0 +1,15 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "App.tsx",
+    "generated/native-theme.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "generated/*stylex*.ts"
+  ]
+}
