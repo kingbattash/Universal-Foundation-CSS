@@ -1,0 +1,26 @@
+name: Verify Expo integration
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  expo-adapter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Expo SDK 57 fixture
+        run: npm install --prefix integration/expo --no-package-lock --no-audit --no-fund
+      - name: Export Android JavaScript via Expo Metro
+        working-directory: integration/expo
+        run: npm run export:android
+      - name: Confirm exported bundle exists
+        run: |
+          test -d integration/expo/dist
+          find integration/expo/dist -type f | grep -E '\.(js|hbc)$'
