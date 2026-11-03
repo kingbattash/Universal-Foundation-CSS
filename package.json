@@ -26,7 +26,8 @@
     "./stylex": "./adapters/stylex/tokens.generated.stylex.ts",
     "./react-native": "./adapters/react-native/tokens.generated.ts",
     "./hierarchy.css": "./src/css/hierarchy-strategies.css",
-    "./grid.css": "./src/css/grid-recipes.css"
+    "./grid.css": "./src/css/grid-recipes.css",
+    "./patterns.css": "./src/css/pattern-recipes.css"
   },
   "files": [
     "dist",

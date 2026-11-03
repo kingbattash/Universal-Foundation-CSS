@@ -1,0 +1,42 @@
+/*
+ * Phase 08 — opt-in, unbranded composition helpers.
+ * These classes do not create buttons, dialogs, tabs or state transitions.
+ * The consumer owns typography, colors, gaps, responsive thresholds and behavior.
+ */
+@layer uf.pattern-recipes {
+  .uf-p-section { min-inline-size:0; }
+  .uf-p-split {
+    display:grid;
+    gap:var(--uf-p-gap,1rem);
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--uf-p-split-min,19rem)),1fr));
+  }
+  .uf-p-split > * { min-inline-size:0; }
+  .uf-p-toolbar {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:var(--uf-p-gap,0.75rem);
+  }
+  .uf-p-toolbar > * { min-inline-size:0; }
+  .uf-p-dashboard {
+    display:grid;
+    gap:var(--uf-p-gap,1rem);
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--uf-p-dashboard-min,17rem)),1fr));
+  }
+  .uf-p-dashboard > * { min-inline-size:0; }
+  .uf-p-table-scroll {
+    max-inline-size:100%;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+  }
+  .uf-p-auth {
+    inline-size:100%;
+    max-inline-size:var(--uf-p-auth-max,32rem);
+    margin-inline:auto;
+  }
+  .uf-p-fields {
+    display:grid;
+    gap:var(--uf-p-field-gap,1rem);
+  }
+  .uf-p-feedback { min-inline-size:0; overflow-wrap:anywhere; }
+}
