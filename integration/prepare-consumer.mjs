@@ -6,7 +6,7 @@
  * Usage: node integration/prepare-consumer.mjs expo|nextjs
  */
 import {spawnSync} from "node:child_process";
-import {mkdtemp,rm} from "node:fs/promises";
+import {mkdtemp,rm,mkdir,cp} from "node:fs/promises";
 import {tmpdir} from "node:os";
 import {dirname,join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
@@ -28,9 +28,18 @@ try{
   const packageData=JSON.parse(run(npm,["pack","--json","--ignore-scripts","--pack-destination",temp]));
   assert.equal(packageData.length,1);
   const tarball=join(temp,packageData[0].filename);
-  run(npm,["install","--prefix",consumer,"--offline","--ignore-scripts",
+  // npm-install the exact packed tarball in a disposable isolated consumer,
+  // then copy that installed package into the framework's locked node_modules.
+  // This avoids npm re-resolving all of Next.js/Expo dependencies after npm ci.
+  const isolated=join(temp,"isolated");
+  run(npm,["install","--prefix",isolated,"--offline","--ignore-scripts",
     "--no-save","--no-audit","--no-fund","--package-lock=false","--omit=optional",tarball]);
-  const cli=join(consumer,"node_modules","@kingbattash","universal-foundation-css","scripts","cli.mjs");
+  const packagePath=join("node_modules","@kingbattash","universal-foundation-css");
+  const installed=join(isolated,packagePath);
+  const target=join(consumer,packagePath);
+  await mkdir(dirname(target),{recursive:true});
+  await cp(installed,target,{recursive:true,force:true});
+  const cli=join(target,"scripts","cli.mjs");
   const source=join(root,"examples/project-theme",
     targetName==="expo"?"operations.v2.json":"editorial.v2.json");
   run(process.execPath,[cli,"theme","--config",source,"--out",join(consumer,"generated"),"--force"]);
