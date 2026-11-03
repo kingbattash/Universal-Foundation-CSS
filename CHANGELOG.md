@@ -4,6 +4,9 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Canonical DTCG-style neutral token source with deterministic validation and generated exports.
+- Tailwind v3/v4, Bootstrap, StyleX and React Native adapter files, plus token-parity tests.
+- Adapter installation guide and cross-framework skill instructions.
 - Public Apache-2.0 license and community guidelines.
 - Seven-domain TypeScript foundation (formulas, semantic, hierarchy, tokens, patterns, components and grid).
 - Optional neutral CSS adapter and plain HTML example.

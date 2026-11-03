@@ -130,7 +130,7 @@ npm test       # Formula, registry and contract tests
 npm run verify # Type-check and tests
 ```
 
-CI checks generated token parity and the TypeScript/test suite for pull requests. Automated browser-level accessibility and cross-device visual tests remain future work.
+CI checks generated token parity and the TypeScript/test suite for pull requests. Full framework builds, browser visual validation and Expo runtime tests are not yet included. Automated browser-level accessibility and cross-device visual tests remain future work.
 
 ## Architecture and roadmap
 

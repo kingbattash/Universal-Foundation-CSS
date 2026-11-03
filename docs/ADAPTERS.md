@@ -1,0 +1,140 @@
+# Adapter setup and compatibility
+
+All generated adapter values come from [one DTCG-style source](../tokens/source.tokens.json). The core package does not require Tailwind, Bootstrap, StyleX, or React Native.
+
+**Current release state:** these adapter files are available on the `feat/foundation-v0` branch. This repository has **not published an npm version yet**. Code examples below use the intended package entry points after a local workspace link or future publish.
+
+## Generate from source
+
+```bash
+npm install
+npm run generate:tokens
+npm run check:tokens
+npm run verify
+```
+
+Change only `tokens/source.tokens.json` for canonical color, spacing, type, motion and layout values. Run `npm run generate:tokens` and commit both source and generated files. The generator validates supported DTCG token types and typed curly-brace aliases, including missing/circular references; it is **not yet a complete DTCG conformance validator**, and does not implement `$extends`, JSON Pointer aliases or all composite types.
+
+## Vanilla HTML / CSS
+
+```html
+<link rel="stylesheet" href="./path/to/src/css/foundation.css" />
+<section class="uf-container">
+  <div class="uf-grid" style="--uf-grid-min: 220px">
+    <article>Item one</article><article>Item two</article>
+  </div>
+</section>
+```
+
+The stylesheet uses an `@import` of generated neutral tokens, CSS layers and `uf-`-prefixed opt-in utility classes. It does not add a global reset. You can provide product identity with custom variables:
+
+```css
+:root {
+  --uf-action: #123d91;
+  --uf-action-hover: #0b3075;
+  --uf-on-action: #ffffff;
+}
+```
+
+Load the project override **after** UF-CSS. Preserve sufficient color contrast.
+
+## Tailwind CSS v4
+
+In your application's entry CSS:
+
+```css
+@import "tailwindcss";
+@import "@kingbattash/universal-foundation-css/css";
+@import "@kingbattash/universal-foundation-css/tailwind-v4";
+```
+
+Example classes: `bg-uf-canvas text-uf-text p-uf-4 rounded-uf-lg`. The `@theme inline` mapping references `--uf-*` variables and is processed by **Tailwind v4**. Do **not** import this adapter into a plain CSS pipeline without Tailwind.
+
+Tailwind generates only classes it can detect in your source; ensure your project includes relevant static class names. Changing semantic roles in the consumer updates the underlying variables.
+
+## Tailwind CSS v3
+
+`tailwind.config.cjs`:
+
+```js
+module.exports = {
+  presets: [require("@kingbattash/universal-foundation-css/tailwind-v3")],
+  content: ["./src/**/*.{js,ts,jsx,tsx,html}"],
+}
+```
+
+Import UF-CSS in your CSS entry so the `--uf-*` variables exist. Example utilities: `bg-uf-action`, `p-uf-4`. Opacity modifier syntax for color utilities is **not provided** by these simple `var()` mappings; use semantic color tokens or extend the preset deliberately.
+
+## Bootstrap 5.3
+
+Import order is important:
+
+```ts
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@kingbattash/universal-foundation-css/css";
+import "@kingbattash/universal-foundation-css/bootstrap";
+```
+
+This starter adapter maps root body, text, border, link and primary/status values, plus selected `.btn-primary` local variables. It also produces Bootstrap `--bs-*-rgb` values for the included light and dark themes.
+
+For the built-in dark theme, use a common ancestor with `data-bs-theme="dark"`. UF-CSS tokens support both that selector and `data-uf-theme="dark"`.
+
+**Limitations:** Bootstrap uses component-specific variables and Sass-generated values. This adapter is **not a full Bootstrap theme compiler**. If your product changes primary colors, the generated RGB values may need regeneration, and other Bootstrap components may need additional mappings.
+
+## React / StyleX
+
+Example when a StyleX compiler is configured in the consumer:
+
+```tsx
+import * as stylex from "@stylexjs/stylex"
+import { ufVars, ufDarkTheme } from "@kingbattash/universal-foundation-css/stylex"
+
+const styles = stylex.create({
+  block: {
+    backgroundColor: ufVars.surface,
+    color: ufVars.text,
+    padding: ufVars.space4,
+    borderRadius: ufVars.radiusLg,
+  },
+})
+
+export function Sample() {
+  return <section {...stylex.props(styles.block)}>Content</section>
+}
+```
+
+Apply `ufDarkTheme` on a theme subtree using `stylex.props`. This adapter includes generated variables and a dark theme, but is **not yet verified in a complete Next.js/StyleX production build**. The consuming toolchain must process the distributed `.stylex.ts` file; plain Node cannot execute it without a compatible loader.
+
+## React Native / Expo
+
+```tsx
+import { StyleSheet, Text, View } from "react-native"
+import { ufNativeTokens } from "@kingbattash/universal-foundation-css/react-native"
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: ufNativeTokens.colors.surface,
+    padding: ufNativeTokens.space["4"],
+    borderRadius: ufNativeTokens.radius.lg,
+  },
+})
+
+export function Example() {
+  return <View style={styles.card}><Text>Native foundation</Text></View>
+}
+```
+
+The generated values are numbers appropriate as **density-independent layout starting points**; they are not browser CSS strings. For typography, respect system font scaling, safe areas and platform-specific conventions. The generated adapter is **not a ready-made React Native component library**, and has not yet undergone Expo runtime testing.
+
+## Other technologies
+
+Vue, Angular, Svelte, Astro, Rails, Laravel, plain HTML or templating systems can use the Vanilla CSS output. An additional native or CSS-in-JS framework can consume the canonical DTCG-style tokens and implement its own generator.
+
+## Source of truth and theme override policy
+
+1. Edit `tokens/source.tokens.json` for public default design values.
+2. Regenerate the outputs; do **not** edit a `*.generated.*` file.
+3. For a project's brand, override semantic roles or create a product theme **outside** this neutral package.
+4. Keep shared component meaning, focus and feedback contracts; platform interaction patterns may differ.
+5. Verify generated-output parity with `npm run check:tokens`.
+6. Test actual browser and native integration in your consuming project before claiming production compatibility.
