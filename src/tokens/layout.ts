@@ -8,7 +8,7 @@ export const layoutTokens = {
   readingMeasureCh: generatedTokens.layout.readingMeasure,
   gutterMobilePx: generatedTokens.layout.gutterMobile,
   gutterDesktopPx: generatedTokens.layout.gutterDesktop,
-  gridColumnCount: 12,
+  gridColumnCount: generatedTokens.layout.gridColumnCount,
   touchTargetRecommendedPx: generatedTokens.layout.touchTarget,
   breakpointsPx: foundation.breakpointsPx,
 } as const

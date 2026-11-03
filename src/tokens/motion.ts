@@ -10,7 +10,7 @@ export const motionTokens = {
   },
   easing: {
     emphasized: `cubic-bezier(${generatedTokens.motion.standardEasing.join(", ")})`,
-    standard: "ease",
+    standard: `cubic-bezier(${generatedTokens.motion.easeEasing.join(", ")})`,
   },
   reducedMotion: "Reduce or eliminate nonessential transitions; meaning must remain available.",
 } as const

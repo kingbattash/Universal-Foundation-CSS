@@ -40,6 +40,14 @@ const buildOutputs = function buildOutputs(source) {
   properties["--uf-leading-body"]=cssValue("core.type.bodyLineHeight");
   for(const name of Object.keys(source.core.motion)) properties[`--uf-motion-${name.replace(/([A-Z])/g,"-$1").toLowerCase()}`]=cssValue(`core.motion.${name}`);
   for(const name of colorNames){properties[`--uf-${name.replace(/([A-Z])/g,"-$1").toLowerCase()}`]=cssValue(`semantic.${name}`)}
+  // Every neutral core primitive has a stable namespaced CSS value, including
+  // new optional role categories. Legacy semantic aliases remain compatible.
+  const kebab = part => part.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+  for (const path of resolved.keys()) {
+    if (!path.startsWith("core.")) continue;
+    const variable = "--uf-" + path.slice("core.".length).split(".").map(kebab).join("-");
+    properties[variable] = cssValue(path);
+  }
   for(const [name,value] of Object.entries(properties))lines.push(`    ${name}: ${value};`);
   lines.push("  }",'  [data-uf-theme="dark"], [data-bs-theme="dark"] {');
   for(const name of colorNames){const cssName=name.replace(/([A-Z])/g,"-$1").toLowerCase();lines.push(`    --uf-${cssName}: ${cssValue(`themes.dark.${name}`)};`)}
@@ -48,9 +56,13 @@ const buildOutputs = function buildOutputs(source) {
   const coreValues={colors:Object.fromEntries(Object.keys(source.core.color).map(name=>[name,pick(`core.color.${name}`).hex])),
     spacePx:Object.fromEntries(Object.keys(source.core.space).map(name=>[name,pick(`core.space.${name}`).value])),
     radiusPx:Object.fromEntries(Object.keys(source.core.radius).map(name=>[name,pick(`core.radius.${name}`).value])),
-    layout:Object.fromEntries(Object.keys(source.core.layout).map(name=>[name,resolved.get(`core.layout.${name}`).type==="number"?pick(`core.layout.${name}`):pick(`core.layout.${name}`).value])),
-    type:Object.fromEntries(Object.keys(source.core.type).map(name=>[name,["fontHeading","fontBody"].includes(name)||resolved.get(`core.type.${name}`).type==="number"?pick(`core.type.${name}`):pick(`core.type.${name}`).value])),
-    motion:Object.fromEntries(Object.keys(source.core.motion).map(name=>[name,name==="standardEasing"?pick(`core.motion.${name}`):pick(`core.motion.${name}`).value])),
+    layout:Object.fromEntries(Object.keys(source.core.layout).map(name=>[name,resolved.get(`core.layout.${name}`).type==="dimension"?pick(`core.layout.${name}`).value:pick(`core.layout.${name}`)])),
+    type:Object.fromEntries(Object.keys(source.core.type).map(name=>[name,resolved.get(`core.type.${name}`).type==="dimension"?pick(`core.type.${name}`).value:pick(`core.type.${name}`)])),
+    motion:Object.fromEntries(Object.keys(source.core.motion).map(name=>[name,resolved.get(`core.motion.${name}`).type==="duration"?pick(`core.motion.${name}`).value:pick(`core.motion.${name}`)])),
+    scale:Object.fromEntries(Object.keys(source.core.scale).map(name=>[name,pick(`core.scale.${name}`)])),
+    density:Object.fromEntries(Object.keys(source.core.density).map(name=>[name,pick(`core.density.${name}`).value])),
+    zIndex:Object.fromEntries(Object.keys(source.core.zIndex).map(name=>[name,pick(`core.zIndex.${name}`)])),
+    elevation:Object.fromEntries(Object.keys(source.core.elevation).map(name=>[name,pick(`core.elevation.${name}`)])),
     light:Object.fromEntries(colorNames.map(name=>[name,pick(`semantic.${name}`).hex])),
     dark:Object.fromEntries(colorNames.map(name=>[name,pick(`themes.dark.${name}`).hex])),
   };
@@ -59,6 +71,7 @@ const buildOutputs = function buildOutputs(source) {
   const vars=name=>`var(--uf-${name.replace(/([A-Z])/g,"-$1").toLowerCase()})`;
   const twColors=Object.fromEntries(colorNames.map(name=>[`uf-${name.replace(/([A-Z])/g,"-$1").toLowerCase()}`,vars(name)]));
   const twSpace=Object.fromEntries(Object.keys(source.core.space).map(k=>[`uf-${k}`,`var(--uf-space-${k})`]));
+  for (const k of Object.keys(source.core.density)) twSpace[`uf-density-${k}`] = `var(--uf-density-${k})`;
   const twRadius=Object.fromEntries(Object.keys(source.core.radius).map(k=>[`uf-${k}`,`var(--uf-radius-${k})`]));
   files["adapters/tailwind-v3/preset.generated.cjs"]=`/* Generated — Tailwind v3 theme preset. Also import UF-CSS tokens CSS. */\nmodule.exports = ${JSON.stringify({theme:{extend:{colors:twColors,spacing:twSpace,borderRadius:twRadius,maxWidth:{"uf-content":"var(--uf-content-max)","uf-reading":"var(--uf-reading-max)"},fontFamily:{"uf-body":["var(--uf-font-body)"],"uf-heading":["var(--uf-font-heading)"]}}}},null,2)}\n`;
   const t4=["/* Generated — import after Tailwind v4 and UF-CSS tokens. */","@theme inline {"];
@@ -87,10 +100,16 @@ const buildOutputs = function buildOutputs(source) {
     ...Object.fromEntries(Object.keys(source.core.space).map(k=>[`space${k}`,`${coreValues.spacePx[k]}px`])),
     ...Object.fromEntries(Object.keys(source.core.radius).map(k=>[`radius${k}`,`${coreValues.radiusPx[k]}px`])),
     motionFast:`${coreValues.motion.fast}ms`,motionStandard:`${coreValues.motion.standard}ms`};
+  Object.assign(stylexVars,
+    ...["scale","density","zIndex","elevation"].map(group => Object.fromEntries(
+      Object.entries(coreValues[group]).map(([name,value])=>[group+name[0].toUpperCase()+name.slice(1),typeof value==="number"&&group==="density"?value+"px":value])
+    ))
+  );
   files["adapters/stylex/tokens.generated.stylex.ts"]=`/** Generated — requires the consuming app's StyleX compiler. */\nimport * as stylex from "@stylexjs/stylex"\n\nexport const ufVars = stylex.defineVars(${JSON.stringify(stylexVars,null,2)})\n\nexport const ufDarkTheme = stylex.createTheme(ufVars, ${JSON.stringify(coreValues.dark,null,2)})\n`;
   const nativeValues={colors:coreValues.light,darkColors:coreValues.dark,space:coreValues.spacePx,radius:coreValues.radiusPx,
     typography:{bodySize:coreValues.type.bodySize,captionSize:coreValues.type.captionSize,displayMin:coreValues.type.displayMin,displayMax:coreValues.type.displayMax,bodyLineHeight:coreValues.type.bodyLineHeight,headingLineHeight:coreValues.type.headingLineHeight},
-    layout:coreValues.layout,motionMs:Object.fromEntries(Object.entries(coreValues.motion).filter(([name])=>name!=="standardEasing"))};
+    layout:coreValues.layout,scale:coreValues.scale,density:coreValues.density,zIndex:coreValues.zIndex,elevation:coreValues.elevation,
+    motionMs:Object.fromEntries(Object.entries(coreValues.motion).filter(([name])=>!name.endsWith("Easing")))};
   files["adapters/react-native/tokens.generated.ts"]=`/** Generated — React Native numbers represent dp/pt starting points. Adjust font scaling per platform. */\nexport const ufNativeTokens = ${JSON.stringify(nativeValues,null,2)} as const\n`;
   return files;
 };
