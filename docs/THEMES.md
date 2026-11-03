@@ -1,83 +1,85 @@
-# Create a project-specific identity without changing UF-CSS
+# Create your own project theme with UF-CSS
 
-**Universal Foundation CSS is not a brand.** A consuming project owns its own colors, fonts, logo, content hierarchy and component appearance. The universal foundation provides shared token roles and accessibility constraints.
+**Universal Foundation CSS is a framework-neutral construction toolkit, not a visual design system.** Your project owns its palette, typography, spacing, density, radii, motion, component states, hierarchy and grid.
 
-The theme generator supports **semantic colors** in light and dark modes. Font selections, geometry, motion and layout remain configurable in the consuming project; a larger typed-theme schema is planned.
+There are two formats. For **new projects**, use **v2 independent themes**, which never load UF-CSS neutral starter values. The old v1 neutral-starter format remains available only for backwards compatibility.
 
-## Example
+## Create an independent project theme (v2)
 
-From a local checkout of this repository:
+Two completely different sample systems are provided:
 
-```bash
+- [Copper Editorial](../examples/project-theme/editorial.v2.json): warm cream and deep wine colors, serif typography, sharp corners, 7px/29px spacing.
+- [Harbor Operations](../examples/project-theme/operations.v2.json): blue operational colors, sans-serif typography, rounded corners, 5px/17px spacing.
+
+Both include their own light/dark colors, type families/weights, spacing, card radii, interaction durations, explicit Tailwind/Bootstrap mappings and contrast checks. Neither inherits a palette, font, spacing system, hierarchy or grid from UF-CSS.
+
+\`\`\`bash
+# From the current Git checkout:
 node scripts/generate-project-theme.mjs \
-  --config examples/project-theme/theme.json \
-  --out ../your-project/styles/universal
-```
+  --config examples/project-theme/editorial.v2.json \
+  --out ./generated/editorial
 
-Theme configurations use a constrained JSON format:
+# Generate an unrelated product using the same universal toolkit:
+node scripts/generate-project-theme.mjs \
+  --config examples/project-theme/operations.v2.json \
+  --out ./generated/operations
+\`\`\`
 
-```json
+The generator writes eight outputs: \`theme.css\`, \`tailwind-v3.cjs\`, \`tailwind-v4.css\`, \`bootstrap.css\`, \`stylex-vars.stylex.ts\`, \`stylex-theme.stylex.ts\`, \`native-theme.ts\` and \`theme.manifest.json\`.
+
+The design configuration is **canonical**. A theme mode overrides only the tokens you explicitly select. See [THEME-CONTRACT.md](THEME-CONTRACT.md) for the complete format, ordering rules, color contrast behavior, framework imports and migration policy.
+
+### Preview and use in your project
+
+Open the v2 JSON file to review your own chosen values. Each generated \`theme.css\` contains light/dark properties named \`--<project-name>-<your-token-path>\`.
+
+Example (Copper Editorial):
+
+\`\`\`css
+@import "./generated/editorial/theme.css";
+@import "./generated/editorial/tailwind-v4.css";
+\`\`\`
+
+With Tailwind v4, include \`@import "tailwindcss";\` first. With Bootstrap, load Bootstrap CSS, then both generated \`theme.css\` and \`bootstrap.css\`. For StyleX and React Native, import the selected generated source modules through the consuming app's toolchain.
+
+No UI components are automatically created or visually imposed. If your app never selects a grid, the theme generator will not invent a grid.
+
+### Accessibility-aware color choices
+
+Users can explicitly define pairs such as text/canvas, action-label/button, link/canvas, hover labels and focus/background in \`contrastChecks\`. The tool validates all chosen modes and **rejects insufficient ratios with a clear error**, without changing the palette silently. The sample configs include five checks per mode.
+
+The checks are not a substitute for browser and device testing or complete accessibility audits.
+
+### Non-destructive updates
+
+\`\`\`bash
+# Check if generated files are still current without writing
+node scripts/generate-project-theme.mjs --config examples/project-theme/editorial.v2.json --out ./generated/editorial --check
+
+# Explicitly approve replacing generated output
+node scripts/generate-project-theme.mjs --config examples/project-theme/editorial.v2.json --out ./generated/editorial --force
+\`\`\`
+
+A fresh generate refuses to overwrite an existing output file unless \`--force\` is provided. Use your **own project folder** for production theme configurations and generated CSS.
+
+## Legacy neutral-starter themes (v1)
+
+A legacy file without \`schemaVersion\` (or with \`schemaVersion:1\`) uses the optional neutral-starter palette and overrides named semantic roles:
+
+\`\`\`json
 {
-  "name": "example-product",
-  "light": {
-    "action": "#005bbb",
-    "actionHover": "#004b99",
-    "onAction": "#ffffff",
-    "focus": "#005bbb"
-  },
-  "dark": {
-    "action": "#8cb4ff",
-    "actionHover": "#bad0ff",
-    "onAction": "#111111",
-    "focus": "#8cb4ff"
-  }
+  "name":"legacy-example",
+  "light":{"action":"#005bbb","onAction":"#ffffff"},
+  "dark":{"action":"#8cb4ff","onAction":"#111111"}
 }
-```
+\`\`\`
 
-Only existing semantic color roles are accepted. Colors must be **six-digit hex** and are compared against WCAG 2.x relative luminance guidance. Text/canvas and on-action/action colors must reach 4.5:1; focus/canvas targets 3:1. These are useful automated checks, **not full accessibility audits**.
+Existing [legacy v1 example](../examples/project-theme/theme.json) and its five-file outputs continue to work. Only known starter semantic color roles are permitted in v1. For new custom systems with arbitrary colors, fonts and roles, **choose v2**.
 
-The command creates these outputs in the selected directory:
+The v1 path generates \`theme.css\`, \`bootstrap.css\`, \`stylex-theme.ts\`, \`native-theme.ts\` and \`theme.manifest.json\`. This remains distinct from the eight-file v2 format. Do not mix the two formats' variable prefixes or import instructions.
 
-| File | Purpose |
-| --- | --- |
-| `theme.css` | Unlayered semantic `--uf-*` overrides; works with Vanilla CSS and Tailwind |
-| `bootstrap.css` | Bootstrap RGB channel overrides for the selected palette |
-| `stylex-theme.ts` | Light/dark `stylex.createTheme(ufVars, ...)` definitions |
-| `native-theme.ts` | Typed light/dark palettes for React Native |
-| `theme.manifest.json` | Theme identity, semantic roles and selected contrast values |
+## What UF-CSS does not do
 
-The tool is intentionally non-destructive: it refuses to overwrite existing generated files without `--force`. Use `--check` to detect outdated outputs.
+It does not import another company's design system, create a brand, choose fonts or grid systems on your behalf, force a visual hierarchy, rewrite React components, install packages, deploy websites, or claim full DTCG/WCAG certification. The current package is an **experimental draft PR** and is not published to npm.
 
-```bash
-node scripts/generate-project-theme.mjs --config theme.json --out styles/universal --check
-# Only for deliberate regeneration:
-node scripts/generate-project-theme.mjs --config theme.json --out styles/universal --force
-```
-
-## Import order
-
-For ordinary CSS:
-
-```css
-@import "@kingbattash/universal-foundation-css/css";
-@import "./styles/universal/theme.css";
-```
-
-For Bootstrap 5.3, after importing Bootstrap and the UF-CSS Bootstrap adapter, also import **both** `theme.css` and `bootstrap.css`. See [adapter docs](ADAPTERS.md).
-
-For Tailwind v4, import `theme.css` after the UF-CSS foundation CSS and its generated `@theme` mapping. For Tailwind v3, load it after UF-CSS tokens CSS.
-
-For StyleX, compile the generated theme file with your app's StyleX Babel/PostCSS integration and apply the exported `projectLightTheme` / `projectDarkTheme` on appropriate subtrees.
-
-For React Native, use `projectNativeTheme.light` or `.dark` with `StyleSheet` and the design foundation's numeric spacing and typography tokens.
-
-## What the generator does NOT do
-
-- Does not change the public UF-CSS source tokens or any existing project's branding.
-- Does not create or modify React components, CSS utilities, navigation or layouts.
-- Does not install dependencies, run network requests or publish packages.
-- Does not generate a complete Bootstrap Sass theme or guarantee visual equivalence.
-- Does not verify focus behavior, state labels, RTL, motion or native font scaling.
-- Does not currently support custom typography, spacing, radius or motion role overrides.
-
-A project's versioned theme config should live in the **consuming project**, not in the universal foundation source.
+See also [CUSTOM_SYSTEMS.md](CUSTOM_SYSTEMS.md) for a low-level generator that accepts wholly original DTCG token files without any theme modes, and [WIZARD.md](WIZARD.md) for the optional interactive setup questions.
