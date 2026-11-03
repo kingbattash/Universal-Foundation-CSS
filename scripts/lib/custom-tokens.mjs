@@ -76,6 +76,9 @@ export function parseTokens(source) {
       if (type && type !== target.type) error("Alias type mismatch: " + path);
       type = target.type;
       value = target.value;
+      const record = { type, value }; // referenced value was validated already
+      cache.set(path, record);
+      return record;
     }
     if (!type) error("Missing $type: " + path);
     const record = { type, value: validate(type, value, path) };
