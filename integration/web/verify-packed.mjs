@@ -94,10 +94,15 @@ try{
 
   const bootstrapFile=join(consumer,"bootstrap.css");
   const bootstrapPath=require.resolve("bootstrap/dist/css/bootstrap.min.css");
+  // postcss-import does not resolve exports-subpath specifiers directly.
+  // Resolve the actual installed package export through Node first.
+  const installedRequire=createRequire(join(consumer,"consumer.cjs"));
+  const foundationCss=installedRequire.resolve("@kingbattash/universal-foundation-css/css");
+  const adapterCss=installedRequire.resolve("@kingbattash/universal-foundation-css/bootstrap");
   await writeFile(bootstrapFile,[
     '@import "'+bootstrapPath+'";',
-    '@import "@kingbattash/universal-foundation-css/css";',
-    '@import "@kingbattash/universal-foundation-css/bootstrap";',
+    '@import "'+foundationCss+'";',
+    '@import "'+adapterCss+'";',
     '@import "./theme/theme.css";',
     '@import "./theme/bootstrap.css";'
   ].join("\n"));
