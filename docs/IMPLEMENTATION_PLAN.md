@@ -157,19 +157,19 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Explicit limitations:** No automatic browser screenshot or keyboard/screen-reader audit, no physical Android/iOS device verification, no universal component styling system, no full Bootstrap Sass theme and no guarantee for every future Next.js or Expo version. These are outside the Phase 04 build acceptance gate and tracked in Phase 09 / later compatibility work. The Next.js example uses an optional community StyleX SWC plugin, not a core dependency.
 
-### Phase 05 — Mathematical foundation and UX principles
+### Phase 05 — Mathematical foundation and UX principles (DONE: pure-library scope)
 
-**Goal:** Provide reusable, documented calculations rather than arbitrary numbers.
+**Goal met:** Reusable, tested mathematical calculations without requiring any specific palette, typographic style, framework, grid or UX aesthetic. Existing public helpers remain available.
 
-| Step | Work | Location |
+| Step | Result | Location |
 | --- | --- | --- |
-| 05.1 | Normalize existing `foundation.ts` and `formular.ts` APIs | `src/foundation-formular/` |
-| 05.2 | Modular scales, fluid `clamp()`, responsive interpolation, spacing scales, grid track calculation | `src/foundation-formular/formular.ts` |
-| 05.3 | Golden ratio, Fibonacci relationships, root rectangles, thirds and geometric construction utilities where mathematically justified | `src/foundation-formular/ratios.ts`, `src/grid/formulas.ts` |
-| 05.4 | Document Fitts's, Hick–Hyman, Jakob's, Gestalt and relevant UX laws with practical application **and caveats** | `src/foundation-formular/laws.ts`, `docs/RESEARCH.md` |
-| 05.5 | Add property/boundary tests for monotonic scales, invalid input, layout overflows and rounding | `tests/formular.test.ts` |
+| 05.1 | **DONE:** Preserve existing `foundation`, `modularScale`, `fluidClamp`, `columnWidth` and contrast behavior, strengthen invalid-input validation | `src/foundation-formular/{foundation,formular}.ts` |
+| 05.2 | **DONE:** User-defined spacing series, finite interpolation, responsive fluid evaluation, arbitrary padded grid geometry and span calculations | `src/foundation-formular/formular.ts`, `src/grid/formulas.ts` |
+| 05.3 | **DONE:** Safe Fibonacci integers and convergent ratios, optional golden rectangles, root rectangles, rule-of-thirds and phi guide coordinates | `src/foundation-formular/ratios.ts`, `src/grid/formulas.ts` |
+| 05.4 | **DONE for documented model scope:** Calibrated Fitts / Hick–Hyman index and timing helpers, qualitative Jakob/Gestalt/disclosure and explicit evidence limitations | `src/foundation-formular/laws.ts`, [RESEARCH.md](RESEARCH.md) |
+| 05.5 | **DONE for TypeScript and numerical scope:** Bounds, monotonic behavior, grid reconstruction, overflow, rounding and no-framework dependency tests | `tests/formular.test.ts` |
 
-**Gate:** formulas are pure, typed, testable, unit-documented and independent of React, Tailwind or StyleX. There is **no invented universal “No. 1 UX law.”**
+**Gate:** Public mathematics remain pure TypeScript and independent of DOM, Tailwind, React, StyleX and React Native. Formula outputs are unit-documented and testable. No claims of universal UX rules, model calibration, WCAG certification, browser visual QA or human preference optimization. Follow-on phase: **06 (semantic and hierarchy).**
 
 ### Phase 06 — Semantics and hierarchy
 

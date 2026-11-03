@@ -4,6 +4,10 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 05 mathematical foundation: user-authored spacing series, responsive numerical interpolation, CSS fluid evaluation, arbitrary padded grid layouts/spans and golden/thirds composition guides.
+- Safe Fibonacci and golden-rectangle helpers; runtime bounds/overflow checks while keeping legacy mathematical exports.
+- Optional calibrated Fitts and Hick–Hyman quantitative models with explicit coefficients and research caveats; no invented universal UX scores.
+- Phase 05 evidence document and property/boundary tests for geometry and interaction formulas.
 - Phase 04 packed-package framework consumers verified via real Tailwind v3/v4 CLI, Bootstrap PostCSS bundler, StyleX Babel and native TypeScript compilation.
 - Independent Next.js App Router + community StyleX SWC plugin example, passing a production Webpack build with a locally packed UF-CSS and creator-owned theme.
 - Independent Expo SDK 57 consumer using the locally packed native adapter, safe-area-context, font scaling, light/dark theme and Android Metro JS export.

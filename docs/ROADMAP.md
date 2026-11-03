@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–04 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 05 — foundation mathematics and design guidance.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–04 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 06 — semantic models and hierarchy category specifications.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -64,6 +64,14 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [ ] Add browser screenshot, device runtime and interaction/accessibility validation to those fixtures
 - [x] Canonicalize existing starter typography values, responsive bounds, modular ratio, density, motion, z-order and optional elevation-level examples
 - [ ] Pursue complete DTCG 2025.10 validation and resolver behavior when standardized tooling/schema is available; current strict profile is documented in TOKEN-CONTRACT.md
+
+## Phase 05 — mathematics and UX evidence (DONE for library/test scope)
+- [x] Preserve existing modular scale, spacing, fluid CSS, contrast and basic geometry API
+- [x] Add pure interpolation, fluid evaluation, arbitrary spacing steps, padded arbitrary-column grid layouts and span measurement
+- [x] Add safe Fibonacci ratios, golden rectangles, rule-of-thirds and golden-section guides
+- [x] Document Fitts/Hick–Hyman calibrated models and qualitative Jakob/Gestalt/progressive-disclosure caveats
+- [x] Add boundary, monotonicity, overflow and geometry tests; see [RESEARCH.md](RESEARCH.md)
+- [ ] Calibrate empirical models on real product users; browser/device visual audits (Phase 09)
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples
