@@ -104,16 +104,29 @@ jobs:
         with:
           name: uf-css-prerelease-candidate
           path: release-artifact
-      - name: Verify downloaded artifact is a single prerelease package
+      - name: Verify downloaded artifact is exactly the candidate package
         env:
           CANDIDATE_VERSION: ${{ inputs.candidate_version }}
         run: |
-          bash -euo pipefail -c '
-            shopt -s nullglob
-            files=(release-artifact/*.tgz)
-            (( ${#files[@]} == 1 )) || { echo "Expected exactly one reviewed tarball" >&2; exit 1; }
-            npm pack --dry-run --json --ignore-scripts "${files[0]}" >/dev/null
-            node -e '''const p=require("./package.json");if(p.version!==process.env.CANDIDATE_VERSION)process.exit(1)'''
+          shopt -s nullglob
+          files=(release-artifact/*.tgz)
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "Expected exactly one reviewed tarball" >&2
+            exit 1
+          fi
+          tar -xOf "${files[0]}" package/package.json | node -e '
+            let data="";
+            process.stdin.setEncoding("utf8");
+            process.stdin.on("data",part=>data+=part);
+            process.stdin.on("end",()=>{
+              const packed=JSON.parse(data);
+              const source=require("./package.json");
+              if(packed.name!==source.name ||
+                 packed.version!==process.env.CANDIDATE_VERSION ||
+                 source.version!==process.env.CANDIDATE_VERSION)
+                throw Error("Downloaded tarball does not match reviewed candidate");
+              console.log("PASS: downloaded tarball name/version match authorized candidate");
+            });
           '
       - name: Publish only after environment review and npm OIDC trusted publisher authentication
         env:
