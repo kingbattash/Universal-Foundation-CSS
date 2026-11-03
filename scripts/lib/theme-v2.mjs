@@ -61,7 +61,7 @@ function validateChecks(checks,modes) {
     if(typeof name!=="string"||!safeCheckName.test(name)||used.has(name)) err("Invalid or duplicate contrast check: "+name);
     used.add(name);
     if(typeof item.foreground!=="string"||typeof item.background!=="string") err("Contrast check token paths must be strings");
-    const min=item.minimum ?? (item.type==="ui" || item.type==="large-text"?3:4.5);
+    const min=item.minimum ?? (item.type==="ui" || item.type==="large-text" || item.type==="focus"?3:4.5);
     if(typeof min!=="number"||!Number.isFinite(min)||min<1||min>21) err("Invalid contrast minimum for "+name);
     if(item.type!==undefined&&!["text","large-text","ui","focus"].includes(item.type)) err("Unsupported check type "+item.type);
     for(const [mode,records] of Object.entries(modes)) {

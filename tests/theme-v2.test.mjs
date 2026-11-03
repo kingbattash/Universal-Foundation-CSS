@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtemp, readdir, readFile, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, readdir, readFile, writeFile, rm, symlink, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { normalizeThemeV2, renderThemeV2Files } from "../scripts/lib/theme-v2.mjs";
@@ -90,4 +90,18 @@ test("mode-specific changes preserve original base and do not mutate configurati
   assert.match(one["theme.css"],/--harbor-operations-ui-action: #78dcff/);
   assert.match(one["bootstrap.css"],/--bs-primary-rgb: 7, 85, 186/);
   assert.match(one["bootstrap.css"],/--bs-primary-rgb: 120, 220, 255/);
+});
+
+test("theme generation rejects symlinked output directories, including with --force",async()=>{
+ const temp=await mkdtemp(join(tmpdir(),"uf-css-theme-symlink-"));
+ try {
+   const real=join(temp,"real");
+   await mkdir(real);
+   const alias=join(temp,"alias");
+   await symlink(real,alias,"dir");
+   const r=run(["--config",path("operations"),"--out",alias,"--force"]);
+   assert.notEqual(r.status,0);
+   assert.match(r.stderr,/symlink/i);
+   assert.deepEqual(await readdir(real),[]);
+ }finally{await rm(temp,{recursive:true,force:true});}
 });

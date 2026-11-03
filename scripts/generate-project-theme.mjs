@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile, lstat } from "node:fs/promises";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeProjectTheme, renderThemeFiles } from "./lib/project-theme.mjs";
@@ -40,6 +40,23 @@ async function main() {
     files=renderThemeFiles(theme);
   } else throw new Error("Unsupported project-theme schemaVersion");
 
+  // Preflight every destination before doing any writes. Never follow a symlink
+  // (including a parent folder) into an unrelated project, even with --force.
+  async function ensureNoSymbolicLinks(destination) {
+    let current=resolve(destination);
+    while(true) {
+      try {
+        const stat=await lstat(current);
+        if(stat.isSymbolicLink())throw new Error("Refusing symlink target: "+current);
+      } catch(error) {
+        if(error.code!=="ENOENT")throw error;
+      }
+      const parent=dirname(current);
+      if(parent===current)break;
+      current=parent;
+    }
+  }
+  for(const name of Object.keys(files)) await ensureNoSymbolicLinks(join(out,name));
   // Atomic preflight across the whole output set: do not create partial output.
   let mismatches=[];
   for(const [name,text] of Object.entries(files)) {
