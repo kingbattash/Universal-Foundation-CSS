@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-uf-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Copper Editorial — Independent UF-CSS Theme Example</title>
+  <!-- From repo root, first generate ./generated/editorial using docs/THEMES.md. -->
+  <link rel="stylesheet" href="../../generated/editorial/theme.css">
+  <style>
+    /* All color, font, spacing, motion and radius values are consumer-defined tokens. */
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;background:var(--copper-editorial-ui-canvas);color:var(--copper-editorial-ui-ink);font-family:var(--copper-editorial-typography-body);line-height:1.65}
+    .shell{max-width:1140px;margin:0 auto;padding:clamp(1.5rem,5vw,4.5rem)}
+    .bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-block-end:1px solid currentColor;padding-bottom:var(--copper-editorial-spacing-compact)}
+    .mark{font-family:var(--copper-editorial-typography-heading);font-size:1.4rem;letter-spacing:-.04em}
+    .eyebrow{text-transform:uppercase;letter-spacing:.2em;font:600 .7rem system-ui,sans-serif}
+    h1,h2{font-family:var(--copper-editorial-typography-heading);font-weight:600;letter-spacing:-.04em;line-height:1.05}
+    h1{font-size:clamp(3rem,8vw,6.5rem);max-width:900px;margin:2.7rem 0 1.4rem}
+    .intro{max-width:640px;font-size:clamp(1.1rem,2vw,1.4rem);margin:0 0 3.5rem}
+    .news{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:var(--copper-editorial-spacing-comfortable)}
+    .feature,.aside{border-top:3px solid var(--copper-editorial-ui-action);padding-top:1.25rem}
+    h2{font-size:clamp(1.8rem,3vw,2.6rem);margin:.8rem 0}
+    .tag{color:var(--copper-editorial-ui-link);text-transform:uppercase;font:bold .74rem system-ui,sans-serif;letter-spacing:.12em}
+    .cta{border:1px solid currentColor;border-radius:var(--copper-editorial-corners-card);padding:.65rem .9rem;background:transparent;color:inherit;font:inherit;cursor:pointer}
+    .cta:focus-visible,a:focus-visible{outline:3px solid var(--copper-editorial-ui-focus);outline-offset:4px}
+    a{color:var(--copper-editorial-ui-link)}
+    @media(max-width:700px){.news{grid-template-columns:1fr}.shell{padding:1.5rem}}
+    @media(prefers-reduced-motion:no-preference){body{transition:background var(--copper-editorial-motion-enter),color var(--copper-editorial-motion-enter)}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="bar">
+      <div class="mark">Copper / Editorial</div>
+      <button class="cta" type="button" id="switch" aria-label="Toggle color mode">Dark mode</button>
+    </header>
+    <main>
+      <p class="eyebrow">Volume 03 · Independent design-system specimen</p>
+      <h1>Ideas deserve room to breathe.</h1>
+      <p class="intro">A fictional editorial interface generated from its own DTCG token values. It does not inherit the Universal Foundation CSS neutral palette.</p>
+      <div class="news">
+        <article class="feature"><span class="tag">Composition</span><h2>Rhythm, type and a purposeful reading measure</h2><p>Custom serif typography, sharp edges and broad spacing make this visual language deliberately different from the operations example.</p><p><a href="#notes">Explore the selected principles</a></p></article>
+        <aside class="aside" id="notes"><span class="tag">Design choices</span><h2>One project, its own rules</h2><p>This sample has no required grid, no mandatory component library, and no imported brand theme. Everything shown is the project’s decision.</p></aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    const button=document.getElementById("switch");
+    button.addEventListener("click",()=>{
+      const dark=document.documentElement.dataset.ufTheme!=="dark";
+      document.documentElement.dataset.ufTheme=dark?"dark":"light";
+      button.textContent=dark?"Light mode":"Dark mode";
+    });
+  </script>
+</body>
+</html>
