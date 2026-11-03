@@ -56,7 +56,8 @@ export const generatedTokens = {
     "containerWide": 1440,
     "gutterMobile": 16,
     "gutterDesktop": 48,
-    "touchTarget": 44
+    "touchTarget": 44,
+    "readingMeasure": 68
   },
   "type": {
     "bodySize": 16,
@@ -75,7 +76,9 @@ export const generatedTokens = {
     "fontBody": [
       "system-ui",
       "sans-serif"
-    ]
+    ],
+    "bodyLineHeight": 1.55,
+    "headingLineHeight": 1.12
   },
   "motion": {
     "instant": 0,
