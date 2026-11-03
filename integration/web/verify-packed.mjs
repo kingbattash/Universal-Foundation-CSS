@@ -104,6 +104,11 @@ try{
     '@import "'+optionalGridCss+'";',{from:join(consumer,"grid-smoke.css")});
   includes(importedGrid.css,".uf-g-auto",".uf-g-subgrid",".uf-g-masonry-fallback");
   console.log("PASS: installed opt-in grid CSS is an importable package export");
+  const optionalPatternCss=installedRequire.resolve("@kingbattash/universal-foundation-css/patterns.css");
+  const importedPatterns=await postcss([postcssImport()]).process(
+    '@import "'+optionalPatternCss+'";',{from:join(consumer,"pattern-smoke.css")});
+  includes(importedPatterns.css,".uf-p-fields",".uf-p-toolbar",".uf-p-table-scroll");
+  console.log("PASS: installed opt-in pattern CSS is an importable package export");
   await writeFile(bootstrapFile,[
     '@import "'+bootstrapPath+'";',
     '@import "'+foundationCss+'";',

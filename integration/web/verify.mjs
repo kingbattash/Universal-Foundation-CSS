@@ -43,6 +43,8 @@ async function verifyTailwindV4() {
   cssContains(output,"--uf-action");
   cssContains(output,".uf-g-auto");
   cssContains(output,".uf-g-subgrid");
+  cssContains(output,".uf-p-toolbar");
+  cssContains(output,".uf-p-fields");
   console.log("PASS: Tailwind v4 CLI generated UF-CSS utilities");
   passed++;
 }
@@ -62,6 +64,8 @@ async function verifyBootstrap() {
   cssContains(output.css,"--uf-action");
   cssContains(output.css,".uf-g-manuscript");
   cssContains(output.css,".uf-g-masonry-fallback");
+  cssContains(output.css,".uf-p-dashboard");
+  cssContains(output.css,".uf-p-table-scroll");
   cssContains(output.css,"--bs-btn-bg: var(--uf-action)");
   cssContains(output.css,"--bs-primary-rgb: 140, 180, 255");
   assert.ok(output.css.length>100000,"Bootstrap CSS did not appear in compiled bundle");
