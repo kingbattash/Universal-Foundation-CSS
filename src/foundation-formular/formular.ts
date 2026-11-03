@@ -26,7 +26,7 @@ export function spacingStep(units: number, basePx = foundation.baseUnitPx): numb
  * Linear interpolation between viewport anchors, clamped outside the range.
  * For convenience returns a CSS expression, but does not read browser state.
  */
-export function fluidClamp(minPx: number, maxPx: number, minViewportPx = 360, maxViewportPx = 1440): string {
+export function fluidClamp(minPx: number, maxPx: number, minViewportPx = foundation.viewport.minPx, maxViewportPx = foundation.viewport.maxPx): string {
   positive(minPx, "minPx"); positive(maxPx, "maxPx")
   positive(minViewportPx, "minViewportPx"); positive(maxViewportPx, "maxViewportPx")
   if (maxPx < minPx || maxViewportPx <= minViewportPx) throw new RangeError("invalid clamp bounds")
