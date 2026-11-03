@@ -111,11 +111,11 @@ async function verifyUserOwnedSystems() {
       const v4out = join(temp, "compiled-v4.css");
       run(process.execPath, [binPath("@tailwindcss/cli", "tailwindcss"), "-i", join(temp, "input.css"), "-o", v4out]);
       const compiled = await readFile(v4out, "utf8");
-      for (const cls of expected) assert.ok(compiled.includes("." + cls), "Missing Tailwind v4 class " + cls + "; nearby output: " + compiled.slice(-9000));
+      for (const cls of expected) cssContains(compiled, "." + cls);
       cssContains(compiled, "--" + prefix + "-");
 
       const config = [
-        'module.exports = {presets:[require("./tailwind-v3.cjs")],content:["./fixture.html"]};',
+        'const path=require("node:path");module.exports = {presets:[require("./tailwind-v3.cjs")],content:[path.join(__dirname,"fixture.html")]};',
         '',
       ].join("\n");
       await writeFile(join(temp, "tailwind.config.cjs"), config, "utf8");
