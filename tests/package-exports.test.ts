@@ -50,6 +50,10 @@ test("npm pack dry-run includes all advertised entry points and excludes tests",
     assert.ok(paths.has(target.replace(/^\.\//,"")),`Export absent from tarball: ${target}`)
   }
   assert.ok(paths.has("dist/src/index.d.ts"))
+  assert.ok(!Array.from(paths).some(p=>p.startsWith("dist/tests/")), "Compiled unit tests must not ship to npm")
+  assert.ok(paths.has("CHANGELOG.md"))
+  assert.ok(paths.has("scripts/verify-release-artifact.mjs"))
+  assert.ok(paths.has("scripts/lib/release/manifest.mjs"))
   assert.ok(paths.has("scripts/cli.mjs"))
   assert.ok(paths.has("scripts/init-project.mjs"))
   assert.ok(paths.has("scripts/lib/init/config.mjs"))

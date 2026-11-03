@@ -20,7 +20,7 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Type-check and test
         run: npm run verify
-      - name: Verify an actual packed-package installation
+      - name: Validate npm release file manifest (no publish)\n        run: npm run verify:release\n      - name: Verify an actual packed-package installation
         run: node scripts/verify-packed-package.mjs
       - name: Ensure framework adapters were generated from source
         run: npm run check:tokens
