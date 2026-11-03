@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View, StyleSheet, useColorScheme, useWindowDimensions} from "react-native";
+import {Text, View, ScrollView, StyleSheet, useColorScheme, useWindowDimensions} from "react-native";
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import {ufNativeTokens} from "@kingbattash/universal-foundation-css/react-native";
 import {projectNativeTheme} from "./generated/native-theme";
@@ -17,7 +17,9 @@ function ProductScreen() {
   return (
     <SafeAreaView edges={["top","bottom","left","right"]}
       style={[styles.safe,{backgroundColor:theme.ui.canvas}]}>
-      <View style={[styles.container,{padding:theme.spacing.comfortable}]}>
+      <ScrollView contentContainerStyle={[styles.scrollContent,{padding:theme.spacing.comfortable}]}
+        keyboardShouldPersistTaps="handled">
+      <View style={styles.container}>
         <Text allowFontScaling maxFontSizeMultiplier={2.2}
           style={[styles.overline,{color:theme.ui.link}]}>
           HARBOR / OPERATIONS
@@ -35,7 +37,8 @@ function ProductScreen() {
         </Text>
         <View style={[styles.grid,{flexDirection:narrow?"column":"row",gap:theme.spacing.comfortable}]}>
           {([["Active requests","128"],["Completed","64"]] as const).map(([title,value])=>(
-            <View key={title} style={[styles.card,{borderColor:theme.ui.action,
+            <View key={title} accessible accessibilityLabel={title+": "+value}
+              style={[styles.card,{borderColor:theme.ui.action,
               borderRadius:theme.corners.card,padding:theme.spacing.comfortable}]}>
               <Text allowFontScaling maxFontSizeMultiplier={2.5}
                 style={[styles.value,{color:theme.ui.ink}]}>{value}</Text>
@@ -47,6 +50,7 @@ function ProductScreen() {
           System theme: {dark?"dark":"light"} · Example native fixture
         </Text>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -55,7 +59,8 @@ export default function App() {
 }
 const styles=StyleSheet.create({
   safe:{flex:1},
-  container:{flex:1,justifyContent:"center",maxWidth:700,width:"100%",alignSelf:"center"},
+  scrollContent:{flexGrow:1,justifyContent:"center"},
+  container:{maxWidth:700,width:"100%",alignSelf:"center"},
   overline:{fontSize:12,fontWeight:"700",letterSpacing:1.5},
   heading:{fontWeight:"600",marginTop:12,marginBottom:16},
   body:{fontSize:16,lineHeight:25,marginBottom:24},
