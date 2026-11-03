@@ -2,53 +2,17 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseTokens } from "./lib/tokens/parse.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const source = JSON.parse(await readFile(resolve(root, "tokens/source.tokens.json"), "utf8"));
 const buildOutputs = function buildOutputs(source) {
-  const tokens=new Map();
-  function walk(obj,path) {
-    for(const [name,child] of Object.entries(obj)) {
-      if(name.startsWith("$")) continue;
-      const p=[...path,name].join(".");
-      if(!child||typeof child!=="object"||Array.isArray(child))throw Error(`Invalid token group: ${p}`);
-      if(Object.hasOwn(child,"$value")) {
-        if(typeof child.$type!=="string")throw Error(`Token ${p} missing $type`);
-        tokens.set(p,child);
-      } else walk(child,[...path,name]);
-    }
-  }
-  walk(source,[]);
-  const resolved=new Map();
-  function resolveToken(path,chain=[]) {
-    if(resolved.has(path)) return resolved.get(path);
-    if(chain.includes(path))throw Error(`Circular token reference: ${[...chain,path].join(" -> ")}`);
-    const token=tokens.get(path);if(!token)throw Error(`Missing token reference: ${path}`);
-    const { $type:type,$value:raw }=token;
-    let value=raw;
-    const ref=typeof raw==="string" && raw.match(/^\{([a-zA-Z0-9_.-]+)\}$/);
-    if(ref) {
-      const target=resolveToken(ref[1],[...chain,path]);
-      if(type!==target.type)throw Error(`Reference type mismatch: ${path}`);
-      value=target.value;
-    }
-    const err=()=>{throw Error(`Invalid ${type} value: ${path}`)};
-    if(type==="color"){
-      if(!value||typeof value!=="object"||value.colorSpace!=="srgb"||!Array.isArray(value.components)||value.components.length!==3||value.components.some(x=>typeof x!=="number"||!Number.isFinite(x)||x<0||x>1)||!/^#[0-9a-fA-F]{6}$/.test(value.hex||""))err();
-      const derived="#"+value.components.map(n=>Math.round(n*255).toString(16).padStart(2,"0")).join("");
-      if(derived.toLowerCase()!==value.hex.toLowerCase())err();
-    } else if(type==="dimension"||type==="duration"){
-      if(!value||typeof value!=="object"||typeof value.value!=="number"||!Number.isFinite(value.value)||!(type==="dimension"?["px","rem"]:["ms","s"]).includes(value.unit))err();
-    } else if(type==="number"){
-      if(typeof value!=="number"||!Number.isFinite(value))err();
-    } else if(type==="fontFamily"){
-      if(!(typeof value==="string"&&value.length>0)&&!(Array.isArray(value)&&value.length>0&&value.every(x=>typeof x==="string"&&x.length>0)))err();
-    } else if(type==="cubicBezier"){
-      if(!Array.isArray(value)||value.length!==4||value.some(x=>typeof x!=="number"||!Number.isFinite(x))||value[0]<0||value[0]>1||value[2]<0||value[2]>1)err();
-    } else throw Error(`Unsupported DTCG type ${type}: ${path}`);
-    const result={type,value};resolved.set(path,result);return result;
-  }
-  for(const path of tokens.keys())resolveToken(path);
+  // Shared DTCG token resolver used by the neutral starter AND user-created systems.
+  // Preserve the starter renderer's existing { hex } shape without duplicate validation.
+  const resolved = new Map(Array.from(parseTokens(source), ([path, token]) => [path, {
+    type: token.type,
+    value: token.type === "color" ? { hex: token.value } : token.value,
+  }]));
   const pick=path=>{const t=resolved.get(path);if(!t)throw Error(`Required token missing: ${path}`);return t.value};
   const cssValue=path=>{
     const t=resolved.get(path);if(!t)throw Error(`No token ${path}`);
