@@ -4,7 +4,7 @@
   "description": "Framework-independent UI design rules, tokens, hierarchy and grid foundations",
   "type": "module",
   "sideEffects": [
-    "./src/css/*.css"
+    "**/*.css"
   ],
   "license": "Apache-2.0",
   "repository": {
@@ -43,7 +43,8 @@
     "test": "npm run build && node --test dist/tests/*.test.js",
     "verify": "npm run check:tokens && npm run check && npm test",
     "generate:tokens": "node scripts/generate-tokens.mjs",
-    "check:tokens": "node scripts/generate-tokens.mjs --check"
+    "check:tokens": "node scripts/generate-tokens.mjs --check",
+    "check:package": "npm run build && node --test dist/tests/package-exports.test.js"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
@@ -51,5 +52,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "^0.19.0"
+  },
+  "peerDependenciesMeta": {
+    "@stylexjs/stylex": {
+      "optional": true
+    }
   }
 }

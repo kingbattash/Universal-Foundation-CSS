@@ -72,7 +72,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 ## 4. Phase-by-phase instructions
 
-### Phase 01 — Reproducible builds and package boundaries (NEXT)
+### Phase 01 — Reproducible builds and package boundaries (IN PROGRESS)
 
 **Goal:** Anyone can clone the repository, run one documented install sequence, and get the same verified artifacts.
 

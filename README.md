@@ -13,7 +13,7 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 ## Implementation status and next steps
 
-See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. The next active work is **Phase 01: reproducible installs and package export verification**.
+See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. Phase 01 is underway: package exports, CSS side effects and compatibility checks are implemented; reproducible lockfile installs remain to complete.
 
 ## The problem it solves
 
