@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UF-CSS — Unbranded foundation demo</title>
+    <link rel="stylesheet" href="../../src/css/foundation.css" />
+    <style>
+      body { margin: 0; font: 16px/1.55 system-ui, sans-serif; background: var(--uf-canvas); color: var(--uf-text); }
+      header, section { padding-block: 4rem; }
+      article { border: 1px solid var(--uf-border); border-radius: var(--uf-radius-lg); padding: var(--uf-space-6); background: var(--uf-surface); }
+      a { color: inherit; text-underline-offset: 0.2em; }
+      p { color: var(--uf-text-secondary); }
+    </style>
+  </head>
+  <body>
+    <a class="uf-visually-hidden uf-focus" href="#main">Skip to content</a>
+    <header class="uf-container uf-stack">
+      <span>Universal Foundation CSS — example</span>
+      <h1>Reusable rules. Your product's identity.</h1>
+      <p class="uf-reading">This demonstration intentionally uses neutral tokens; no organization owns the foundation's visual language.</p>
+      <div class="uf-cluster"><a class="uf-focus" href="#patterns">Explore patterns</a><a class="uf-focus" href="https://github.com/kingbattash/Universal-Foundation-CSS">Source code</a></div>
+    </header>
+    <main id="main">
+      <section class="uf-container uf-stack" id="patterns">
+        <h2>Content-led responsive grid</h2>
+        <div class="uf-grid" style="--uf-grid-min:240px">
+          <article><h3>Foundation</h3><p>Pure ratios, readable scales and accessible constraints.</p></article>
+          <article><h3>Hierarchy</h3><p>Meaningful order, clear grouping and explicit actions.</p></article>
+          <article><h3>Grid</h3><p>Choose an appropriate composition, not every available grid.</p></article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

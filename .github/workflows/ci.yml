@@ -1,0 +1,27 @@
+name: Verify foundation
+on:
+  push:
+    branches: [main, feat/foundation-v0]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # During initial bootstrap there is no lockfile; before release use npm ci.
+      - name: Install
+        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Type-check and test
+        run: npm run verify
+      - name: Inspect public files
+        run: |
+          test -s LICENSE
+          test -s README.md
+          test -s .agents/skills/universal-foundation-css/SKILL.md

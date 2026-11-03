@@ -1,0 +1,95 @@
+/*
+ * Universal Foundation CSS — opt-in neutral starter adapter.
+ * Importing this file does not reset tags or impose a product brand.
+ * All tokens and classes are namespaced with uf.
+ */
+@layer uf.tokens, uf.patterns;
+
+@layer uf.tokens {
+  :root {
+    --uf-space-1: 4px;
+    --uf-space-2: 8px;
+    --uf-space-3: 12px;
+    --uf-space-4: 16px;
+    --uf-space-6: 24px;
+    --uf-space-8: 32px;
+    --uf-space-12: 48px;
+    --uf-space-16: 64px;
+    --uf-content-max: 1200px;
+    --uf-reading-max: 68ch;
+    --uf-gutter: clamp(16px, 4vw, 48px);
+    --uf-radius-sm: 4px;
+    --uf-radius-md: 8px;
+    --uf-radius-lg: 12px;
+    --uf-canvas: #ffffff;
+    --uf-surface: #ffffff;
+    --uf-surface-subtle: #f7f7f8;
+    --uf-text: #111111;
+    --uf-text-secondary: #343b43;
+    --uf-border: #c7cbd0;
+    --uf-focus: #005bbb;
+  }
+  [data-uf-theme="dark"] {
+    --uf-canvas: #111111;
+    --uf-surface: #181818;
+    --uf-surface-subtle: #232323;
+    --uf-text: #f9f9f9;
+    --uf-text-secondary: #d2d2d2;
+    --uf-border: #5d5d5d;
+    --uf-focus: #8cb4ff;
+  }
+}
+
+@layer uf.patterns {
+  .uf-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--uf-content-max);
+    padding-inline: var(--uf-gutter);
+    margin-inline: auto;
+  }
+  .uf-reading {
+    max-width: var(--uf-reading-max);
+    text-wrap: pretty;
+  }
+  .uf-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uf-stack-gap, var(--uf-space-4));
+  }
+  .uf-cluster {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--uf-cluster-gap, var(--uf-space-4));
+  }
+  .uf-grid {
+    display: grid;
+    gap: var(--uf-grid-gap, var(--uf-space-6));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--uf-grid-min, 260px)), 1fr));
+  }
+  .uf-grid > * { min-width: 0; }
+  .uf-grid--12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .uf-grid--8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .uf-grid--12 > * { grid-column: span 12; }
+  .uf-grid--8 > * { grid-column: span 8; }
+  @media (min-width: 48rem) {
+    .uf-grid--12 > .uf-span-3 { grid-column: span 3; }
+    .uf-grid--12 > .uf-span-4 { grid-column: span 4; }
+    .uf-grid--12 > .uf-span-6 { grid-column: span 6; }
+    .uf-grid--12 > .uf-span-8 { grid-column: span 8; }
+    .uf-grid--8 > .uf-span-4 { grid-column: span 4; }
+  }
+  .uf-focus:focus-visible {
+    outline: 2px solid var(--uf-focus);
+    outline-offset: 3px;
+  }
+  .uf-visually-hidden:not(:focus):not(:active) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
