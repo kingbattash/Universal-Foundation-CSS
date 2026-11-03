@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creator-owned editorial grid — specimen</title>
+  <link rel="stylesheet" href="../../src/css/grid-recipes.css">
+  <style>
+    body { margin:0; color:#30322c; background:#fffef9; font:18px/1.75 Georgia,serif; }
+    main { --uf-g-reading-max:68ch; --uf-g-page-padding:clamp(1rem,4vw,3rem); }
+    h1 { font-size:clamp(2rem,5vw,3.5rem); line-height:1.1; }
+    .modular { --uf-g-count:1; --uf-g-row-min:0px; --uf-g-gap:1.25rem; }
+    .sample { background:#f1f2ea; padding:1rem; min-inline-size:0; overflow-wrap:anywhere; }
+    a:focus-visible { outline:3px solid currentColor; outline-offset:.2rem; }
+    @media (min-width:48rem) { .modular { --uf-g-count:2; } }
+  </style>
+</head>
+<body>
+  <a href="#main">Skip to article</a>
+  <main class="uf-g-manuscript" id="main">
+    <article>
+      <h1 data-uf-grid-node="article-title">Editorial composition is a choice</h1>
+      <p data-uf-grid-node="attribution"><small>Independent specimen · No required typography or grid canon</small></p>
+      <p data-uf-grid-node="introduction">A manuscript layout is only one possible approach. Readability, semantic flow and localized content matter more than decorative geometry.</p>
+      <section data-uf-grid-node="article-body" aria-labelledby="findings">
+        <h2 id="findings">Findings</h2>
+        <div class="uf-g-modular modular">
+          <section class="sample"><h3>Notes</h3><p>A modular grid uses author-defined row and column tracks.</p></section>
+          <section class="sample"><h3>Method</h3><p>Different page regions can use independent grids with no fixed design-system palette.</p></section>
+        </div>
+      </section>
+      <p data-uf-grid-node="references"><a href="#main">Return to title</a></p>
+    </article>
+  </main>
+</body>
+</html>
