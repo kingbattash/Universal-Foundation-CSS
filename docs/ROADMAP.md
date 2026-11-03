@@ -1,5 +1,7 @@
 # Roadmap (early 0.x)
 
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Next: Phase 01 reproducible builds.**
+
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
 ## Foundation v0 — initial scaffold

@@ -9,6 +9,10 @@ Universal Foundation CSS (**UF-CSS**) is an open-source library of design princi
 
 > **Status: 0.x experimental.** The repository provides a working TypeScript foundation, canonical token generation, an optional CSS starter adapter, and generated framework mappings. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
 
+## Implementation status and next steps
+
+See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. The next active work is **Phase 01: reproducible installs and package export verification**.
+
 ## The problem it solves
 
 Projects frequently develop competing UI rules: one app uses 16px gutters, another uses 24px, headings change font roles, and buttons behave differently across web and mobile. UF-CSS separates **shared decisions and behavior** from **platform-specific rendering and product branding**.
@@ -74,7 +78,7 @@ For plain HTML / CSS, use the [opt-in neutral stylesheet](src/css/foundation.css
 </section>
 ```
 
-Browse the [vanilla HTML example](examples/vanilla/index.html). The adapter is a manually maintained starter in 0.x; automated TypeScript-to-CSS token generation is on the roadmap.
+Browse the [vanilla HTML example](examples/vanilla/index.html). The layout helper stylesheet is maintained independently, but its variables are generated from the canonical token source in `tokens/source.tokens.json`.
 
 ## Choosing a grid
 
@@ -94,11 +98,11 @@ All adapters derive from [`tokens/source.tokens.json`](tokens/source.tokens.json
 | Stack | Output | Status |
 | --- | --- | --- |
 | Vanilla HTML/CSS | `src/css/foundation.css` and `tokens.generated.css` | Opt-in layout + semantic variables |
-| Tailwind CSS v4 | `adapters/tailwind-v4/theme.generated.css` | Generated `@theme inline` mapping; consumer integration pending |
-| Tailwind CSS v3 | `adapters/tailwind-v3/preset.generated.cjs` | Generated theme preset; consumer integration pending |
+| Tailwind CSS v4 | `adapters/tailwind-v4/theme.generated.css` | Generated `@theme inline` mapping; CLI smoke test passes |
+| Tailwind CSS v3 | `adapters/tailwind-v3/preset.generated.cjs` | Generated theme preset; CLI smoke test passes |
 | Bootstrap 5.3 | `adapters/bootstrap/bootstrap.generated.css` | Body/semantic variable and button mapping; component-specific coverage incomplete |
-| StyleX | `adapters/stylex/tokens.generated.stylex.ts` | Generated `defineVars`/dark theme; requires StyleX compile setup |
-| React Native/Expo | `adapters/react-native/tokens.generated.ts` | Generated typed native values; Expo runtime testing pending |
+| StyleX | `adapters/stylex/tokens.generated.stylex.ts` | Generated `defineVars`/dark theme; Babel compilation verified; consuming app must configure StyleX |
+| React Native/Expo | `adapters/react-native/tokens.generated.ts` | Generated typed native values; Expo Metro Android JS export passes; device tests pending |
 
 See [adapter installation instructions](docs/ADAPTERS.md) for exact import order, examples, and limitations.
 
