@@ -1,0 +1,21 @@
+import type { HierarchySpecification } from "../specification.js";
+export const interactiveSpecifications = [
+  { id:"interaction", family:"interactive", kind:"major",
+    priorityRule:"Prioritize controls required to complete the current task.",
+    relationships:["navigation","component","state-feedback"], constraints:["Controls must be keyboard operable and labelled."],
+    example:"A checkout form makes the submit action discoverable after required fields.",
+    antiPattern:"Low-priority secondary actions look indistinguishable from submission.",
+    strategies:["action-emphasis","semantic-markup"], support:"css-hook" },
+  { id:"state-feedback", family:"interactive", kind:"major",
+    priorityRule:"Communicate current and resulting states where users need them.",
+    relationships:["interaction","color","motion"], constraints:["Error and success text must be perceivable beyond color and animation."],
+    example:"An invalid field references descriptive error text and retains user input.",
+    antiPattern:"A spinner is shown forever without a progress description or outcome.",
+    strategies:["state-messaging","motion-feedback"], support:"css-hook" },
+  { id:"responsive", family:"interactive", kind:"major",
+    priorityRule:"Preserve meaningful priorities and operation across device capabilities.",
+    relationships:["layout","content","navigation"], constraints:["Do not use CSS visual order to contradict DOM and focus order."],
+    example:"A three-region task layout becomes a single reading column on narrow screens.",
+    antiPattern:"A hidden mobile control is still first in keyboard tab order.",
+    strategies:["responsive-reflow","content-sequence"], support:"css-hook" },
+] as const satisfies readonly HierarchySpecification[];
