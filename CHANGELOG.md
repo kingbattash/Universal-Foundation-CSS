@@ -4,6 +4,9 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Reproducible root, web-fixture and Expo-fixture npm lockfiles with `npm ci` in CI.
+- Actual packed-tarball offline consumer smoke test and public export/side-effect tests.
+- Compatibility/versioning policy and explicitly optional StyleX peer dependency.
 - Functional Tailwind v3/v4, Bootstrap, StyleX and Expo SDK 57 integration smoke fixtures with dedicated CI workflows.
 - Brand-independent project theme generator with contrast validation, safe overwrite behavior and dedicated theme docs.
 - Canonical DTCG-style neutral token source with deterministic validation and generated exports.

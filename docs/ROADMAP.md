@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 in verification:** root/web/Expo lockfiles have been committed, CI switched to `npm ci`, pack/consumer tests added; awaiting green CI on the current commit.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 next:** support truly consumer-defined token systems and extend DTCG validation.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 

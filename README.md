@@ -13,7 +13,7 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 ## Implementation status and next steps
 
-See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. Phase 01 has committed dependency lockfiles and packed-package consumer tests. The next milestone is full CI verification of reproducible installs before expanding the optional design-system creation APIs.
+See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. **Phase 01 complete:** reproducible `npm ci` installs, verified package exports, and an actual offline installed-tarball smoke test passed, alongside the framework and Expo build checks. **Next: Phase 02 — allow fully user-defined design token sources and strengthen DTCG schema validation**, without forcing the provided neutral starter tokens.
 
 ## The problem it solves
 

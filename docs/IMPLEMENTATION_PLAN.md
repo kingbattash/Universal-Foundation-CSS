@@ -72,7 +72,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 ## 4. Phase-by-phase instructions
 
-### Phase 01 — Reproducible builds and package boundaries (IN PROGRESS)
+### Phase 01 — Reproducible builds and package boundaries (DONE)
 
 **Goal:** Anyone can clone the repository, run one documented install sequence, and get the same verified artifacts.
 
@@ -85,9 +85,9 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | 01.5 | **DONE:** Set engine, optional peers, supported Node versions, and semver compatibility policy | `package.json`, `docs/COMPATIBILITY.md` |
 | 01.6 | Check CSS layer/import order and package side effects in built consumer fixtures | `src/css/`, `integration/web/` |
 
-**Gate:** clean clone → locked install → `npm run verify` → four web smoke fixtures → Expo export, all green. A real offline tarball consumer can import all documented exports. All status markings above require a passing CI run on the same commit; no release yet.
+**Gate PASSED on commit `8db67ef` (2026-11-03):** clean GitHub Actions locked installs, 19/19 unit tests, real offline tarball consumer and all three CI workflows passed (foundation, real web toolchains, Expo Android JS export). This is still an experimental library; no npm release has been published.
 
-### Phase 02 — Canonical tokens and normalization
+### Phase 02 — Canonical tokens and normalization (NEXT)
 
 **Goal:** Every generated platform value originates from a validated canonical source, with no hidden independent defaults.
 
@@ -347,12 +347,12 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Begin Phase 01**, in order:
+**Begin Phase 02.** Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
 
-- [ ] Commit dependency lockfiles for root, web integration and Expo integration.
-- [ ] Change all three workflows to reproducible installs.
-- [ ] Validate the package's public `exports` against an actual packed-install test.
-- [ ] Add a short compatibility policy and explicit CSS import/side-effect tests.
-- [ ] Review green CI results, then proceed to Phase 02.
+- [ ] Inventory all core/hierarchy/grid values and split experimental defaults from reusable validation rules.
+- [ ] Define user-authorable project token manifests, including custom roles and optional/empty presets.
+- [ ] Add official DTCG schema validation or document and test every unsupported type.
+- [ ] Make token generation deterministic for a non-default consumer-defined manifest without modifying the UF-CSS repository defaults.
+- [ ] Add cross-adapter tests and examples demonstrating entirely different project design systems.
 
-Do **not** start rewriting AMGYNA or AmyMail yet. Prove the universal package can be reliably installed by unrelated projects first.
+Do **not** start rewriting AMGYNA or AmyMail yet. Preserve full consumer ownership of design choices.
