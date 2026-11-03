@@ -62,7 +62,9 @@ export const ufNativeTokens = {
     "bodySize": 16,
     "captionSize": 12,
     "displayMin": 48,
-    "displayMax": 96
+    "displayMax": 96,
+    "bodyLineHeight": 1.55,
+    "headingLineHeight": 1.12
   },
   "layout": {
     "containerMax": 1200,
