@@ -1,61 +1,129 @@
-# Universal Foundation CSS (UF-CSS)
+# Universal Foundation CSS
 
-**An open, framework-independent foundation for consistent interface design.**
+**A brand-independent foundation for designing clearer, more consistent interfaces.**
 
-UF-CSS is a design-knowledge and token project for people building websites, dashboards, applications, and design systems. It provides reusable foundations—formulas, semantic roles, hierarchy, grids, layout patterns, and component contracts—without forcing a brand, a UI kit, or a specific CSS framework.
+[![Apache License 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Status: Early Development](https://img.shields.io/badge/status-early%20development-informational.svg)](docs/ROADMAP.md)
 
-> **Status: early development (0.x).** The foundational APIs and adapters are under development. This repository is open source, but a stable npm release has **not** been published. Review the roadmap and avoid treating experimental APIs as production-stable.
+Universal Foundation CSS (**UF-CSS**) is an open-source library of design principles, typed mathematical formulas, semantic roles, hierarchy, grid systems, and component contracts. It helps teams build web and mobile interfaces from a consistent methodology **without making every product look the same**.
 
-## Why this exists
+> **Status: 0.x experimental.** The repository provides a working TypeScript foundation and an optional CSS starter adapter. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
 
-A design system should help multiple teams and products apply the *same principles* without forcing them to have the *same visual identity*. Two platforms can share tokens, accessibility standards, component meanings and interaction contracts while adapting their layouts and components to the platform.
+## The problem it solves
 
-**UF-CSS is not** a clone of Tailwind, Bootstrap, or shadcn/ui. It does not impose a preselected visual theme, and it does not assert that any one grid or design law is universally optimal.
+Projects frequently develop competing UI rules: one app uses 16px gutters, another uses 24px, headings change font roles, and buttons behave differently across web and mobile. UF-CSS separates **shared decisions and behavior** from **platform-specific rendering and product branding**.
 
-## Architecture
+It is **not** a Tailwind replacement, a mandatory UI theme, or a claim that golden ratios and UX heuristics are universal laws.
 
-The foundation is organized around seven independent domains:
+## Seven foundation domains
 
-| Domain | Purpose |
+| Directory | Responsibility |
 | --- | --- |
-| `foundation-formular/` | Mathematical scales, fluid sizing, composition ratios and documented UX heuristics |
-| `semantic/` | Content, navigation, action, feedback and accessibility roles |
-| `hierarchy/` | A practical taxonomy of visual, information, structural and interaction hierarchy |
-| `tokens/` | Platform-neutral, typed design decisions and recommended baseline scales |
-| `patterns/` | Reusable, framework-agnostic composition specifications |
-| `components/` | Component behavior, state and accessibility contracts (no branded UI kit) |
-| `grid/` | A registry of web, editorial, geometric and classical composition grids |
+| [foundation-formular](src/foundation-formular/) | Pure modular scale, fluid clamp, spacing, grid geometry and WCAG contrast calculations; documented UX principles |
+| [semantic](src/semantic/) | Content, navigation, surface, action, status and interaction roles |
+| [hierarchy](src/hierarchy/) | 20 useful categories across communication, structure, visual techniques and interaction |
+| [tokens](src/tokens/) | Core, brand slots, semantic colors, typography, layout, motion and extended token roles |
+| [patterns](src/patterns/) | Framework-neutral hero, article, dashboard, form and collection patterns |
+| [components](src/components/) | Behavioral and accessible-state contracts, not prebranded components |
+| [grid](src/grid/) | 37 registered web, editorial, geometric, classical and spacing systems with honest implementation statuses |
 
-Platform adapters are distinct from the foundation. The initial CSS adapter is intentionally minimal; StyleX and React Native integrations belong to later milestones.
+## Get started (repository)
 
-## Getting started
+Node.js 22 or newer is recommended for developing the repository.
 
-Development setup and example commands will be documented alongside the first TypeScript modules. For now, see [the architecture](docs/ARCHITECTURE.md), [the roadmap](docs/ROADMAP.md), and [the AI skill instructions](docs/AI-AGENTS.md) once the initial scaffold is merged.
+```bash
+git clone https://github.com/kingbattash/Universal-Foundation-CSS.git
+cd Universal-Foundation-CSS
+npm install
+npm run verify
+```
 
-**Use in another project:** choose a foundation version, select the grids and token roles appropriate to that project, implement its brand/theme separately, and validate its accessibility and behavior. UF-CSS never imports any product-specific brand.
+The build emits JavaScript and declarations under `dist/`. **No stable npm package is published yet.**
 
-## Principles
+### TypeScript example
 
-1. **Meaning before appearance.** Semantic structure, content priorities and tasks precede CSS.
-2. **One source of truth.** Do not maintain competing web and mobile token values by hand.
-3. **Choose a grid—don't inherit every grid.** Classical canons are optional composition guides, not universal CSS grid systems.
-4. **Respect accessibility.** Contrast, focus, reduced motion, keyboard order and understandable feedback are required reviews.
-5. **Independent of any brand.** No company colors, logos or product names in foundation APIs.
-6. **Small, typed, auditable APIs.** Formulas document assumptions and reject invalid input.
-7. **Portable workflows.** Published AI skill files aid coding agents but never authorize automatic unsafe changes.
+```ts
+import {
+  modularScale,
+  spacingStep,
+  fluidClamp,
+  contrastRatio,
+  getGrid,
+  hierarchy,
+} from "@kingbattash/universal-foundation-css";
 
-## Open source
+// After publishing or linking the package:
+const titleSize = modularScale(3);           // 31.25px
+const sectionGap = spacingStep(8);           // 32px
+const responsiveTitle = fluidClamp(32, 64); // CSS clamp(...)
+const accessible = contrastRatio("#111111", "#ffffff") >= 4.5;
+const layout = getGrid("twelve-column");     // css-recipe
+```
 
-Licensed under the **Apache License, Version 2.0**. See [LICENSE](LICENSE). Contributions are welcome following [CONTRIBUTING.md](CONTRIBUTING.md); security reports should follow [SECURITY.md](SECURITY.md).
+### Optional CSS adapter
 
-Copyright © 2026 contributors to Universal Foundation CSS.
+For plain HTML / CSS, use the [opt-in neutral stylesheet](src/css/foundation.css). It contains only namespaced `--uf-*` values and `uf-*` layout helpers; it does **not** reset global element styles.
 
-## Project status
+```html
+<link rel="stylesheet" href="./path/to/foundation.css" />
+<section class="uf-container">
+  <div class="uf-grid">
+    <article>First item</article>
+    <article>Second item</article>
+  </div>
+</section>
+```
 
-- [ ] Finalize the initial TypeScript contracts and grid catalog
-- [ ] Implement and test the neutral CSS adapter
-- [ ] Publish examples and visual specimens
-- [ ] Validate the agent skill and cross-platform setup
-- [ ] Tag the first pre-release version
+Browse the [vanilla HTML example](examples/vanilla/index.html). The adapter is a manually maintained starter in 0.x; automated TypeScript-to-CSS token generation is on the roadmap.
 
-**Maintainer:** [kingbattash](https://github.com/kingbattash). The public foundation is independent of AMGYNA and its products.
+## Choosing a grid
+
+UF-CSS offers **choices, not 37 mandatory styles**. A grid registry entry declares whether it is a CSS recipe, a mathematical helper, or a reference. For example:
+
+- `twelve-column`: available as a simple responsive CSS recipe.
+- `rule-of-thirds`: available through a geometry helper.
+- `golden-canon`: reference only; not a browser CSS engine.
+- `four-point`: spacing rhythm, not a literal column grid.
+
+See the [grid catalog](docs/GRIDS.md) before selecting a layout.
+
+## AI agent skill
+
+A portable, open [Agent Skills](https://agentskills.io/specification) workflow helps coding agents audit, generate and migrate design foundations **while preserving the project's brand**. The canonical instructions live at [`.agents/skills/universal-foundation-css/SKILL.md`](.agents/skills/universal-foundation-css/SKILL.md).
+
+Install into another project explicitly:
+
+```bash
+node scripts/install-skill.mjs --target all --project ../your-project
+```
+
+This copies the skill to supported Codex, Claude and Copilot project locations without overwriting an existing skill. Skills are not automatically installed in ChatGPT or every AI product. See [AI agent setup](docs/AI-AGENTS.md).
+
+## Development quality
+
+```bash
+npm run check  # TypeScript type checking
+npm run build  # Compiled .js and .d.ts files
+npm test       # Formula, registry and contract tests
+npm run verify # Type-check and tests
+```
+
+CI runs the verification for pull requests. Automated browser-level accessibility and cross-device visual tests remain future work.
+
+## Architecture and roadmap
+
+- [Architecture and dependency boundaries](docs/ARCHITECTURE.md)
+- [Grid reference catalog](docs/GRIDS.md)
+- [Development roadmap](docs/ROADMAP.md)
+- [AI agent compatibility and installation](docs/AI-AGENTS.md)
+- [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), [Code of Conduct](CODE_OF_CONDUCT.md)
+
+### Project identity is separate
+
+An organization-specific design system (such as an AMGYNA design system) may consume UF-CSS and define its own brand, token values, components, fonts, densities and selected grid layouts. UF-CSS must **never import or depend on** that organization-specific package.
+
+## License
+
+Apache License, Version 2.0. See [LICENSE](LICENSE). Commercial and personal use are permitted under its terms. Contributions are welcome.
+
+Maintained by [kingbattash](https://github.com/kingbattash). **Early development; no stable release or support guarantee.**
