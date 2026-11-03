@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeProjectTheme, renderThemeFiles } from "./lib/project-theme.mjs";
+import { normalizeThemeV2, renderThemeV2Files } from "./lib/theme-v2.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args=process.argv.slice(2);
@@ -27,9 +28,17 @@ async function main() {
   if(check&&force)throw new Error("Choose either --check or --force");
   const configPath=resolve(getOption("--config"));
   const out=resolve(getOption("--out"));
-  const source=JSON.parse(await readFile(join(root,"tokens/source.tokens.json"),"utf8"));
-  const theme=normalizeProjectTheme(JSON.parse(await readFile(configPath,"utf8")),source);
-  const files=renderThemeFiles(theme);
+  const input=JSON.parse(await readFile(configPath,"utf8"));
+  let theme,files;
+  if(input.schemaVersion===2) {
+    theme=normalizeThemeV2(input);
+    files=renderThemeV2Files(theme);
+  } else if(input.schemaVersion===undefined||input.schemaVersion===1) {
+    const source=JSON.parse(await readFile(join(root,"tokens/source.tokens.json"),"utf8"));
+    theme=normalizeProjectTheme(input,source);
+    files=renderThemeFiles(theme);
+  } else throw new Error("Unsupported project-theme schemaVersion");
+
   // Atomic preflight across the whole output set: do not create partial output.
   let mismatches=[];
   for(const [name,text] of Object.entries(files)) {

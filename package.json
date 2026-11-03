@@ -39,7 +39,10 @@
     "scripts/init-project.mjs",
     "scripts/lib/init",
     "scripts/lib/project-theme.mjs",
-    "scripts/lib/tokens"
+    "scripts/lib/tokens",
+    "scripts/generate-project-theme.mjs",
+    "scripts/lib/theme-v2.mjs",
+    "tokens/source.tokens.json"
   ],
   "engines": {
     "node": ">=20"
@@ -53,7 +56,8 @@
     "check:tokens": "node scripts/generate-tokens.mjs --check",
     "check:package": "npm run build && node --test dist/tests/package-exports.test.js",
     "check:pack": "npm run build && node scripts/verify-packed-package.mjs",
-    "generate:custom": "node scripts/generate-custom-system.mjs"
+    "generate:custom": "node scripts/generate-custom-system.mjs",
+    "generate:theme": "node scripts/generate-project-theme.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
