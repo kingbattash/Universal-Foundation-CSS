@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 inspect-only agent automation and explicit-confirmation CLI is implemented; remaining Phase 09 manual/device gates and product-specific migrations are separate. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 inspect-only agent automation and explicit-confirmation CLI is implemented. **Phase 11 release-readiness engineering is implemented, but actual npm publishing/versioning is deliberately pending maintainer approval.** Phase 09 manual/device gates and product-specific migrations remain separate. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -121,6 +121,16 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] CLI safety regression tests, packed-install audit test, Codex/Claude/Copilot prompts and ChatGPT compatibility caveat
 - [ ] Product-specific auto-migrations or interactive project editing; require separate authorization and implementation
 
+## Phase 11 — controlled prerelease preparation (READY FOR REVIEW; NOT PUBLISHED)
+- [x] Review metadata, public JS/TS/CSS exports, README, compatibility, contributor/security policy and distribution rules
+- [x] Limit tarball build output to `dist/src` and reject missing exports, compiled tests and secret file types
+- [x] Add `npm run verify:release` dry-run file manifest validation and existing independent offline tarball consumer checks in CI
+- [x] Define `0.x` version policy, prerelease notes template and per-version migration requirements
+- [x] Add manual-only, exact-version, main/SHA-check, six-CI-check, environment-review and npm OIDC gated workflow
+- [ ] Set up actual GitHub `npm-prerelease` required reviewers and npm Trusted Publisher (maintainer approval required)
+- [ ] Authorize release version and notes; publish a prerelease, independently install actual npm version and gather feedback
+- [ ] Approve any tag/GitHub release and later 1.0 stability gate
+
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples
 - [ ] Add design-review templates and CLI validation
@@ -130,7 +140,7 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 
 ## Package release
 - [x] Commit root and integration lockfiles and use `npm ci` in CI
-- [ ] Add package publishing workflow and provenance, with maintainer approvals
+- [x] Add manual-only prerelease workflow with npm OIDC/provenance readiness and documented maintainer approvals (not yet configured or executed)
 - [ ] Release a tested prerelease before a stable 1.0
 - [ ] Publish optional AI skill/plugin distribution for supported hosts
 

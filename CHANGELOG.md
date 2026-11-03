@@ -2,8 +2,16 @@
 
 All notable changes will be documented here. UF-CSS is in early development; APIs are experimental until a stable release.
 
-## Unreleased
+## Unreleased — prerelease engineering only (not published)
+
+> The current checked-in package is `0.1.0`; no `0.2.0-beta.1` release or npm version is asserted. Only create a versioned changelog entry after the maintainer selects and approves that candidate.
+
 ### Added
+- Phase 11 release-artifact preflight checks (actual npm pack file list; public JavaScript, declarations, CSS, adapters and CLI runtime; exclusion of compiled tests and private-file patterns).
+- Manual-only npm prerelease workflow with main-branch and exact-version guards, six required CI checks, separate repository opt-in, confirmation phrase/checkbox and GitHub `npm-prerelease` environment approval requirement.
+- npm Trusted Publisher OIDC-based workflow (requires external npm configuration; no long-lived registry token), release notes template, SemVer prerelease policy and maintainer checklist.
+- Dedicated release guard regression tests and offline consumer checks, strengthened compatibility, security and contributor documentation.
+
 - Phase 10 inspect-only project auditor CLI (`uf-css audit --project DIR --format text|json`) with bounded symlink-safe scans, evidence-based framework/version detection and unknown-stack safeguards.
 - Cross-file CSS custom-property duplicate/conflict inventory and heuristic navigation, component-state, import-order and clickable-element review.
 - Audit-first guidance for Codex, Claude and Copilot with user-owned brand/stack preservation, dry-run/approval workflow and ChatGPT installation caveat.

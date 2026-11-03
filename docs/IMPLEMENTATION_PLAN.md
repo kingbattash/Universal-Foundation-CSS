@@ -247,20 +247,20 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** A sample existing project can be audited with a readable JSON/text report before any modification; adapters are recommended only with compatible evidence and never installed automatically. Changes are separately previewed and approved. **Future enhancement:** monorepo-aware visual inspection, interactive resume/edit, and actual product migrations require explicit scope/authorization and are not claimed complete here.
 
-### Phase 11 — Open-source prerelease and governance
+### Phase 11 — Open-source prerelease and governance (READY FOR MAINTAINER REVIEW; NO PUBLICATION)
 
-**Goal:** A third-party developer can install a **specific version** and reproduce the examples.
+**Goal:** Make a public prerelease possible with a reproducible, audited tarball, exact version controls and explicit maintainer authorization. This milestone is **not complete as an actual npm release** until a reviewed version is published and independently consumed.
 
-| Step | Work | Location |
+| Step | Implementation | Location |
 | --- | --- | --- |
-| 11.1 | Reconcile API docs, README examples, type declarations, license, security policy and contribution rules | `README.md`, `docs/`, `package.json` |
-| 11.2 | Add package content verification, versioned changelog, release notes and semver rules | `tests/package-exports.test.ts`, `CHANGELOG.md` |
-| 11.3 | Add gated publish workflow with provenance/permissions and explicit maintainer approval | `.github/workflows/release.yml` |
-| 11.4 | Tag and publish a **prerelease** such as `0.2.0-beta.1` only after review and authorization | Git tag / npm |
-| 11.5 | Install prerelease in a clean, unrelated example project and verify all advertised entry points | `integration/`, `docs/COMPATIBILITY.md` |
-| 11.6 | Gather external integration feedback, resolve breaking API problems, then define a later stable 1.0 gate | `CHANGELOG.md`, GitHub issues/releases |
+| 11.1 | **DONE for documentation review:** Reconcile public exports, README use cases, compatibility, security and contributor rules; retain optional design-language freedom | `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/COMPATIBILITY.md` |
+| 11.2 | **DONE:** Tighten published package file list to `dist/src` (exclude compiled tests); verify JS/declarations, CSS, raw adapters, CLI runtime files and secrets/test exclusions using actual `npm pack --dry-run`. Add prerelease SemVer rules and notes template | `scripts/verify-release-artifact.mjs`, `tests/release-gates.test.mjs`, [RELEASE.md](RELEASE.md) |
+| 11.3 | **DONE as untriggered workflow:** Manual-only GitHub Actions preflight validates source main/SHA, all six CI checks, exact prerelease version, locked install, packed consumer and tarball. Optional publish job requires opt-in repository variable, confirmation phrase, boolean confirmation and `npm-prerelease` environment, using npm OIDC trusted publishing (no token) | `.github/workflows/release.yml`, `scripts/check-release-ci.mjs` |
+| 11.4 | **NOT DONE / intentionally pending authorization:** Approve and commit release version, configure actual GitHub environment reviewers and npm trusted publisher, publish to beta dist-tag, optionally create a Git tag/GitHub release separately | Maintainer actions, not invoked |
+| 11.5 | **DONE for local packed tarball**, **NOT DONE for real npm prerelease:** Offline external tarball installation and framework consumers tested; public registry version cannot be tested before publication | `scripts/verify-packed-package.mjs`, `integration/` |
+| 11.6 | **PENDING:** Actual feedback, breaking API cleanup, independent consumer usage and future stable 1.0 gate | GitHub issues/releases after release |
 
-**Gate:** version-pinned consuming project builds successfully; docs match published contents; tested capabilities are clearly separated from roadmap promises. **No auto-publish or auto-merge.**
+**Gate status:** distribution/readiness engineering implemented, npm publication is NOT authorized or complete. Phase 09 manual assistive tech/real native device gates remain open; no stable/WCAG certification claim. [Release procedure](RELEASE.md) details preconditions and approval boundaries.
 
 ### Phase 12 — Consume from independent projects (EXTERNAL)
 
