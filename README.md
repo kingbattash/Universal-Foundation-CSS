@@ -108,6 +108,18 @@ npm run check:tokens     # Verify no generated file was edited or missed
 ```
 
 
+## Project-specific themes
+
+Your product can keep its own identity while using the universal rules. UF-CSS now includes a **brand-neutral theme generator** with semantic light/dark colors, basic contrast checks, and adapters for CSS, Bootstrap, StyleX and React Native.
+
+```bash
+node scripts/generate-project-theme.mjs \
+  --config examples/project-theme/theme.json \
+  --out ../my-project/styles/uf-css
+```
+
+Use `--check` to validate outputs and `--force` only for intentional regeneration. See the [theme guide](docs/THEMES.md) for configuration, import order, accessibility checks and limitations.
+
 ## AI agent skill
 
 A portable, open [Agent Skills](https://agentskills.io/specification) workflow helps coding agents audit, generate and migrate design foundations **while preserving the project's brand**. The canonical instructions live at [`.agents/skills/universal-foundation-css/SKILL.md`](.agents/skills/universal-foundation-css/SKILL.md).
@@ -130,7 +142,7 @@ npm test       # Formula, registry and contract tests
 npm run verify # Type-check and tests
 ```
 
-CI checks generated token parity and the TypeScript/test suite for pull requests. Full framework builds, browser visual validation and Expo runtime tests are not yet included. Automated browser-level accessibility and cross-device visual tests remain future work.
+CI verifies token parity, the TypeScript suite, compiled **Tailwind v3/v4**, **Bootstrap CSS**, and **StyleX Babel** fixtures, plus an **Expo SDK 57 Android JavaScript export** that consumes generated native tokens. Full browser/device visual QA, WCAG user-flow testing and physical-device validation remain future work. Automated browser-level accessibility and cross-device visual tests remain future work.
 
 ## Architecture and roadmap
 

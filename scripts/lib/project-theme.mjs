@@ -71,7 +71,7 @@ export function normalizeProjectTheme(input, source) {
     const section=input[mode]??{};
     if (typeof section !== "object" || Array.isArray(section)) throw new Error(`${mode} must be a JSON object`);
     for(const [role,color] of Object.entries(section)) {
-      if (!(role in defaults[mode])) throw new Error(`Unknown semantic role: ${role}`);
+      if (!Object.hasOwn(defaults[mode], role)) throw new Error(`Unknown semantic role: ${role}`);
       if (typeof color!=="string" || !COLOR.test(color)) throw new Error(`Invalid color for ${mode}.${role}; expected #RRGGBB`);
       output[mode][role]=color.toLowerCase();
     }

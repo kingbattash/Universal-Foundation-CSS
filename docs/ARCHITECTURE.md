@@ -33,6 +33,8 @@ UF-CSS is a **design foundation** with minimal implementation assumptions.
 
 For product projects, create a canonical token-and-contract source. Web, StyleX and native adapters should be generated from or validated against that source; allow documented, platform-specific overrides (e.g. safe areas, type metrics, pointer/hover states). Behavioral parity is more important than pixel parity.
 
+A project's actual visual identity belongs in its own repository. The optional generator in `scripts/generate-project-theme.mjs` validates semantic colors and writes web/native theme files to an explicitly selected output location. See [project themes](THEMES.md).
+
 **Current 0.x state:** `tokens/source.tokens.json` is the canonical source for neutral primitive and semantic token values. `scripts/generate-tokens.mjs` produces `src/css/tokens.generated.css`, `src/tokens/generated.ts`, and all framework adapter outputs, with CI drift detection. Some broader role recommendations still live as TS specifications; custom project themes and real framework build tests are not yet complete.
 
 ## Naming

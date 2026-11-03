@@ -4,6 +4,8 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Functional Tailwind v3/v4, Bootstrap, StyleX and Expo SDK 57 integration smoke fixtures with dedicated CI workflows.
+- Brand-independent project theme generator with contrast validation, safe overwrite behavior and dedicated theme docs.
 - Canonical DTCG-style neutral token source with deterministic validation and generated exports.
 - Tailwind v3/v4, Bootstrap, StyleX and React Native adapter files, plus token-parity tests.
 - Adapter installation guide and cross-framework skill instructions.

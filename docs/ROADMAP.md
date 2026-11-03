@@ -15,14 +15,16 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 ## Foundation v0.2 — token authority and adapters
 - [x] Adopt a supported subset of the DTCG 2025.10 design-token format; resolve and validate typed aliases
 - [x] Generate neutral CSS, Tailwind v3/v4, Bootstrap, StyleX, React Native and TypeScript token outputs; check drift in CI
-- [ ] Add configurable, validated custom project themes and documented override precedence (light/dark neutral examples currently included)
+- [x] Generate validated, non-destructive project-specific light/dark semantic color themes and document CSS/Bootstrap/StyleX/native output precedence
+- [ ] Extend project theme schema to typography, density, spacing and motion
 - [x] Generate a StyleX token adapter without tying core to React (consuming-app integration tests pending)
 - [x] Generate a React Native token adapter; runtime Expo example and cross-platform UI contract tests pending
 - [ ] Add WCAG-focused accessibility audit examples
 
 ## Integration gaps
-- [ ] Full framework builds for Tailwind v3/v4, Bootstrap, StyleX and Expo on their real toolchains
-- [ ] Verified examples for each framework (generated mappings are supplied but browser/native rendering is not fully verified)
+- [x] Smoke-test the real Tailwind v3/v4 CSS compilers, Bootstrap CSS import pipeline, StyleX Babel plugin and Expo SDK 57 Metro Android JS export
+- [x] Add fixture sources for Tailwind v3/v4, Bootstrap, StyleX and Expo consuming generated tokens
+- [ ] Add browser screenshot, device runtime and interaction/accessibility validation to those fixtures
 - [ ] Canonicalize remaining typography guidance, breakpoints and all optional roles into DTCG tokens
 - [ ] Adopt full DTCG schema validation rather than the current supported-type subset
 

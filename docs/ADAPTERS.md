@@ -130,6 +130,24 @@ The generated values are numbers appropriate as **density-independent layout sta
 
 Vue, Angular, Svelte, Astro, Rails, Laravel, plain HTML or templating systems can use the Vanilla CSS output. An additional native or CSS-in-JS framework can consume the canonical DTCG-style tokens and implement its own generator.
 
+## Product theme integration
+
+The [theme generator](THEMES.md) creates CSS variables, Bootstrap RGB overrides, StyleX themes and native palettes for an **independent project**, without editing UF-CSS tokens. You must import the project's generated theme **after** the UF-CSS adapter.
+
+```bash
+node scripts/generate-project-theme.mjs --config examples/project-theme/theme.json --out ../your-project/styles/uf-css
+```
+
+## Framework test evidence
+
+- Tailwind CSS v3 CLI: compiles utility classes from the UF-CSS preset.
+- Tailwind CSS v4 CLI: compiles `@theme inline` utilities from the UF-CSS mapping.
+- Bootstrap 5.3: full Bootstrap stylesheet bundles with UF-CSS adapter and semantic overrides using PostCSS.
+- Meta StyleX: Babel compiler transforms both generated tokens and consumer `stylex.create` styles.
+- Expo SDK 57: Metro exports an Android JavaScript bundle importing the generated native token module.
+
+These are **build integration smoke tests**, not screenshots, device runs, or complete interface accessibility validation. See `integration/web/` and `integration/expo/` for the fixtures.
+
 ## Source of truth and theme override policy
 
 1. Edit `tokens/source.tokens.json` for public default design values.
