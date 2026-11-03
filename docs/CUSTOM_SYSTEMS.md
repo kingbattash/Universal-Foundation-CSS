@@ -8,6 +8,8 @@ Your token names, token categories, colors, typography families, numeric values,
 
 It accepts a **supported subset** of [DTCG design tokens](https://www.designtokens.org/TR/2025.10/format/): `color` (opaque sRGB), `dimension` (px/rem), `duration` (ms/s), `number`, `fontFamily`, `fontWeight`, and `cubicBezier`. It supports group `$type` inheritance and typed curly-brace aliases. Unsupported composite types, `$extends`, and JSON Pointer references are rejected or not implemented; this is not yet complete DTCG conformance.
 
+For a question-by-question experience, start with the [optional interactive wizard](WIZARD.md). It creates a smaller design-system configuration and lets you preview every file before generation.
+
 ## 1. Define a token source
 
 Create `my-system.tokens.json` in **your own project**, for example:

@@ -31,6 +31,16 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [ ] Unify neutral-starter and custom-system token parsers without losing backwards compatibility
 - [ ] Add official full DTCG schema/reference handling and richer consumer-defined role types
 
+## Interactive design-system builder (creator-first)
+- [x] Terminal wizard: frameworks, custom color hex values, typography, spacing, layout grids and composition guides
+- [x] Optional hierarchy and user-defined naming without a compulsory taxonomy
+- [x] Preview all files and obtain explicit confirmation before creating a folder
+- [x] Non-interactive `--config --out --dry-run` and opt-in `--yes`
+- [x] Output only selected CSS/Tailwind/Bootstrap/StyleX/native files, grid recipes and specification files
+- [x] CLI and packaged-tarball smoke tests, non-destructive/scaffold safety tests
+- [ ] Interactive resume/edit, visual palette preview and richer custom grid editor
+- [ ] Full accessibility and visual inspection of builder-generated sample projects
+
 ## Integration gaps
 - [x] Smoke-test the real Tailwind v3/v4 CSS compilers, Bootstrap CSS import pipeline, StyleX Babel plugin and Expo SDK 57 Metro Android JS export
 - [x] Add fixture sources for Tailwind v3/v4, Bootstrap, StyleX and Expo consuming generated tokens

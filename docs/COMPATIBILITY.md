@@ -16,6 +16,10 @@ UF-CSS is a **toolkit for creating your own design system**, not a prescribed sy
 
 These are **build checks**, not guarantees of pixel parity, physical-device functionality, or full accessibility.
 
+## CLI commands (experimental)
+
+The package exposes `uf-css init` for the interactive creator-first builder and `uf-css generate` for low-level user-owned token compilation. In a checkout use `node scripts/cli.mjs init` or `node scripts/cli.mjs generate`. See [WIZARD.md](WIZARD.md). The npm package is **not** published yet.
+
 ## Package boundaries
 
 - `@kingbattash/universal-foundation-css`: pure generated JavaScript, declarations and optional references.

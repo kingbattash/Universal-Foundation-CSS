@@ -38,3 +38,7 @@ The agent's access remains subject to its host permissions. The skill should not
 ## Create an entirely user-owned design system
 
 For a project that does not want UF-CSS defaults, agents should use the [custom system guide](CUSTOM_SYSTEMS.md). First inspect the project, then write **project-owned** token JSON and explicit adapter mappings, and only then run `scripts/generate-custom-system.mjs` with an approved output directory. Do not force default colors, typography, spacing or grid choices.
+
+## Use the interactive builder safely
+
+An agent can translate user-specified design decisions into `design-system.config.json` following [the builder guide](WIZARD.md). Run `node scripts/cli.mjs init --config FILE --out DIR --dry-run` first, show the planned outputs, and request approval. Only after approval should the agent run `--yes`. Do not invent an obligatory brand palette, grid, hierarchy, type scale, framework or output path. No background installation is performed.

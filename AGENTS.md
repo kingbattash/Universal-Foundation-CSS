@@ -9,6 +9,7 @@ This is **Universal Foundation CSS**, a toolkit for creating **independent desig
 - Follow `docs/IMPLEMENTATION_PLAN.md` for phase order and module ownership; do not mark a phase complete from folder creation alone.
 - Keep public APIs small and typed. Validate formulas and reject impossible inputs.
 - Before editing, inspect relevant files and existing tests. Prefer a small PR with reproducible tests.
+- The `uf-css init` wizard is opt-in: show all proposed files and obtain explicit creator confirmation before generating anything. See `docs/WIZARD.md`. Do not force example colors, grids or hierarchy choices.
 - Generated project themes belong outside the universal core. Use `scripts/generate-project-theme.mjs` only on user-approved project configuration and output paths. Do not overwrite existing themes without `--force` and authorization.
 - Run `npm run verify` and report what actually ran. Avoid claiming browser/device QA if it was not done.
 - For workflows around auditing or creating design systems, use `.agents/skills/universal-foundation-css/SKILL.md`.

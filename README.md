@@ -93,6 +93,20 @@ UF-CSS offers **choices, not 37 mandatory styles**. A grid registry entry declar
 
 See the [grid catalog](docs/GRIDS.md) before selecting a layout.
 
+## Interactive design-system builder
+
+Run the **opt-in setup wizard** to choose or skip your own colors, typography, spacing, structural grids, composition guides, hierarchy, and framework adapters. It previews all planned files and requires explicit confirmation before creating a directory.
+
+```bash
+# From this repository (not yet published on npm)
+node scripts/cli.mjs init
+
+# Read-only plan suitable for an AI agent or CI
+node scripts/cli.mjs init --config examples/builder/editorial.config.json --out ./my-system --dry-run
+```
+
+See the [interactive wizard guide](docs/WIZARD.md). The CLI is included in the experimental packed package as `uf-css init`; the corresponding npm package has not been published yet.
+
 ## Create a completely custom design system
 
 You can now generate adapters from **your own token names and values**, with no inherited color palette, font, spacing scale, grid or hierarchy. The generator accepts independently authored DTCG-style files and optional explicit Tailwind/Bootstrap mappings.

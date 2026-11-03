@@ -4,6 +4,9 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Interactive `uf-css init` wizard for optional design decisions, grid combinations, hierarchy, file preview and confirmation.
+- Config-driven `--dry-run`/explicit `--yes` automation, selective scaffolding and overwrite/symlink safeguards.
+- Wizard guide, sample configuration, offline packed-CLI test and safety tests.
 - Independent DTCG-style user-owned token compiler with optional Tailwind/Bootstrap mappings; no neutral presets required.
 - Two contrasting custom-system examples and tests for aliases, invalid input, collisions and safe output updates.
 - Packaged opt-in `uf-css` generator CLI and user-system documentation.

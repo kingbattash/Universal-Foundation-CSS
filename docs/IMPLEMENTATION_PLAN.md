@@ -102,6 +102,22 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** changing a canonical token regenerates the correct outputs in **all six adapters**. Unchanged inputs produce byte-identical outputs. No adapter must reimplement fundamental token calculations.
 
+### Phase 02W — Interactive builder before further expansion (MVP IMPLEMENTED)
+
+**Goal:** The developer answers only the design questions they want to answer, reviews the future file tree, and confirms **before** any directory or CSS is written. This capability is prioritized before expanding the next design-domain catalogs.
+
+| Step | Work | Location |
+| --- | --- | --- |
+| W.1 | Terminal wizard for project name/output, framework selection, custom colors, fonts, type size and spacing | `scripts/init-project.mjs`, `scripts/lib/init/wizard.mjs` |
+| W.2 | Multiple structural grids, optional mathematical composition guides, arbitrary custom hierarchy names | `scripts/lib/init/config.mjs`, `scripts/lib/init/scaffold.mjs` |
+| W.3 | Print a configuration and file-tree preview without touching the filesystem; ask for explicit `yes` | `scripts/init-project.mjs` |
+| W.4 | Generate only requested adapters, token CSS, selected layout CSS and composition/hierarchy JSON | `scripts/lib/init/scaffold.mjs` |
+| W.5 | Safe non-interactive `--config --out --dry-run` or `--yes` flows for AI agents and CI | `scripts/cli.mjs`, `tests/builder.test.mjs` |
+| W.6 | Packaged `uf-css init` command, documentation and integration verification | `package.json`, `scripts/verify-packed-package.mjs`, `docs/WIZARD.md` |
+| W.7 | Future: edit/resume wizard, richer token schema, responsive custom grid definitions and visual preview | Planned; not implemented |
+
+**MVP gate:** no decisions mandatory, no writes without confirmation, no irrelevant adapter folders, no forced brand or aesthetic rules. The CI test suite verifies this; full graphical preview is not in scope yet.
+
 ### Phase 03 — Consumer themes and branding isolation
 
 **Goal:** A user creates a unique product theme without forking UF-CSS or leaking another project's identity.
@@ -218,7 +234,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | --- | --- | --- |
 | 10.1 | Extend the skill to detect Vanilla, Tailwind v3/v4, Bootstrap, StyleX, Expo and unsupported stacks | `.agents/skills/universal-foundation-css/SKILL.md` |
 | 10.2 | Create an inspect-only project audit report: tokens, duplicates, import order, navigation, component states, framework version | `scripts/audit-project.mjs`, `docs/AI-AGENTS.md` |
-| 10.3 | Create explicit `init` workflow: identify stack, optionally choose or define grid(s), define **user-owned** design decisions, generate a product theme, install adapter, write config | `scripts/init-project.mjs`, `scripts/lib/` |
+| 10.3 | **MVP COMPLETE:** user-owned `init` wizard and config/preview/confirmation scaffold; future agent-led audit and richer project integration remain | `scripts/init-project.mjs`, `scripts/lib/init/`, `docs/WIZARD.md` |
 | 10.4 | Keep safe non-overwrite/dry-run behavior; require user consent for package installs, migrations and destructive actions | `scripts/`, `tests/` |
 | 10.5 | Test skill installation and example prompts with compatible Codex/Claude/Copilot workflows | `.agents/skills/`, `tests/skill-installer.test.ts` |
 | 10.6 | Document ChatGPT compatibility honestly: repository skill files are not automatically installed in the ChatGPT app | `docs/AI-AGENTS.md` |
@@ -270,7 +286,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | Browser CSS recipes | `src/css/` | React Native styles |
 | Framework-specific adapters | `adapters/{tailwind-v3,tailwind-v4,bootstrap,stylex,react-native}/` | Canonical design-domain folders |
 | Consuming-app build examples | `integration/` and `examples/` | Universal library public API |
-| Token/theme/skill tooling | `scripts/` and `.agents/` | App UI source |
+| Token/theme/skill tooling, interactive builder | `scripts/`, `scripts/lib/init/` and `.agents/` | App UI source |
 | CI, tests and quality gates | `tests/` and `.github/workflows/` | Static README claims |
 | An organization's visual identity | **its own repository** | Universal Foundation CSS |
 
