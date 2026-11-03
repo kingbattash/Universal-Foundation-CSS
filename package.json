@@ -37,7 +37,8 @@
     "scripts/lib/custom-tokens.mjs",
     "scripts/cli.mjs",
     "scripts/init-project.mjs",
-    "scripts/lib/init"
+    "scripts/lib/init",
+    "scripts/lib/project-theme.mjs"
   ],
   "engines": {
     "node": ">=20"
