@@ -3,7 +3,7 @@
  * No color, spacing, typography, semantic role, hierarchy or grid is required.
  */
 const plain = x => x !== null && typeof x === "object" && !Array.isArray(x) && Object.getPrototypeOf(x) === Object.prototype;
-const validKey = /^[a-zA-Z][a-zA-Z0-9_-]*$/;
+const validKey = /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/;
 const reserved = new Set(["__proto__", "prototype", "constructor"]);
 const kebab = name => name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/_/g, "-").toLowerCase();
 const tokenName = path => path.split(".").map(kebab).join("-");
