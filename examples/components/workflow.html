@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Independent component workflow specimen</title>
+  <link rel="stylesheet" href="../../src/css/pattern-recipes.css">
+  <style>
+    /* Every color, typeface and length here is owned by this specimen. */
+    body { font:16px/1.6 system-ui,sans-serif; color:#1e293b; background:#f8fafc; margin:0; }
+    main { max-width:56rem; padding:clamp(1rem,4vw,2.5rem); margin:auto; }
+    .group { border:1px solid #94a3b8; padding:1rem; margin-block:1rem; border-radius:.4rem; }
+    button,input,select { font:inherit; min-block-size:2.5rem; }
+    button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible {
+      outline:3px solid #a34d0a;outline-offset:2px;
+    }
+    .tabs { display:flex; flex-wrap:wrap; gap:.5rem; }
+    [role="tab"][aria-selected="true"] { font-weight:700; text-decoration:underline; }
+    [hidden] { display:none !important; }
+    dialog { max-inline-size:min(90vw,32rem); }
+  </style>
+</head>
+<body>
+  <a href="#main">Skip to content</a>
+  <main id="main">
+    <h1>Task components with independently chosen styling</h1>
+    <p>This is an entirely local example. No submissions or credentials are sent to a server.</p>
+    <section class="group uf-p-section" aria-labelledby="tab-heading">
+      <h2 id="tab-heading">Manual-activation tabs</h2>
+      <div class="tabs" role="tablist" aria-label="Example information panels" aria-orientation="horizontal">
+        <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" tabindex="0">Overview</button>
+        <button type="button" role="tab" id="tab-details" aria-controls="panel-details" aria-selected="false" tabindex="-1">Details</button>
+      </div>
+      <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+        <p>Arrow keys move focus; Enter or Space selects a panel. Tab exits the tablist.</p>
+      </section>
+      <section id="panel-details" role="tabpanel" aria-labelledby="tab-details" tabindex="0" hidden>
+        <p>Moving arrow focus alone does not change selection in manual activation mode.</p>
+      </section>
+    </section>
+    <section class="group" aria-labelledby="form-heading">
+      <h2 id="form-heading">Native form, feedback and states</h2>
+      <form id="sample-form" class="uf-p-fields" novalidate>
+        <label for="demo-name">Display name</label>
+        <input id="demo-name" name="displayName" autocomplete="name" required
+          aria-describedby="name-help name-error">
+        <small id="name-help">This value is checked only in your browser.</small>
+        <p id="name-error" hidden></p>
+        <label for="demo-type">Purpose</label>
+        <select id="demo-type" name="purpose" required>
+          <option value="">Choose a purpose</option>
+          <option value="study">Study</option>
+          <option value="review">Review</option>
+        </select>
+        <button id="demo-submit" type="submit">Check locally</button>
+      </form>
+      <p id="form-status" class="uf-p-feedback" role="status" aria-live="polite"></p>
+    </section>
+    <section class="group" aria-labelledby="dialog-example-heading">
+      <h2 id="dialog-example-heading">Native modal dialog</h2>
+      <button type="button" id="open-dialog">Open explanation</button>
+      <dialog id="demo-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+        <h2 id="dialog-title">An independent design decision</h2>
+        <p id="dialog-description">This native dialog illustrates a named modal without forcing its appearance.</p>
+        <button type="button" id="close-dialog">Close dialog</button>
+      </dialog>
+    </section>
+  </main>
+  <script type="module">
+    const tabs=[...document.querySelectorAll('[role="tab"]')];
+    const panels=tabs.map(tab=>document.getElementById(tab.getAttribute('aria-controls')));
+    let focusIndex=0;
+    function focusTab(index) {
+      focusIndex=(index+tabs.length)%tabs.length;
+      tabs.forEach((tab,i)=>{tab.tabIndex=i===focusIndex?0:-1;});
+      tabs[focusIndex].focus();
+    }
+    function activateTab(index) {
+      focusIndex=index;
+      tabs.forEach((tab,i)=>{
+        const selected=i===index;
+        tab.setAttribute('aria-selected',String(selected));
+        tab.tabIndex=selected?0:-1;
+        panels[i].hidden=!selected;
+      });
+      tabs[index].focus();
+    }
+    tabs.forEach((tab,index)=>tab.addEventListener('click',()=>activateTab(index)));
+    document.querySelector('[role="tablist"]').addEventListener('keydown',event=>{
+      const index=tabs.indexOf(event.target);
+      if(index<0)return;
+      if(event.key==='ArrowRight') {event.preventDefault();focusTab(index+1);}
+      if(event.key==='ArrowLeft') {event.preventDefault();focusTab(index-1);}
+      if(event.key==='Home') {event.preventDefault();focusTab(0);}
+      if(event.key==='End') {event.preventDefault();focusTab(tabs.length-1);}
+      if(event.key==='Enter'||event.key===' ') {event.preventDefault();activateTab(index);}
+    });
+
+    const form=document.getElementById('sample-form');
+    const field=document.getElementById('demo-name');
+    const purpose=document.getElementById('demo-type');
+    const error=document.getElementById('name-error');
+    const status=document.getElementById('form-status');
+    const submit=document.getElementById('demo-submit');
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      error.hidden=true;
+      field.removeAttribute('aria-invalid');
+      purpose.removeAttribute('aria-invalid');
+      if(!field.value.trim()) {
+        error.textContent='Enter a display name before checking.';
+        error.hidden=false;
+        field.setAttribute('aria-invalid','true');
+        status.textContent='Local validation needs a display name.';
+        field.focus();
+        return;
+      }
+      if(!purpose.value) {
+        purpose.setAttribute('aria-invalid','true');
+        status.textContent='Choose a purpose before checking.';
+        purpose.focus();
+        return;
+      }
+      submit.disabled=true;
+      submit.textContent='Checking locally…';
+      status.textContent='Local validation in progress.';
+      // Deliberately a LOCAL calculation, not a simulated network request.
+      Promise.resolve({valid:true}).then(result=>{
+        submit.disabled=false;
+        submit.textContent='Check locally';
+        status.textContent=result.valid
+          ? 'Local validation completed. Nothing was submitted to a server.'
+          : 'Local validation could not complete.';
+      }).catch(()=>{
+        submit.disabled=false;
+        submit.textContent='Check locally';
+        status.textContent='A local validation error occurred.';
+      });
+    });
+    const open=document.getElementById('open-dialog');
+    const close=document.getElementById('close-dialog');
+    const dialog=document.getElementById('demo-dialog');
+    open.addEventListener('click',()=>{dialog.showModal();close.focus();});
+    close.addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('close',()=>open.focus());
+  </script>
+</body>
+</html>
