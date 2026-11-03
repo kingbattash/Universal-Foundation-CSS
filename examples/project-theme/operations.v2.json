@@ -62,6 +62,30 @@
           ],
           "hex": "#0755ba"
         }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02745098,
+            0.33333333,
+            0.72941176
+          ],
+          "hex": "#0755ba"
+        }
+      },
+      "actionHover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.02352941,
+            0.27058824,
+            0.60784314
+          ],
+          "hex": "#06459b"
+        }
       }
     },
     "typography": {
@@ -176,6 +200,28 @@
             ],
             "hex": "#78dcff"
           }
+        },
+        "focus": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.47058824,
+              0.8627451,
+              1
+            ],
+            "hex": "#78dcff"
+          }
+        },
+        "actionHover": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.66666667,
+              0.9254902,
+              1
+            ],
+            "hex": "#aaecff"
+          }
         }
       }
     }
@@ -186,7 +232,9 @@
         "canvas": "ui.canvas",
         "ink": "ui.ink",
         "action": "ui.action",
-        "link": "ui.link"
+        "link": "ui.link",
+        "focus": "ui.focus",
+        "actionHover": "ui.actionHover"
       },
       "spacing": {
         "compact": "spacing.compact",
@@ -230,6 +278,20 @@
       "foreground": "ui.link",
       "background": "ui.canvas",
       "minimum": 4.5
+    },
+    {
+      "name": "hover-action-label",
+      "type": "text",
+      "foreground": "ui.onAction",
+      "background": "ui.actionHover",
+      "minimum": 4.5
+    },
+    {
+      "name": "focus-ring",
+      "type": "focus",
+      "foreground": "ui.focus",
+      "background": "ui.canvas",
+      "minimum": 3
     }
   ]
 }

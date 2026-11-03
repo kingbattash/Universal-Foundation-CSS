@@ -25,6 +25,8 @@ test("two unrelated themes use only creator values, mode overrides and custom ty
   assert.doesNotMatch(a["theme.css"],/--uf-canvas|--harbor-operations-/);
   assert.doesNotMatch(b["theme.css"],/--uf-canvas|--copper-editorial-/);
   assert.match(a["theme.css"],/--copper-editorial-typography-heading: Georgia, serif/);
+  assert.match(a["theme.css"],/--copper-editorial-ui-focus: #f3b6c9/);
+  assert.match(b["theme.css"],/--harbor-operations-ui-action-hover: #aaecff/);
   assert.match(b["theme.css"],/--harbor-operations-corners-card: 16px/);
   assert.ok(b["tailwind-v4.css"].includes("--color-harbor-operations-action: var(--harbor-operations-ui-action)"));
   assert.match(a["tailwind-v3.cjs"],/copper-editorial-comfortable/);
@@ -32,8 +34,8 @@ test("two unrelated themes use only creator values, mode overrides and custom ty
   assert.match(a["stylex-vars.stylex.ts"],/stylex.defineVars/);
   assert.match(a["stylex-theme.stylex.ts"],/stylex.createTheme/);
   assert.match(b["native-theme.ts"],/"enter": 125/);
-  assert.equal(JSON.parse(a["theme.manifest.json"]).contrastChecks.length,6);
-  assert.equal(JSON.parse(b["theme.manifest.json"]).contrastChecks.length,6);
+  assert.equal(JSON.parse(a["theme.manifest.json"]).contrastChecks.length,10);
+  assert.equal(JSON.parse(b["theme.manifest.json"]).contrastChecks.length,10);
   assert.ok(editorial.contrastChecks.every(c=>c.passed));
   assert.ok(operational.contrastChecks.every(c=>c.passed));
 });
