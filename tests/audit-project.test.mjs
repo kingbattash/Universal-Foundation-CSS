@@ -105,6 +105,25 @@ test("unknown or unsupported framework versions never trigger unverified adapter
   }finally{await rm(blank,{recursive:true,force:true});}
 }));
 
+test("source-only framework hints are not advertised as version-confirmed adapters",async()=>fixture(async project=>{
+  await file(join(project,"entry.css"),'@import "tailwindcss";');
+  const audit=await auditProject(project);
+  const signal=audit.frameworks.find(f=>f.id==="tailwind-v4");
+  assert.equal(signal.confidence,"medium");
+  assert.equal(signal.adapter,null);
+  assert.ok(!audit.adapterChoices.some(a=>a.adapter==="tailwind-v4"));
+  assert.ok(audit.adapterChoices.some(a=>a.adapter==="css"));
+}));
+
+test("linked ancestors are refused even if nested target is not itself a symlink",async()=>fixture(async project=>{
+  const external=await mkdtemp(join(tmpdir(),"uf-audit-parent-"));
+  try{
+    await mkdir(join(external,"nested"));
+    await symlink(external,join(project,"alias"),"dir");
+    await assert.rejects(()=>auditProject(join(project,"alias","nested")),/symbolic-link ancestor/);
+  }finally{await rm(external,{recursive:true,force:true});}
+}));
+
 test("does not follow symlinks into private content or mutate linked targets",async()=>fixture(async project=>{
   const external=await mkdtemp(join(tmpdir(),"uf-external-private-"));
   try{
