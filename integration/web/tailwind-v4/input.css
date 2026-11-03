@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "../../../src/css/foundation.css";
+@import "../../../adapters/tailwind-v4/theme.generated.css";
+@source "./fixture.html";
