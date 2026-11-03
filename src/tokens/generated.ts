@@ -57,7 +57,15 @@ export const generatedTokens = {
     "readingMeasure": 68,
     "gutterMobile": 16,
     "gutterDesktop": 48,
-    "touchTarget": 44
+    "touchTarget": 44,
+    "viewportMin": 360,
+    "viewportMax": 1440,
+    "breakpointSm": 640,
+    "breakpointMd": 768,
+    "breakpointLg": 1024,
+    "breakpointXl": 1280,
+    "breakpointXxl": 1536,
+    "gridColumnCount": 12
   },
   "type": {
     "bodySize": 16,
@@ -78,7 +86,22 @@ export const generatedTokens = {
     "fontBody": [
       "system-ui",
       "sans-serif"
-    ]
+    ],
+    "h3Min": 24,
+    "h3Max": 38,
+    "h4Min": 22,
+    "h4Max": 26,
+    "bodyMax": 18,
+    "bodySmallMax": 16,
+    "captionMax": 14,
+    "headingWeight": 600,
+    "bodyWeight": 400,
+    "displayLineHeight": 1.05,
+    "h2LineHeight": 1.16,
+    "h3LineHeight": 1.2,
+    "h4LineHeight": 1.25,
+    "smallLineHeight": 1.5,
+    "captionLineHeight": 1.4
   },
   "motion": {
     "instant": 0,
@@ -91,7 +114,34 @@ export const generatedTokens = {
       0,
       0,
       1
+    ],
+    "easeEasing": [
+      0.25,
+      0.1,
+      0.25,
+      1
     ]
+  },
+  "scale": {
+    "modularRatio": 1.25
+  },
+  "density": {
+    "compact": 12,
+    "comfortable": 16,
+    "spacious": 24
+  },
+  "zIndex": {
+    "base": 0,
+    "sticky": 100,
+    "popover": 200,
+    "dialog": 300,
+    "toast": 400
+  },
+  "elevation": {
+    "none": 0,
+    "subtle": 1,
+    "raised": 2,
+    "overlay": 3
   },
   "light": {
     "canvas": "#ffffff",

@@ -72,7 +72,36 @@ export const ufNativeTokens = {
     "readingMeasure": 68,
     "gutterMobile": 16,
     "gutterDesktop": 48,
-    "touchTarget": 44
+    "touchTarget": 44,
+    "viewportMin": 360,
+    "viewportMax": 1440,
+    "breakpointSm": 640,
+    "breakpointMd": 768,
+    "breakpointLg": 1024,
+    "breakpointXl": 1280,
+    "breakpointXxl": 1536,
+    "gridColumnCount": 12
+  },
+  "scale": {
+    "modularRatio": 1.25
+  },
+  "density": {
+    "compact": 12,
+    "comfortable": 16,
+    "spacious": 24
+  },
+  "zIndex": {
+    "base": 0,
+    "sticky": 100,
+    "popover": 200,
+    "dialog": 300,
+    "toast": 400
+  },
+  "elevation": {
+    "none": 0,
+    "subtle": 1,
+    "raised": 2,
+    "overlay": 3
   },
   "motionMs": {
     "instant": 0,

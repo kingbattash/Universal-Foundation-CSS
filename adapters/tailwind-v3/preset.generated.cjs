@@ -33,7 +33,10 @@ module.exports = {
         "uf-16": "var(--uf-space-16)",
         "uf-20": "var(--uf-space-20)",
         "uf-24": "var(--uf-space-24)",
-        "uf-32": "var(--uf-space-32)"
+        "uf-32": "var(--uf-space-32)",
+        "uf-density-compact": "var(--uf-density-compact)",
+        "uf-density-comfortable": "var(--uf-density-comfortable)",
+        "uf-density-spacious": "var(--uf-density-spacious)"
       },
       "borderRadius": {
         "uf-none": "var(--uf-radius-none)",

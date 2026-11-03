@@ -38,7 +38,20 @@ export const ufVars = stylex.defineVars({
   "radiusxl": "20px",
   "radiuspill": "9999px",
   "motionFast": "120ms",
-  "motionStandard": "180ms"
+  "motionStandard": "180ms",
+  "scaleModularRatio": 1.25,
+  "densityCompact": "12px",
+  "densityComfortable": "16px",
+  "densitySpacious": "24px",
+  "zIndexBase": 0,
+  "zIndexSticky": 100,
+  "zIndexPopover": 200,
+  "zIndexDialog": 300,
+  "zIndexToast": 400,
+  "elevationNone": 0,
+  "elevationSubtle": 1,
+  "elevationRaised": 2,
+  "elevationOverlay": 3
 })
 
 export const ufDarkTheme = stylex.createTheme(ufVars, {

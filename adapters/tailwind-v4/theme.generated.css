@@ -29,6 +29,9 @@
   --spacing-uf-20: var(--uf-space-20);
   --spacing-uf-24: var(--uf-space-24);
   --spacing-uf-32: var(--uf-space-32);
+  --spacing-uf-density-compact: var(--uf-density-compact);
+  --spacing-uf-density-comfortable: var(--uf-density-comfortable);
+  --spacing-uf-density-spacious: var(--uf-density-spacious);
   --radius-uf-none: var(--uf-radius-none);
   --radius-uf-sm: var(--uf-radius-sm);
   --radius-uf-md: var(--uf-radius-md);
