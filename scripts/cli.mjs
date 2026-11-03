@@ -5,9 +5,11 @@ if (!command || ["--help", "-h", "help"].includes(command)) {
   console.log("  uf-css init [--config FILE --out DIR --dry-run|--yes]");
   console.log("  uf-css generate --tokens FILE --prefix NAME --out DIR [--mapping FILE]");
   console.log("  uf-css theme --config FILE --out DIR [--check | --force]");
-} else if (command === "init" || command === "generate" || command === "theme") {
+  console.log("  uf-css audit --project DIRECTORY [--format text|json]  # inspect-only");
+} else if (command === "init" || command === "generate" || command === "theme" || command === "audit") {
   process.argv.splice(2, 1);
-  if (command === "init") await import("./init-project.mjs");
+  if (command === "audit") await import("./audit-project.mjs");
+  else if (command === "init") await import("./init-project.mjs");
   else if(command === "generate") await import("./generate-custom-system.mjs");
   else await import("./generate-project-theme.mjs");
 } else {
