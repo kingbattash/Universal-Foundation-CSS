@@ -1,13 +1,15 @@
 # Universal Foundation CSS
 
-**A brand-independent foundation for designing clearer, more consistent interfaces.**
+**Build your own design system with open, framework-independent foundations.**
 
 [![Apache License 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Status: Early Development](https://img.shields.io/badge/status-early%20development-informational.svg)](docs/ROADMAP.md)
 
-Universal Foundation CSS (**UF-CSS**) is an open-source library of design principles, typed mathematical formulas, semantic roles, hierarchy, grid systems, and component contracts. It helps teams build web and mobile interfaces from a consistent methodology **without making every product look the same**.
+Universal Foundation CSS (**UF-CSS**) is an open-source **design-system construction toolkit**: optional mathematical tools, semantic modeling methods, hierarchy and grid references, token generators, framework adapters and component contracts. **It does not prescribe a visual system.** Each developer or product creates and owns its own design language.
 
 > **Status: 0.x experimental.** The repository provides a working TypeScript foundation, canonical token generation, an optional CSS starter adapter, and generated framework mappings. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
+
+See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before adopting a preset. All existing scales, grids, categories and starter tokens are optional examples, not mandatory conventions.
 
 ## Implementation status and next steps
 

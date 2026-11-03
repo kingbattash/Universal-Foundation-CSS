@@ -1,6 +1,6 @@
 # Architecture and boundaries
 
-UF-CSS is a **design foundation** with minimal implementation assumptions.
+UF-CSS is a **framework-neutral toolkit to create design systems**, not a mandatory design system. Its example scales, hierarchy classifications, grids and neutral theme are optional, and consuming projects define their own rules. See [PHILOSOPHY.md](PHILOSOPHY.md).
 
 ```text
                  UNIVERSAL FOUNDATION
@@ -18,6 +18,10 @@ UF-CSS is a **design foundation** with minimal implementation assumptions.
                 independent products
                (own fonts, colors, UX)
 ```
+
+## Design freedom
+
+Consumers can omit any optional preset, supply custom design tokens and define their own hierarchy, grid algorithms and component appearance. The catalog of 20 hierarchy categories and 37 grids is illustrative and expandable—not an exclusive set of recognized methods. Technical validity and accessibility should be tested without enforcing a common look. Current 0.x theme configuration supports semantic colors; further customization and plugin interfaces are planned, not yet implemented.
 
 ## Dependency policy
 

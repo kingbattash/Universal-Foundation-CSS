@@ -5,7 +5,7 @@
 **Baseline:** `feat/foundation-v0`, reviewed 2026-11-03  
 **Companion docs:** [Architecture](ARCHITECTURE.md) · [Roadmap](ROADMAP.md) · [Adapters](ADAPTERS.md) · [Project themes](THEMES.md) · [AI agents](AI-AGENTS.md)
 
-> **Mission:** A portable, brand-independent design methodology with one canonical token source and adapters for Vanilla CSS, Tailwind CSS, Bootstrap, StyleX and React Native. A consuming product chooses its **own brand, grids, layouts and component appearance**. UF-CSS must never import AMGYNA (or any other product) as a dependency.
+> **Mission:** An open, brand-independent **toolkit for creating original design systems**, with reusable mathematics, token generation, optional references and framework adapters. UF-CSS itself is **not** a prescribed design system. Consumers may replace all example values and choose—or define—their own hierarchy, typography, grids, interactions and component styles. UF-CSS must never depend on AMGYNA (or another consumer). See [PHILOSOPHY.md](PHILOSOPHY.md).
 
 ## 1. How to read and execute this plan
 
@@ -13,7 +13,9 @@
 
 **Work rule:** Complete phases in order, except independent documentation or tests. Each phase gets a focused PR or reviewable group of commits. Record evidence in its PR: changed files, generated artifacts, test commands, screenshots if visual, known limitations, and **why** each new public API is necessary. Do not claim `DONE` just because a file exists.
 
-**Source-of-truth rule:** Hand-edit `tokens/source.tokens.json` for canonical values. Run `npm run generate:tokens`. All `*.generated.*` files are outputs; do not manually patch them. Product colors and fonts belong to a **consumer theme**, not the universal defaults.
+**Design-freedom rule:** No scale, grid, hierarchy category, neutral palette, component shape, or visual style is mandatory for the consuming project. Treat the present 20 hierarchy entries and 37 grid entries as optional reference catalogs, not exhaustive or exclusive definitions. Future design-system creation APIs must accept custom definitions.
+
+**Source-of-truth rule:** For the current UF-CSS neutral starter, hand-edit `tokens/source.tokens.json` for its canonical values. Run `npm run generate:tokens`. All `*.generated.*` files are outputs; do not manually patch them. Product colors and fonts belong to a **consumer theme**, not the universal defaults.
 
 **Current working location:** the initial scaffold is in `feat/foundation-v0` in [draft PR #1](https://github.com/kingbattash/Universal-Foundation-CSS/pull/1). `main` contains the original open-source initialization, not yet the entire experimental implementation. Do not merge or publish automatically.
 
@@ -112,6 +114,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | 03.4 | Expand semantic contrast tests for light/dark, state colors, links and focus indicators; report—not silently alter—invalid palettes | `tests/project-theme.test.ts`, `scripts/lib/` |
 | 03.5 | Support non-destructive `--check`, `--force`, config schema validation, deterministic manifest and documented migration | `scripts/generate-project-theme.mjs`, `docs/THEMES.md` |
 | 03.6 | Add a neutral sample theme and demonstrate **two visibly distinct product themes** that share the same foundation | `examples/project-theme/`, `integration/web/` |
+| 03.7 | Support consumer-defined token values and custom semantic roles without being limited to UF-CSS's neutral example palette | `tokens/` consumer schema, `scripts/lib/project-theme.mjs`, `docs/THEME-CONTRACT.md` |
 
 **Gate:** two unrelated example products use the same UF-CSS version, have different branding, and pass token/contrast checks without editing `src/` or canonical tokens.
 
@@ -158,6 +161,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | 06.4 | Specify priority levels, relationships, design constraints, examples and anti-patterns for each type | `src/hierarchy/**`, `docs/HIERARCHY.md` |
 | 06.5 | Define optional style strategies in CSS/adapter layers—**not** StyleX-only code inside universal core | `src/css/`, `adapters/` |
 | 06.6 | Validate semantic reading order and representative hierarchy examples at responsive widths | `examples/`, `tests/` |
+| 06.7 | Accept custom hierarchy names, rules, and extensions in consuming projects; do not force any of the 20 reference categories | `src/hierarchy/`, `docs/HIERARCHY.md`, `tests/` |
 
 **Gate:** all 20 categories have implementable specifications or documented reference status. A user can select hierarchy rules and see which style strategies express them, without assuming every category is scientifically independent.
 
@@ -174,6 +178,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | 07.5 | Document Van de Graaf, Rosarivo, Villard, Golden Canon, and other classical systems as researched references unless a real implementation is warranted | `src/grid/golden-canons/`, `docs/GRIDS.md` |
 | 07.6 | Evaluate Bento and Masonry with CSS feature support and fallbacks; avoid unsupported claims | `src/grid/web/`, `integration/web/` |
 | 07.7 | Add responsive, zoom, long-content and logical reading-order test pages | `examples/grids/`, `tests/` |
+| 07.8 | Make user-authored grid definitions first-class; allow projects to select zero or more built-in grid presets | `src/grid/`, `docs/GRIDS.md`, `tests/` |
 
 **Gate:** each grid has an explicit support level, reference/source notes, suitable-use guidance, and a working example **where claimed implemented**. No requirement to render all 37.
 
@@ -213,7 +218,7 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 | --- | --- | --- |
 | 10.1 | Extend the skill to detect Vanilla, Tailwind v3/v4, Bootstrap, StyleX, Expo and unsupported stacks | `.agents/skills/universal-foundation-css/SKILL.md` |
 | 10.2 | Create an inspect-only project audit report: tokens, duplicates, import order, navigation, component states, framework version | `scripts/audit-project.mjs`, `docs/AI-AGENTS.md` |
-| 10.3 | Create explicit `init` workflow: identify stack, choose grid(s), generate product theme, install adapter, write config | `scripts/init-project.mjs`, `scripts/lib/` |
+| 10.3 | Create explicit `init` workflow: identify stack, optionally choose or define grid(s), define **user-owned** design decisions, generate a product theme, install adapter, write config | `scripts/init-project.mjs`, `scripts/lib/` |
 | 10.4 | Keep safe non-overwrite/dry-run behavior; require user consent for package installs, migrations and destructive actions | `scripts/`, `tests/` |
 | 10.5 | Test skill installation and example prompts with compatible Codex/Claude/Copilot workflows | `.agents/skills/`, `tests/skill-installer.test.ts` |
 | 10.6 | Document ChatGPT compatibility honestly: repository skill files are not automatically installed in the ChatGPT app | `docs/AI-AGENTS.md` |
@@ -337,7 +342,7 @@ Universal-Foundation-CSS/
 2. **Adapters:** update integration fixtures affected by changed tokens or exports.
 3. **Accessibility:** document semantic/interaction impact; validate it where applicable.
 4. **Documentation:** README/example usage is accurate and points to existing paths.
-5. **Portability:** no AMGYNA, AmyMail, or other consuming project's unique design values enter the universal core.
+5. **Portability and freedom:** no AMGYNA, AmyMail, or other consumer's values enter the universal core; no preset is a requirement; user-defined design choices are supported.
 6. **Review:** a focused PR explains what was implemented and which limitations remain.
 
 ## 7. Immediate next action
