@@ -104,7 +104,7 @@ async function verifyUserOwnedSystems() {
         '@import "tailwindcss";',
         '@import "./tokens.css";',
         '@import "./tailwind-v4.css";',
-        '@source "./fixture.html";',
+        '@source inline("' + expected.join(" ") + '");',
         '',
       ].join("\n");
       await writeFile(join(temp, "input.css"), sourceCss, "utf8");
