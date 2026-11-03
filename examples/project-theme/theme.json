@@ -1,0 +1,15 @@
+{
+  "name": "example-product",
+  "light": {
+    "action": "#005bbb",
+    "actionHover": "#004b99",
+    "onAction": "#ffffff",
+    "focus": "#005bbb"
+  },
+  "dark": {
+    "action": "#8cb4ff",
+    "actionHover": "#bad0ff",
+    "onAction": "#111111",
+    "focus": "#8cb4ff"
+  }
+}
