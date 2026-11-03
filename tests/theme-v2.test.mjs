@@ -26,7 +26,7 @@ test("two unrelated themes use only creator values, mode overrides and custom ty
   assert.doesNotMatch(b["theme.css"],/--uf-canvas|--copper-editorial-/);
   assert.match(a["theme.css"],/--copper-editorial-typography-heading: Georgia, serif/);
   assert.match(b["theme.css"],/--harbor-operations-corners-card: 16px/);
-  assert.match(b["tailwind-v4.css"],/--color-harbor-operations-action: var\\(--harbor-operations-ui-action\\)/);
+  assert.ok(b["tailwind-v4.css"].includes("--color-harbor-operations-action: var(--harbor-operations-ui-action)"));
   assert.match(a["tailwind-v3.cjs"],/copper-editorial-comfortable/);
   assert.match(b["bootstrap.css"],/--bs-body-bg-rgb: 7, 20, 33/);
   assert.match(a["stylex-vars.stylex.ts"],/stylex.defineVars/);
