@@ -34,7 +34,10 @@
     "README.md",
     "CHANGELOG.md",
     "scripts/generate-custom-system.mjs",
-    "scripts/lib/custom-tokens.mjs"
+    "scripts/lib/custom-tokens.mjs",
+    "scripts/cli.mjs",
+    "scripts/init-project.mjs",
+    "scripts/lib/init"
   ],
   "engines": {
     "node": ">=20"
@@ -42,7 +45,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test dist/tests/*.test.js",
+    "test": "npm run build && node --test dist/tests/*.test.js && node --test tests/builder.test.mjs",
     "verify": "npm run check:tokens && npm run check && npm test",
     "generate:tokens": "node scripts/generate-tokens.mjs",
     "check:tokens": "node scripts/generate-tokens.mjs --check",
@@ -66,6 +69,6 @@
     }
   },
   "bin": {
-    "uf-css": "./scripts/generate-custom-system.mjs"
+    "uf-css": "./scripts/cli.mjs"
   }
 }

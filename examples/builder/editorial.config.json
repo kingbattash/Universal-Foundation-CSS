@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "name": "independent-editorial",
+  "frameworks": [
+    "vanilla-css",
+    "tailwind-v4",
+    "bootstrap"
+  ],
+  "design": {
+    "colors": {
+      "primary": "#8b2442",
+      "canvas": "#fff9f0",
+      "text": "#292524"
+    },
+    "typography": {
+      "headingFont": "Georgia",
+      "bodyFont": "Charter",
+      "baseSizePx": 17
+    },
+    "spacing": {
+      "unitPx": 6
+    },
+    "grids": {
+      "layouts": [
+        {
+          "id": "twelve-column"
+        },
+        {
+          "id": "manuscript"
+        }
+      ],
+      "guides": [
+        "golden-ratio",
+        "baseline"
+      ]
+    },
+    "hierarchy": [
+      "typographic",
+      "information",
+      "custom-editorial-priority"
+    ]
+  }
+}

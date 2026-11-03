@@ -47,6 +47,10 @@ test("npm pack dry-run includes all advertised entry points and excludes tests",
     assert.ok(paths.has(target.replace(/^\.\//,"")),`Export absent from tarball: ${target}`)
   }
   assert.ok(paths.has("dist/src/index.d.ts"))
+  assert.ok(paths.has("scripts/cli.mjs"))
+  assert.ok(paths.has("scripts/init-project.mjs"))
+  assert.ok(paths.has("scripts/lib/init/config.mjs"))
+  assert.equal(pkg.bin["uf-css"], "./scripts/cli.mjs")
   assert.ok(paths.has("LICENSE"))
   assert.ok(paths.has("README.md"))
   assert.ok(!Array.from(paths).some(p=>p.startsWith("node_modules/")||p.startsWith("tests/")))

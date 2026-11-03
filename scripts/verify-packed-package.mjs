@@ -57,6 +57,17 @@ console.log("PASS: installed tarball exports usable outside repository");
   const stylesheet=await readFile(join(scratch,"my-system","tokens.css"),"utf8")
   assert.match(stylesheet,/--independent-custom-size: 13px/)
   console.log("PASS: installed CLI creates custom tokens without universal presets")
+  const builderConfig={schemaVersion:1,name:"portable-demo",frameworks:["vanilla-css","tailwind-v4"],design:{colors:{accent:"#147d87"},grids:{layouts:[{id:"twelve-column"}],guides:["golden-ratio"]},hierarchy:["information"]}}
+  const builderInput=join(scratch,"builder-config.json")
+  const builderOut=join(scratch,"generated-by-wizard")
+  await writeFile(builderInput,JSON.stringify(builderConfig))
+  const executable=join(scratch,"node_modules","@kingbattash","universal-foundation-css","scripts","cli.mjs")
+  const preview=run(process.execPath,[executable,"init","--config",builderInput,"--out",builderOut,"--dry-run"],scratch)
+  assert.match(preview,/Design system preview/)
+  const created=run(process.execPath,[executable,"init","--config",builderInput,"--out",builderOut,"--yes"],scratch)
+  assert.match(created,/Created your own design system/)
+  assert.match(await readFile(join(builderOut,"generated","tokens.css"),"utf8"),/--portable-demo-palette-accent: #147d87/)
+  console.log("PASS: packaged uf-css init previews before creating a custom system")
 }finally{
   await rm(scratch,{recursive:true,force:true})
 }
