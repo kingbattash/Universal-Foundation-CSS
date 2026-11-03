@@ -24,7 +24,7 @@ function rounded(value: number, decimals = 4): number {
 }
 
 /** Modular type size in CSS px; step may be fractional or negative. */
-export function modularScale(step: number, basePx = foundation.baseFontPx, ratio = foundation.modularRatio): number {
+export function modularScale(step: number, basePx: number = foundation.baseFontPx, ratio: number = foundation.modularRatio): number {
   finite(step, "step");
   positive(basePx, "basePx");
   if (!Number.isFinite(ratio) || ratio <= 1) throw new RangeError("ratio must exceed 1");
@@ -34,14 +34,14 @@ export function modularScale(step: number, basePx = foundation.baseFontPx, ratio
 }
 
 /** Multiplies a creator-selected non-negative spacing count by a CSS-pixel unit. */
-export function spacingStep(units: number, basePx = foundation.baseUnitPx): number {
+export function spacingStep(units: number, basePx: number = foundation.baseUnitPx): number {
   nonnegative(units, "units");
   positive(basePx, "basePx");
   return rounded(units * basePx);
 }
 
 /** Preserves authored ordering; no 4px/8px scale or preset step count is imposed. */
-export function spacingScale(steps: readonly number[], basePx = foundation.baseUnitPx): readonly number[] {
+export function spacingScale(steps: readonly number[], basePx: number = foundation.baseUnitPx): readonly number[] {
   if (!Array.isArray(steps)) throw new TypeError("steps must be an array");
   return steps.map((step) => spacingStep(step, basePx));
 }
@@ -75,7 +75,7 @@ function validateFluid(minPx: number, maxPx: number, minViewportPx: number, maxV
 /** Evaluates a fluid size in CSS px at a viewport width in CSS px, with clamping. */
 export function fluidValueAt(
   viewportPx: number, minPx: number, maxPx: number,
-  minViewportPx = foundation.viewport.minPx, maxViewportPx = foundation.viewport.maxPx,
+  minViewportPx: number = foundation.viewport.minPx, maxViewportPx: number = foundation.viewport.maxPx,
 ): number {
   validateFluid(minPx, maxPx, minViewportPx, maxViewportPx);
   return linearInterpolate(viewportPx, minViewportPx, maxViewportPx, minPx, maxPx);
@@ -88,7 +88,7 @@ export function fluidValueAt(
  */
 export function fluidClamp(
   minPx: number, maxPx: number,
-  minViewportPx = foundation.viewport.minPx, maxViewportPx = foundation.viewport.maxPx,
+  minViewportPx: number = foundation.viewport.minPx, maxViewportPx: number = foundation.viewport.maxPx,
 ): string {
   validateFluid(minPx, maxPx, minViewportPx, maxViewportPx);
   const slope = ((maxPx - minPx) / (maxViewportPx - minViewportPx)) * 100;
