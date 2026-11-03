@@ -54,10 +54,10 @@ export const generatedTokens = {
   "layout": {
     "containerMax": 1200,
     "containerWide": 1440,
+    "readingMeasure": 68,
     "gutterMobile": 16,
     "gutterDesktop": 48,
-    "touchTarget": 44,
-    "readingMeasure": 68
+    "touchTarget": 44
   },
   "type": {
     "bodySize": 16,
@@ -69,6 +69,8 @@ export const generatedTokens = {
     "h1Max": 72,
     "h2Min": 30,
     "h2Max": 52,
+    "bodyLineHeight": 1.55,
+    "headingLineHeight": 1.12,
     "fontHeading": [
       "system-ui",
       "sans-serif"
@@ -76,9 +78,7 @@ export const generatedTokens = {
     "fontBody": [
       "system-ui",
       "sans-serif"
-    ],
-    "bodyLineHeight": 1.55,
-    "headingLineHeight": 1.12
+    ]
   },
   "motion": {
     "instant": 0,

@@ -67,6 +67,7 @@ export const ufNativeTokens = {
   "layout": {
     "containerMax": 1200,
     "containerWide": 1440,
+    "readingMeasure": 68,
     "gutterMobile": 16,
     "gutterDesktop": 48,
     "touchTarget": 44
