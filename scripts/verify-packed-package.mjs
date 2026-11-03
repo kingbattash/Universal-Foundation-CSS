@@ -49,6 +49,14 @@ console.log("PASS: installed tarball exports usable outside repository");
   await writeFile(join(scratch,"consumer-smoke.mjs"),fixture,"utf8")
   const stdout=run(process.execPath,["consumer-smoke.mjs"],scratch)
   process.stdout.write(stdout)
+  const customTokens={custom:{size:{$type:"dimension",$value:{value:13,unit:"px"}}}}
+  const input=join(scratch,"custom.tokens.json")
+  await writeFile(input,JSON.stringify(customTokens))
+  const compiler=join(scratch,"node_modules","@kingbattash","universal-foundation-css","scripts","generate-custom-system.mjs")
+  run(process.execPath,[compiler,"--tokens",input,"--prefix","independent","--out",join(scratch,"my-system")],scratch)
+  const stylesheet=await readFile(join(scratch,"my-system","tokens.css"),"utf8")
+  assert.match(stylesheet,/--independent-custom-size: 13px/)
+  console.log("PASS: installed CLI creates custom tokens without universal presets")
 }finally{
   await rm(scratch,{recursive:true,force:true})
 }

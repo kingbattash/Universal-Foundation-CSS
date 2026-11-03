@@ -93,6 +93,20 @@ UF-CSS offers **choices, not 37 mandatory styles**. A grid registry entry declar
 
 See the [grid catalog](docs/GRIDS.md) before selecting a layout.
 
+## Create a completely custom design system
+
+You can now generate adapters from **your own token names and values**, with no inherited color palette, font, spacing scale, grid or hierarchy. The generator accepts independently authored DTCG-style files and optional explicit Tailwind/Bootstrap mappings.
+
+```bash
+node scripts/generate-custom-system.mjs \
+  --tokens examples/custom-systems/editorial/tokens.json \
+  --mapping examples/custom-systems/editorial/mapping.json \
+  --prefix press \
+  --out ./generated/press
+```
+
+Two very different examples are included at `examples/custom-systems/{editorial,operations}/`. Read the [complete custom system guide](docs/CUSTOM_SYSTEMS.md).
+
 ## Cross-framework adapters
 
 All adapters derive from [`tokens/source.tokens.json`](tokens/source.tokens.json), which uses a supported subset of the DTCG 2025.10 typed-token format. **Do not edit generated files directly.**

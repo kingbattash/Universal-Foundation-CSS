@@ -4,6 +4,9 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Independent DTCG-style user-owned token compiler with optional Tailwind/Bootstrap mappings; no neutral presets required.
+- Two contrasting custom-system examples and tests for aliases, invalid input, collisions and safe output updates.
+- Packaged opt-in `uf-css` generator CLI and user-system documentation.
 - Reproducible root, web-fixture and Expo-fixture npm lockfiles with `npm ci` in CI.
 - Actual packed-tarball offline consumer smoke test and public export/side-effect tests.
 - Compatibility/versioning policy and explicitly optional StyleX peer dependency.

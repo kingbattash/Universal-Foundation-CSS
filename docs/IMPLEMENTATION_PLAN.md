@@ -87,18 +87,18 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate PASSED on commit `8db67ef` (2026-11-03):** clean GitHub Actions locked installs, 19/19 unit tests, real offline tarball consumer and all three CI workflows passed (foundation, real web toolchains, Expo Android JS export). This is still an experimental library; no npm release has been published.
 
-### Phase 02 — Canonical tokens and normalization (NEXT)
+### Phase 02 — Canonical tokens and normalization (IN PROGRESS)
 
 **Goal:** Every generated platform value originates from a validated canonical source, with no hidden independent defaults.
 
 | Step | Work | Location |
 | --- | --- | --- |
 | 02.1 | Inventory every existing hardcoded token-like value, classify as canonical or reference guidance | `src/tokens/`, `src/foundation-formular/`, `src/css/`, `tokens/` |
-| 02.2 | Finalize token naming, type support, units and the primitive → semantic → component-role dependency graph | `tokens/source.tokens.json`, `docs/TOKEN-CONTRACT.md` |
+| 02.2 | **PARTIAL:** Allow arbitrary consumer-owned token paths, typed aliases and explicit adapter mappings; document role and unit rules | `scripts/lib/custom-tokens.mjs`, `docs/CUSTOM_SYSTEMS.md`, `docs/TOKEN-CONTRACT.md` (planned) |
 | 02.3 | Add appropriate typography roles, responsive constraints, density, radii, elevation, z-order, and motion; avoid forcing product brand | `tokens/source.tokens.json` |
 | 02.4 | Prefer official DTCG schema validation plus explicit checks for references, unsupported types, cycles and invalid units | `scripts/lib/token-validator.mjs`, `tests/tokens.test.ts` |
 | 02.5 | Split generator into validators, formatters and per-platform writers while preserving deterministic output | `scripts/lib/tokens/`, `scripts/generate-tokens.mjs` |
-| 02.6 | Add collision, missing-alias, malicious-input and output-parity tests | `tests/`, `.github/workflows/ci.yml` |
+| 02.6 | **PARTIAL:** Add collision, missing-alias, malicious-input, custom-generator and output-parity tests; expand to official schema validation later | `tests/custom-system.test.ts`, `tests/`, `.github/workflows/ci.yml` |
 
 **Gate:** changing a canonical token regenerates the correct outputs in **all six adapters**. Unchanged inputs produce byte-identical outputs. No adapter must reimplement fundamental token calculations.
 
@@ -347,7 +347,7 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Begin Phase 02.** Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
+**Continue Phase 02.** User-defined tokens are now generated without neutral presets; schema normalization and deeper adapter verification remain. Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
 
 - [ ] Inventory all core/hierarchy/grid values and split experimental defaults from reusable validation rules.
 - [ ] Define user-authorable project token manifests, including custom roles and optional/empty presets.

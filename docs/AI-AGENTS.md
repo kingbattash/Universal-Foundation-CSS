@@ -34,3 +34,7 @@ The repository's `AGENTS.md` and `.github/copilot-instructions.md` provide small
 - "Use the UF-CSS hierarchy registry to improve the reading order of this article page without changing its brand."
 
 The agent's access remains subject to its host permissions. The skill should not invent tests, perform unapproved migrations or make unsupported claims.
+
+## Create an entirely user-owned design system
+
+For a project that does not want UF-CSS defaults, agents should use the [custom system guide](CUSTOM_SYSTEMS.md). First inspect the project, then write **project-owned** token JSON and explicit adapter mappings, and only then run `scripts/generate-custom-system.mjs` with an approved output directory. Do not force default colors, typography, spacing or grid choices.

@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 next:** support truly consumer-defined token systems and extend DTCG validation.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 underway:** a standalone custom token compiler and two independent examples now support wholly user-owned tokens; full DTCG validation and deeper framework checks remain.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 

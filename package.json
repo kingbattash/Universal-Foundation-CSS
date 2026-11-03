@@ -32,7 +32,9 @@
     "adapters",
     "LICENSE",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "scripts/generate-custom-system.mjs",
+    "scripts/lib/custom-tokens.mjs"
   ],
   "engines": {
     "node": ">=20"
@@ -45,7 +47,8 @@
     "generate:tokens": "node scripts/generate-tokens.mjs",
     "check:tokens": "node scripts/generate-tokens.mjs --check",
     "check:package": "npm run build && node --test dist/tests/package-exports.test.js",
-    "check:pack": "npm run build && node scripts/verify-packed-package.mjs"
+    "check:pack": "npm run build && node scripts/verify-packed-package.mjs",
+    "generate:custom": "node scripts/generate-custom-system.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
@@ -61,5 +64,8 @@
     "@stylexjs/stylex": {
       "optional": true
     }
+  },
+  "bin": {
+    "uf-css": "./scripts/generate-custom-system.mjs"
   }
 }
