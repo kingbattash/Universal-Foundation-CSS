@@ -61,7 +61,7 @@ export function auditReadingOrder(input: SemanticFlowAudit): readonly SemanticFl
       issues.push({ code:"visual-dom-divergence", widthPx, severity:"warning",
         message:"Visual order differs from DOM reading order; manually inspect meaning and focus flow." });
     }
-    const visualFocus = viewport.visualOrder.filter((id: string) => focusIds.includes(id));
+    const visualFocus: string[] = viewport.visualOrder.filter((id: string) => focusIds.includes(id));
     if (visualFocus.some((id, index) => id !== focusIds[index])) {
       issues.push({ code:"focus-dom-divergence", widthPx, severity:"warning",
         message:"Visual focusable order differs from DOM focusable order; test keyboard traversal." });
