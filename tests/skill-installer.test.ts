@@ -44,3 +44,13 @@ test("installer copies to all three hosts and never overwrites existing customiz
     await rm(project, { recursive: true, force: true })
   }
 })
+
+test("portable skill requires audit before migration with cross-host compatibility caveats", async () => {
+  const doc = await readFile(sourceSkill,"utf8")
+  assert.match(doc,/uf-css audit/)
+  assert.match(doc,/inspect-only|read-only/i)
+  assert.match(doc,/--dry-run/)
+  assert.match(doc,/Codex|Claude|Copilot/)
+  assert.match(doc,/ChatGPT/)
+  assert.match(doc,/permission|approval/i)
+})
