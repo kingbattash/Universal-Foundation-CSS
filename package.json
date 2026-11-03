@@ -44,7 +44,8 @@
     "verify": "npm run check:tokens && npm run check && npm test",
     "generate:tokens": "node scripts/generate-tokens.mjs",
     "check:tokens": "node scripts/generate-tokens.mjs --check",
-    "check:package": "npm run build && node --test dist/tests/package-exports.test.js"
+    "check:package": "npm run build && node --test dist/tests/package-exports.test.js",
+    "check:pack": "npm run build && node scripts/verify-packed-package.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

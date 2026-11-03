@@ -37,8 +37,8 @@ No required typography scale, brand palette, company identity, UI component kit,
 - Any breaking token/adapter/schema change requires a changelog entry and migration instructions.
 - New framework-adapter implementations must ship with a real fixture and CI check.
 - Recommended Node version for contributors is 22, even while the declared engine supports >=20.
-- Builds become reproducible once lockfiles are committed; see the [implementation plan](IMPLEMENTATION_PLAN.md).
+- Root, web integration and Expo fixture lockfiles are committed; CI uses `npm ci`. See the [implementation plan](IMPLEMENTATION_PLAN.md).
 
 ## Release checklist
 
-A public prerelease requires locked installs, `npm pack --dry-run` verification, all three CI workflows green, truthful adapter docs and maintainer approval. No automatic publishing or merging.
+A public prerelease requires locked installs, `npm pack --dry-run` verification, a separate offline tarball consumer test, all three CI workflows green, truthful adapter docs and maintainer approval. No automatic publishing or merging.

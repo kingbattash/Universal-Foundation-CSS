@@ -78,14 +78,14 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 | Step | Work | Exact location |
 | --- | --- | --- |
-| 01.1 | Generate/commit root `package-lock.json`; convert root CI to `npm ci` | `package-lock.json`, `.github/workflows/ci.yml` |
-| 01.2 | Pin integration fixture dependencies with their own lockfiles | `integration/web/package-lock.json`, `integration/expo/package-lock.json` |
-| 01.3 | Convert integration CI from unlocked `npm install` to `npm ci` | `.github/workflows/integration-*.yml` |
-| 01.4 | Validate npm `exports` paths, CSS subpath imports, generated TS importability, and `npm pack --dry-run` | `package.json`, `tests/package-exports.test.ts` |
-| 01.5 | Set engine, optional peers, supported Node versions, and semver compatibility policy | `package.json`, `docs/COMPATIBILITY.md` |
+| 01.1 | **DONE:** Generate/commit root `package-lock.json`; convert root CI to `npm ci` | `package-lock.json`, `.github/workflows/ci.yml` |
+| 01.2 | **DONE:** Pin integration fixture dependencies with their own lockfiles | `integration/web/package-lock.json`, `integration/expo/package-lock.json` |
+| 01.3 | **DONE:** Convert integration CI from unlocked `npm install` to `npm ci` | `.github/workflows/integration-*.yml` |
+| 01.4 | **DONE:** Validate npm `exports` paths, CSS subpath imports, generated TS importability, `npm pack --dry-run`, and an offline installed tarball | `package.json`, `tests/package-exports.test.ts`, `scripts/verify-packed-package.mjs` |
+| 01.5 | **DONE:** Set engine, optional peers, supported Node versions, and semver compatibility policy | `package.json`, `docs/COMPATIBILITY.md` |
 | 01.6 | Check CSS layer/import order and package side effects in built consumer fixtures | `src/css/`, `integration/web/` |
 
-**Gate:** clean clone → locked install → `npm run verify` → four web smoke fixtures → Expo export, all green. Packed package includes everything used in examples. No release yet.
+**Gate:** clean clone → locked install → `npm run verify` → four web smoke fixtures → Expo export, all green. A real offline tarball consumer can import all documented exports. All status markings above require a passing CI run on the same commit; no release yet.
 
 ### Phase 02 — Canonical tokens and normalization
 

@@ -13,7 +13,7 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 ## Implementation status and next steps
 
-See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. Phase 01 is underway: package exports, CSS side effects and compatibility checks are implemented; reproducible lockfile installs remain to complete.
+See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. Phase 01 has committed dependency lockfiles and packed-package consumer tests. The next milestone is full CI verification of reproducible installs before expanding the optional design-system creation APIs.
 
 ## The problem it solves
 
