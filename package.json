@@ -1,0 +1,46 @@
+{
+  "name": "@kingbattash/universal-foundation-css",
+  "version": "0.1.0",
+  "description": "Framework-independent UI design rules, tokens, hierarchy and grid foundations",
+  "type": "module",
+  "sideEffects": [
+    "./src/css/*.css"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingbattash/Universal-Foundation-CSS.git"
+  },
+  "homepage": "https://github.com/kingbattash/Universal-Foundation-CSS#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./css": "./src/css/foundation.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src/css",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "verify": "npm run check && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
