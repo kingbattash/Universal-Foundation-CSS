@@ -187,22 +187,22 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** All 20 references have actionable specifications and explicit support levels. Custom systems can be empty or fully independent of the 20 references and need not include a prescribed font, grid, spacing, hierarchy or CSS class. The optional CSS and semantic audits are **starting points**, not browser QA or an aesthetic compliance score. Phase 09 remains responsible for actual visual, keyboard and assistive technology verification.
 
-### Phase 07 — Grid catalog to grid implementation
+### Phase 07 — Grid catalog to grid implementation (DONE: declared pure library and static integration scope)
 
-**Goal:** Keep the full library as reference while shipping the **practical grids first**.
+**Goal met:** Preserve all 37 references with truthful support, deliver opt-in CSS and geometric guides, and allow user-authored zero/multiple independent grids.
 
-| Step | Work | Location |
+| Step | Result | Source |
 | --- | --- | --- |
-| 07.1 | Audit all 37 entries: CSS recipe vs mathematical helper vs reference; reconcile family counts and scope | `src/grid/registry.ts`, `docs/GRIDS.md` |
-| 07.2 | Implement core responsive systems: 12-column, 8-column, fluid, adaptive/fixed containers, nested grids and supported subgrid | `src/grid/web/`, `src/css/` |
-| 07.3 | Add editorial reading layouts: manuscript, column, modular and baseline alignment | `src/grid/editorial/`, `src/css/` |
-| 07.4 | Provide optional construction outputs for rule of thirds, Phi, root rectangles and diagonal/golden-composition guides | `src/grid/geometric/`, `src/grid/formulas.ts` |
-| 07.5 | Document Van de Graaf, Rosarivo, Villard, Golden Canon, and other classical systems as researched references unless a real implementation is warranted | `src/grid/golden-canons/`, `docs/GRIDS.md` |
-| 07.6 | Evaluate Bento and Masonry with CSS feature support and fallbacks; avoid unsupported claims | `src/grid/web/`, `integration/web/` |
-| 07.7 | Add responsive, zoom, long-content and logical reading-order test pages | `examples/grids/`, `tests/` |
-| 07.8 | Make user-authored grid definitions first-class; allow projects to select zero or more built-in grid presets | `src/grid/`, `docs/GRIDS.md`, `tests/` |
+| 07.1 | DONE — reconciled all support statuses, research notes, selector-to-recipe mapping | `src/grid/{grid,registry}.ts`, [GRIDS.md](GRIDS.md) |
+| 07.2 | DONE — responsive 12/8, fluid, fixed/adaptive, nested and feature-guarded subgrid | `src/grid/web/`, `src/css/grid-recipes.css` |
+| 07.3 | DONE for practical scope — manuscript, columns, modular rows and baseline rhythm, geometry | `src/grid/editorial/`, `src/css/grid-recipes.css` |
+| 07.4 | DONE for simple constructions — thirds, phi, diagonals, root rectangles, a basic golden triangle guide | `src/grid/geometric/` |
+| 07.5 | DONE as historical references — Van de Graaf, Rosarivo, Villard, Golden Canon without invented fully working algorithms | `src/grid/golden-canons/`, [GRIDS.md](GRIDS.md) |
+| 07.6 | DONE — optional Bento spans, plain-grid fallback for unsupported actual masonry, tested CSS imports | `src/css/grid-recipes.css`, `integration/web/` |
+| 07.7 | DONE for static examples — two different specimen pages, long text and source-order fixture at 320/768/1440 | `examples/grids/`, `tests/grids.test.ts` |
+| 07.8 | DONE — creator-owned weighted tracks, arbitrary breakpoints, safe independent CSS generation and empty grid systems | `src/grid/custom.ts` |
 
-**Gate:** each grid has an explicit support level, reference/source notes, suitable-use guidance, and a working example **where claimed implemented**. No requirement to render all 37.
+**Gate:** All 37 entries accurately report support; a CSS-recipe entry has its selector. User-authored grids require no UF-CSS styling identity. The two specimens are static and do NOT certify real browser zoom, visual, keyboard or assistive-technology operation (Phase 09).
 
 ### Phase 08 — Patterns and component contracts
 

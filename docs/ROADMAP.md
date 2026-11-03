@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–06 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 07 — grid catalog to practical, optional grid implementations.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–07 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 08 — patterns and accessible component contracts.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -81,6 +81,15 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Add explicitly imported hierarchy CSS strategy hooks, without global styles or branded defaults
 - [x] Static reading-order audit and two contrasting HTML specimens at three declared viewport widths
 - [ ] Browser screenshot, actual focus order, assistive-technology and device tests (Phase 09)
+
+## Phase 07 — optional grid recipes and geometry (DONE for declared code/static scope)
+- [x] Audit 37 registry entries, source notes, support levels and CSS-selector claims
+- [x] CSS recipes for responsive columns, auto-fit, fluid, fixed, adaptive, nested/subgrid, Bento, editorial and manuscript/baseline
+- [x] Weighted mathematical tracks, arbitrary creator-defined breakpoints, safe CSS renderer with zero required grids
+- [x] Pure compositional guides for thirds, phi, root rectangles and simple diagonal constructions
+- [x] Document Van de Graaf, Rosarivo, Villard, Golden Canon as researched references; actual masonry stays reference with ordinary-grid fallback
+- [x] Add responsive/long-content HTML examples, numeric and static tests, web CSS import and packed-package smoke tests
+- [ ] Real browser, 200%/400% zoom, keyboard, RTL and assistive-technology validation (Phase 09)
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples

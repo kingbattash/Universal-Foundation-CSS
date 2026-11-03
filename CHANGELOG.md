@@ -4,6 +4,11 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 07 grid audit: accurate CSS recipe and reference statuses, source/method notes for 37 grid entries.
+- Creator-owned responsive weighted tracks, custom composition guides, deterministic safe CSS emission and independent zero-grid systems.
+- Pure web/editorial/geometric helpers for tracks, auto-fit, container bounds, manuscript/baselines, diagonals and root rectangle guides.
+- Opt-in packaged `./grid.css` grid recipes, including feature-guarded subgrid and regular-grid masonry fallback; integration compiler/packed-import checks.
+- Two responsive long-content specimens and expanded numerical/static grid tests; classical canon sources and implementation limits documented.
 - Phase 06 category-specific hierarchy specifications for all 20 optional references, with priorities, relations, constraints, anti-patterns and strategies.
 - Creator-owned hierarchy creation and relationship validation, creator-defined semantic roles and source/visual reading-order audits.
 - Explicitly opt-in CSS hierarchy hooks (`./hierarchy.css`) and two contrasting responsive HTML specimens; no required styling system.
