@@ -105,6 +105,15 @@ test("invalid config rejected before creating folders or modifying existing file
     }
   }finally{await rm(dir,{recursive:true,force:true});}
 });
+test("StyleX-only system omits browser CSS and reports low text contrast as guidance",()=>{
+  const plan=buildScaffold({schemaVersion:1,name:"sxi",frameworks:["stylex"],design:{
+    colors:{text:"#ffffff",canvas:"#ffffff"},grids:{layouts:[{id:"manuscript"}],guides:[]}
+  }});
+  assert.ok(plan.files["generated/stylex.stylex.ts"]);
+  assert.ok(!plan.files["generated/tokens.css"]);
+  assert.ok(!plan.files["composition/layout.css"]);
+  assert.ok(plan.notes.some(x=>x.includes("below WCAG AA")));
+});
 test("scaffold refuses symbolic-link destination paths",async()=>{
   const dir=await mkdtemp(join(tmpdir(),"uf-css-builder-link-"));
   try{

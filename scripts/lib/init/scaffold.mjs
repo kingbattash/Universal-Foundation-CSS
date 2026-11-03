@@ -2,6 +2,7 @@ import { mkdir, lstat, writeFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { generateCustomSystem } from "../custom-tokens.mjs";
 import { combinationNotes, normalizeBuilderConfig } from "./config.mjs";
+import { contrast } from "../project-theme.mjs";
 
 const scalar = (type, value) => ({ $type: type, $value: value });
 function colorToken(hex) {
@@ -55,14 +56,14 @@ function gridCss(config) {
   }
   return lines.join("\n");
 }
-const isWeb = fw => ["vanilla-css", "tailwind-v3", "tailwind-v4", "bootstrap", "stylex"].includes(fw);
+const usesCss = fw => ["vanilla-css", "tailwind-v3", "tailwind-v4", "bootstrap"].includes(fw);
 export function buildScaffold(input) {
   const config = normalizeBuilderConfig(input);
   const files = {};
   const tokens = createTokenSource(config);
   const hasTokens = Object.keys(tokens).length > 0;
   const frameworks = config.frameworks;
-  const web = frameworks.some(isWeb);
+  const web = frameworks.some(usesCss);
   files["design-system.config.json"] = JSON.stringify(config, null, 2) + "\n";
   if (hasTokens) {
     files["tokens/system.tokens.json"] = JSON.stringify(tokens, null, 2) + "\n";
@@ -82,6 +83,10 @@ export function buildScaffold(input) {
     files["hierarchy/selected.json"] = JSON.stringify({ strategies: config.design.hierarchy }, null, 2) + "\n";
   }
   const notes = combinationNotes(config);
+  if (config.design.colors.text && config.design.colors.canvas) {
+    const ratio = contrast(config.design.colors.text, config.design.colors.canvas);
+    notes.push("Text/canvas contrast " + ratio.toFixed(2) + ":1" + (ratio < 4.5 ? " (below WCAG AA for ordinary text; review before release)." : " (meets the WCAG AA ordinary-text contrast threshold)."));
+  }
   files["README.md"] = [
     "# " + config.name + " — Your Design System", "",
     "Created using the independent Universal Foundation CSS toolkit.",

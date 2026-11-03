@@ -34,6 +34,7 @@ export async function collectWizard(ask, say = console.log) {
   const unitPx = numberOrSkip(await ask("Spacing unit in px (blank skips): "), "Spacing unit");
   say("Structural grid choices (optional):");
   for (const id of layoutChoices) say("  " + id + " — " + gridDescriptions[id]);
+  say("Optional combinations: twelve-column + golden-ratio; manuscript + baseline; or any custom pairing.");
   const chosenLayouts = split(await ask("Layout grids (comma-separated; blank skips): "));
   const layouts = [];
   for (const id of chosenLayouts) {
