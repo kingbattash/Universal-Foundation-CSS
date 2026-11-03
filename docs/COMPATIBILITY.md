@@ -18,7 +18,7 @@ These are **build checks**, not guarantees of pixel parity, physical-device func
 
 ## CLI commands (experimental)
 
-The package exposes `uf-css init` for the interactive creator-first builder and `uf-css generate` for low-level user-owned token compilation. In a checkout use `node scripts/cli.mjs init` or `node scripts/cli.mjs generate`. See [WIZARD.md](WIZARD.md). The npm package is **not** published yet.
+The package exposes `uf-css init` for the interactive creator-first builder and `uf-css generate` for low-level user-owned token compilation, plus `uf-css theme` for optional standalone v2 light/dark project themes. In a checkout use `node scripts/cli.mjs init`, `node scripts/cli.mjs generate`, or `node scripts/cli.mjs theme`. See [WIZARD.md](WIZARD.md). The npm package is **not** published yet.
 
 ## Package boundaries
 

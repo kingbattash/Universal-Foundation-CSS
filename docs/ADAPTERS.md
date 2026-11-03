@@ -1,5 +1,7 @@
 # Adapter setup and compatibility
 
+**Creating an entirely original project?** Use [independent theme v2](THEMES.md) or the [custom token generator](CUSTOM_SYSTEMS.md). The default `--uf-*` examples below are **optional neutral starter adapters**, not required colors, fonts, grids or layout conventions. Independent themes generate their own namespaced variables and optional framework mappings.
+
 All generated adapter values come from [one DTCG-style source](../tokens/source.tokens.json). The core package does not require Tailwind, Bootstrap, StyleX, or React Native.
 
 **Current release state:** these adapter files are available on the `feat/foundation-v0` branch. This repository has **not published an npm version yet**. Code examples below use the intended package entry points after a local workspace link or future publish.

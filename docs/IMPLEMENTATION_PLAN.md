@@ -120,21 +120,23 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **MVP gate:** no decisions mandatory, no writes without confirmation, no irrelevant adapter folders, no forced brand or aesthetic rules. The CI test suite verifies this; full graphical preview is not in scope yet.
 
-### Phase 03 — Consumer themes and branding isolation
+### Phase 03 — Consumer themes and branding isolation (DONE: independent themes and legacy compatibility)
 
-**Goal:** A user creates a unique product theme without forking UF-CSS or leaking another project's identity.
+**Goal met:** A developer can define an entirely unique light/dark theme, with a custom palette, typography, spacing, radii, density, motion, CSS/Tailwind/Bootstrap/StyleX/native mappings and optional contrast checks—without editing or importing universal neutral design values.
 
-| Step | Work | Location |
+| Step | Result | Exact location |
 | --- | --- | --- |
-| 03.1 | Extend current color-only schema with optional font families, type scale, density, spacing/radii, elevation and motion | `scripts/lib/project-theme.mjs`, `docs/THEMES.md` |
-| 03.2 | Define inheritance and precedence: core defaults → product values → contextual theme → component states | `docs/THEME-CONTRACT.md` |
-| 03.3 | Generate Vanilla/Tailwind CSS variables, Bootstrap-compatible overrides, StyleX themes, and native values from the same input | `scripts/generate-project-theme.mjs`, `scripts/lib/` |
-| 03.4 | Expand semantic contrast tests for light/dark, state colors, links and focus indicators; report—not silently alter—invalid palettes | `tests/project-theme.test.ts`, `scripts/lib/` |
-| 03.5 | Support non-destructive `--check`, `--force`, config schema validation, deterministic manifest and documented migration | `scripts/generate-project-theme.mjs`, `docs/THEMES.md` |
-| 03.6 | Add a neutral sample theme and demonstrate **two visibly distinct product themes** that share the same foundation | `examples/project-theme/`, `integration/web/` |
-| 03.7 | Support consumer-defined token values and custom semantic roles without being limited to UF-CSS's neutral example palette | `tokens/` consumer schema, `scripts/lib/project-theme.mjs`, `docs/THEME-CONTRACT.md` |
+| 03.1 | **DONE:** Add optional creator-owned theme tokens (including type, density, spacing, radii, motion and other supported DTCG types). Keep v1 neutral themes unchanged for compatibility | `scripts/lib/theme-v2.mjs`, `examples/project-theme/*.v2.json` |
+| 03.2 | **DONE:** Document precedence: project tokens → authored light/dark overrides → app-owned component state styles; distinguish legacy neutral inheritance | [THEME-CONTRACT.md](THEME-CONTRACT.md) |
+| 03.3 | **DONE:** Generate Vanilla CSS, Tailwind v3/v4, Bootstrap mappings, StyleX variables/themes and native values from one independent theme | `scripts/generate-project-theme.mjs`, `scripts/lib/theme-v2.mjs` |
+| 03.4 | **DONE for explicit checks:** Validate user-selected text, link, action/hover and focus color pairs separately for each authored mode. Invalid ratios fail without silently altering chosen palette | `tests/theme-v2.test.mjs`, `scripts/lib/theme-v2.mjs` |
+| 03.5 | **DONE:** Non-destructive `--check` and `--force`, symlink-path preflight, strict config schema, deterministic manifests, documented v1→v2 migration and packed CLI test | `scripts/generate-project-theme.mjs`, [THEMES.md](THEMES.md), `scripts/verify-packed-package.mjs` |
+| 03.6 | **DONE for code/build scope:** Two radically different example themes, two Vanilla HTML specimens, and independent real-framework smoke builds. Full screenshots and device audits remain Phase 09 work | `examples/project-theme/`, `integration/web/verify.mjs`, `tests/theme-v2.test.mjs` |
+| 03.7 | **DONE:** Arbitrary creator-defined token paths and roles, entirely independent of the fixed UF-CSS neutral palette | `scripts/lib/tokens/`, `scripts/lib/theme-v2.mjs`, [THEME-CONTRACT.md](THEME-CONTRACT.md) |
 
-**Gate:** two unrelated example products use the same UF-CSS version, have different branding, and pass token/contrast checks without editing `src/` or canonical tokens.
+**Acceptance gate:** Two unrelated products compile independent themed CSS/JS outputs, light/dark contrasts are validated, existing v1 output still works, and real framework builds and packed CLI checks pass. Do not claim visual or accessibility certification; screenshot/device testing is Phase 09.
+
+**Scope note:** Theme v2 consumes the strict supported DTCG profile. It does not automatically rewrite optional neutral starter component styles, generate arbitrary UI components, or implement the full DTCG resolver. Those behaviors are deliberately not part of the Phase 03 acceptance gate.
 
 ### Phase 04 — Platform adapters and real consuming examples
 
@@ -365,6 +367,6 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Proceed to Phase 03: consumer-owned themes and branding isolation.** Phase 02 is complete for the declared supported-token profile; maintain the independent-design philosophy. Next, extend theme generation to typography, density, spacing and motion, formalize override precedence, add stronger contrast/state validation, and verify two independent product themes end-to-end.
+**Proceed to Phase 04: framework adapters and real consuming projects.** Phases 00–03 are complete for their declared experimental scope; theme v2 generator, legacy compatibility and two independent browser specimens are in the feature branch.
 
-Phase 02's richer DTCG standard-type support remains a separately documented future enhancement, not a blocker for moving to Phase 03. Do not merge the draft PR or publish the npm package without maintainer review and authorization.
+Next, harden packed package consumption across stacks, typed StyleX integration, React Native/Expo runtime examples, dark-mode behavior and import precedence. Do **not** merge or publish without maintainer approval. Visual regression and screen-reader certification remain in Phase 09.

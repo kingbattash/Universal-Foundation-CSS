@@ -4,6 +4,10 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 03 independent v2 project themes: arbitrary DTCG-style roles, custom type/spacing/density/motion/radii, light/dark mode overrides, and explicit Tailwind v3/v4, Bootstrap, StyleX and native outputs.
+- Mode-aware contrast checks for text, links, button labels, hover states and focus colors; generator never silently alters a consumer's palette.
+- Backward-compatible v1 theme mode, safe packaged `uf-css theme` CLI, check/force and symlink protection, plus two contrasting HTML specimens and real framework build checks.
+- Documented theme inheritance/precedence, v1→v2 migration and creator-owned theme contract.
 - Phase 02 token unification: shared validated DTCG 2025.10 subset parser, formatters and separate starter/custom adapter renderers.
 - Canonicalized starter typography roles, viewport/breakpoints, modular scale, density, motion and z-index/elevation reference values; regenerated CSS/Tailwind/Bootstrap/StyleX/native outputs.
 - Deterministic parity and mutation tests and detailed token contract/inventory documentation (full DTCG conformance explicitly excluded).

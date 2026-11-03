@@ -46,3 +46,7 @@ An agent can translate user-specified design decisions into `design-system.confi
 ## Token consistency checks
 
 Use [the shared token contract](TOKEN-CONTRACT.md) before writing new token types. A creator can use an entirely original token file without required scales or brand roles. Run `npm run check:tokens` for UF-CSS neutral source changes and `node scripts/cli.mjs generate ... --check` for custom-system output drift, then report the actual test results. Do not claim full DTCG conformance or apply an optional neutral theme without the user's request.
+
+## Phase 03: independently authored themes
+
+For a new product, follow [THEME-CONTRACT.md](THEME-CONTRACT.md) and choose `schemaVersion:2`. Write the user's tokens and explicit light/dark overrides in their own project, choose platform mappings only where requested, and run `node scripts/cli.mjs theme --config FILE --out DIRECTORY`. Use `--check` for verification and `--force` only after approval. Legacy v1 themes inherit neutral example colors, so do not default to v1 for original project design systems. Report which contrast checks were explicitly validated; passing them does not prove WCAG compliance.

@@ -29,6 +29,20 @@ The generator writes eight outputs: \`theme.css\`, \`tailwind-v3.cjs\`, \`tailwi
 
 The design configuration is **canonical**. A theme mode overrides only the tokens you explicitly select. See [THEME-CONTRACT.md](THEME-CONTRACT.md) for the complete format, ordering rules, color contrast behavior, framework imports and migration policy.
 
+### View two genuinely different HTML specimens
+
+From the repository root, generate both themes into the expected example directories:
+
+```bash
+node scripts/generate-project-theme.mjs --config examples/project-theme/editorial.v2.json --out generated/editorial
+node scripts/generate-project-theme.mjs --config examples/project-theme/operations.v2.json --out generated/operations
+python -m http.server 8000
+```
+
+Then visit `http://localhost:8000/examples/project-theme/preview-editorial.html` and `http://localhost:8000/examples/project-theme/preview-operations.html`. Each example has its own visual layout and light/dark toggle. These examples are optional, contain fictional product identities and do not add product styling to UF-CSS core.
+
+These are browser-viewable demonstrations. The CI tests check their dependency paths and framework compilation; automated browser screenshots, keyboard and screen-reader verification are planned in Phase 09.
+
 ### Preview and use in your project
 
 Open the v2 JSON file to review your own chosen values. Each generated \`theme.css\` contains light/dark properties named \`--<project-name>-<your-token-path>\`.
