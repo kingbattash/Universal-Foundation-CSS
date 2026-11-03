@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creator-defined editorial hierarchy specimen</title>
+  <link rel="stylesheet" href="../../src/css/hierarchy-strategies.css">
+  <style>
+    body { font: 18px/1.7 Georgia,serif; color:#342d29; background:#fffdf9; margin:0; }
+    main { max-width:50rem; padding:clamp(1rem,4vw,3rem); margin:auto; }
+    .display { --uf-h-size:clamp(2rem,5vw,3.4rem); --uf-h-weight:400; }
+    .copy { --uf-h-reading-max:65ch; }
+    .small { font:0.85rem/1.5 system-ui,sans-serif; }
+    a { color:inherit; text-decoration-thickness:0.09em; }
+    a:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="small">Skip to article</a>
+  <main id="main">
+    <article>
+      <h1 data-uf-order-id="article-heading" class="uf-h-level display">A study in information order</h1>
+      <p data-uf-order-id="article-meta" class="small">Example publication · No branded design required</p>
+      <p data-uf-order-id="article-intro" class="uf-h-measure copy">Structure and priority can remain clear even when a different typeface and composition are selected.</p>
+      <section data-uf-order-id="article-body" aria-labelledby="body-heading" class="uf-h-measure copy">
+        <h2 id="body-heading">Evidence and method</h2>
+        <p>A semantic section supports the heading, body and reference order at narrow and wide widths.</p>
+      </section>
+      <p data-uf-order-id="article-source" class="small"><a href="#main">Return to article start</a></p>
+    </article>
+  </main>
+</body>
+</html>

@@ -24,7 +24,8 @@
     "./tailwind-v3": "./adapters/tailwind-v3/preset.generated.cjs",
     "./bootstrap": "./adapters/bootstrap/bootstrap.generated.css",
     "./stylex": "./adapters/stylex/tokens.generated.stylex.ts",
-    "./react-native": "./adapters/react-native/tokens.generated.ts"
+    "./react-native": "./adapters/react-native/tokens.generated.ts",
+    "./hierarchy.css": "./src/css/hierarchy-strategies.css"
   },
   "files": [
     "dist",

@@ -1,0 +1,34 @@
+{
+  "examples": [
+    {
+      "name": "product-summary",
+      "nodes": [
+        {"id":"page-heading","focusable":false},
+        {"id":"task-summary","focusable":false},
+        {"id":"key-action","focusable":true},
+        {"id":"evidence","focusable":true},
+        {"id":"details","focusable":false}
+      ],
+      "viewports": [
+        {"widthPx":320,"visualOrder":["page-heading","task-summary","key-action","evidence","details"]},
+        {"widthPx":768,"visualOrder":["page-heading","task-summary","key-action","evidence","details"]},
+        {"widthPx":1440,"visualOrder":["page-heading","task-summary","key-action","evidence","details"]}
+      ]
+    },
+    {
+      "name": "article-outline",
+      "nodes": [
+        {"id":"article-heading","focusable":false},
+        {"id":"article-meta","focusable":false},
+        {"id":"article-intro","focusable":false},
+        {"id":"article-body","focusable":false},
+        {"id":"article-source","focusable":true}
+      ],
+      "viewports": [
+        {"widthPx":320,"visualOrder":["article-heading","article-meta","article-intro","article-body","article-source"]},
+        {"widthPx":768,"visualOrder":["article-heading","article-meta","article-intro","article-body","article-source"]},
+        {"widthPx":1440,"visualOrder":["article-heading","article-meta","article-intro","article-body","article-source"]}
+      ]
+    }
+  ]
+}
