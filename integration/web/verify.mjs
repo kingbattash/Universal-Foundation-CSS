@@ -6,6 +6,7 @@ import { join, dirname, resolve, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 import { generateCustomSystem } from "../../scripts/lib/custom-tokens.mjs";
+import { normalizeThemeV2, renderThemeV2Files } from "../../scripts/lib/theme-v2.mjs";
 import assert from "node:assert/strict";
 import babel from "@babel/core";
 import stylexPlugin from "@stylexjs/babel-plugin";
@@ -150,13 +151,75 @@ async function verifyUserOwnedSystems() {
   }
 }
 
+
+async function verifyIndependentThemes() {
+  for(const [example,prefix] of [
+    ["editorial","copper-editorial"],
+    ["operations","harbor-operations"],
+  ]) {
+    const source=JSON.parse(await readFile(join(root,"examples/project-theme",example+".v2.json"),"utf8"));
+    const files=renderThemeV2Files(normalizeThemeV2(source));
+    const temp=await mkdtemp(join(current,"temp-theme-"));
+    try {
+      for(const [name,code] of Object.entries(files)) await writeFile(join(temp,name),code,"utf8");
+      const utilities=[
+        "bg-"+prefix+"-canvas","text-"+prefix+"-ink",
+        "p-"+prefix+"-comfortable","rounded-"+prefix+"-card",
+      ];
+      await writeFile(join(temp,"fixture.html"),'<div class="'+utilities.join(" ")+'">A user-owned theme</div>');
+      const css=['@import "tailwindcss";','@import "./theme.css";',
+        '@import "./tailwind-v4.css";',
+        '@source inline("'+utilities.join(" ")+'");',""].join("\n");
+      await writeFile(join(temp,"input.css"),css);
+      const compiled=join(temp,"tw4-result.css");
+      run(process.execPath,[binPath("@tailwindcss/cli","tailwindcss"),"-i",join(temp,"input.css"),"-o",compiled]);
+      const output=await readFile(compiled,"utf8");
+      for(const name of utilities) cssContains(output,"."+name);
+      cssContains(output,"--"+prefix+"-ui-canvas");
+
+      const config='const path=require("node:path");module.exports={presets:[require("./tailwind-v3.cjs")],content:[path.join(__dirname,"fixture.html")]};';
+      await writeFile(join(temp,"tailwind.config.cjs"),config);
+      await writeFile(join(temp,"input-v3.css"),'@tailwind utilities;\n');
+      const target=join(temp,"tw3-result.css");
+      run(process.execPath,[binPath("tailwindcss-v3","tailwindcss"),"-c",join(temp,"tailwind.config.cjs"),"-i",join(temp,"input-v3.css"),"-o",target]);
+      const v3=await readFile(target,"utf8");
+      for(const name of utilities) cssContains(v3,"."+name);
+
+      const bs=await postcss().process(files["bootstrap.css"],{from:undefined});
+      cssContains(bs.css,"--bs-primary-rgb:");
+      cssContains(bs.css,"[data-bs-theme=\"dark\"]");
+      for(const sx of ["stylex-vars.stylex.ts","stylex-theme.stylex.ts"]) {
+        const filepath=join(temp,sx);
+        const transformed=babel.transformSync(files[sx],{
+          filename:filepath,configFile:false,babelrc:false,sourceType:"module",
+          parserOpts:{plugins:["typescript"]},
+          plugins:[
+            [stylexPlugin,{dev:false,unstable_moduleResolution:{type:"commonJS",rootDir:root}}],
+            [transformTypescript,{}]
+          ]
+        });
+        assert.ok(transformed?.code && transformed?.metadata && "stylex" in transformed.metadata,
+          "Theme StyleX compilation failed: "+sx);
+      }
+      const native=babel.transformSync(files["native-theme.ts"],{
+        filename:join(temp,"native-theme.ts"),configFile:false,babelrc:false,
+        parserOpts:{plugins:["typescript"]},plugins:[[transformTypescript,{}]]
+      });
+      assert.ok(native?.code, "Theme React Native TypeScript transpilation failed");
+      console.log("PASS: independent project "+example+" themes compile via Tailwind v3/v4, Bootstrap, StyleX and native TS");
+      passed++;
+    } finally { await rm(temp,{recursive:true,force:true}); }
+  }
+}
+
 try {
   await verifyTailwindV4();
   await verifyTailwindV3();
   await verifyBootstrap();
   await verifyStyleX();
   await verifyUserOwnedSystems();
-  console.log(`Web framework integrations: ${passed}/6 passed.`);
+  await verifyIndependentThemes();
+  console.log(`Web framework integrations: ${passed}/8 passed.`);
 } finally {
   await rm(out,{recursive:true,force:true});
 }
