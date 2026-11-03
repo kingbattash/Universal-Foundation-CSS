@@ -1,0 +1,75 @@
+/* Generated from tokens/source.tokens.json. Do not edit directly. */
+@layer uf.tokens {
+  :root, [data-uf-theme="light"] {
+    --uf-space-0: 0px;
+    --uf-space-1: 4px;
+    --uf-space-2: 8px;
+    --uf-space-3: 12px;
+    --uf-space-4: 16px;
+    --uf-space-5: 20px;
+    --uf-space-6: 24px;
+    --uf-space-8: 32px;
+    --uf-space-10: 40px;
+    --uf-space-12: 48px;
+    --uf-space-16: 64px;
+    --uf-space-20: 80px;
+    --uf-space-24: 96px;
+    --uf-space-32: 128px;
+    --uf-radius-none: 0px;
+    --uf-radius-sm: 4px;
+    --uf-radius-md: 8px;
+    --uf-radius-lg: 12px;
+    --uf-radius-xl: 20px;
+    --uf-radius-pill: 9999px;
+    --uf-content-max: 1200px;
+    --uf-content-wide: 1440px;
+    --uf-reading-max: 68ch;
+    --uf-gutter: clamp(16px, 4vw, 48px);
+    --uf-touch-target: 44px;
+    --uf-font-heading: system-ui, sans-serif;
+    --uf-font-body: system-ui, sans-serif;
+    --uf-type-body: 16px;
+    --uf-type-caption: 12px;
+    --uf-type-display-min: 48px;
+    --uf-type-display-max: 96px;
+    --uf-leading-body: 1.55;
+    --uf-motion-instant: 0ms;
+    --uf-motion-fast: 120ms;
+    --uf-motion-standard: 180ms;
+    --uf-motion-deliberate: 260ms;
+    --uf-motion-slow: 360ms;
+    --uf-motion-standard-easing: cubic-bezier(0.2, 0, 0, 1);
+    --uf-canvas: #ffffff;
+    --uf-surface: #ffffff;
+    --uf-surface-subtle: #f7f7f8;
+    --uf-text: #111111;
+    --uf-text-secondary: #272c33;
+    --uf-border: #c7cbd0;
+    --uf-focus: #005bbb;
+    --uf-action: #111111;
+    --uf-action-hover: #272c33;
+    --uf-on-action: #ffffff;
+    --uf-success: #196b43;
+    --uf-warning: #815200;
+    --uf-danger: #ac251c;
+    --uf-info: #005bbb;
+    --uf-disabled: #eceeef;
+  }
+  [data-uf-theme="dark"], [data-bs-theme="dark"] {
+    --uf-canvas: #111111;
+    --uf-surface: #181818;
+    --uf-surface-subtle: #232323;
+    --uf-text: #f9f9f9;
+    --uf-text-secondary: #d2d2d2;
+    --uf-border: #5d5d5d;
+    --uf-focus: #8cb4ff;
+    --uf-action: #8cb4ff;
+    --uf-action-hover: #bad0ff;
+    --uf-on-action: #111111;
+    --uf-success: #79d9a7;
+    --uf-warning: #f1c46c;
+    --uf-danger: #ff8c7f;
+    --uf-info: #8cb4ff;
+    --uf-disabled: #323232;
+  }
+}

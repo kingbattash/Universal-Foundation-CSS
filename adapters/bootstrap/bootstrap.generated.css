@@ -1,0 +1,44 @@
+/* Generated — load after Bootstrap 5.3 CSS; does not replace Bootstrap Sass configuration. */
+:root, [data-bs-theme="light"] {
+  --bs-body-bg: var(--uf-canvas);
+  --bs-body-color: var(--uf-text);
+  --bs-border-color: var(--uf-border);
+  --bs-primary: var(--uf-action);
+  --bs-secondary-color: var(--uf-text-secondary);
+  --bs-link-color: var(--uf-info);
+  --bs-danger: var(--uf-danger);
+  --bs-success: var(--uf-success);
+  --bs-font-sans-serif: var(--uf-font-body);
+  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-body-color-rgb: 17, 17, 17;
+  --bs-primary-rgb: 17, 17, 17;
+  --bs-danger-rgb: 172, 37, 28;
+  --bs-success-rgb: 25, 107, 67;
+}
+[data-bs-theme="dark"], [data-uf-theme="dark"] {
+  --bs-body-bg: var(--uf-canvas);
+  --bs-body-color: var(--uf-text);
+  --bs-border-color: var(--uf-border);
+  --bs-primary: var(--uf-action);
+  --bs-secondary-color: var(--uf-text-secondary);
+  --bs-link-color: var(--uf-info);
+  --bs-danger: var(--uf-danger);
+  --bs-success: var(--uf-success);
+  --bs-font-sans-serif: var(--uf-font-body);
+  --bs-body-bg-rgb: 17, 17, 17;
+  --bs-body-color-rgb: 249, 249, 249;
+  --bs-primary-rgb: 140, 180, 255;
+  --bs-danger-rgb: 255, 140, 127;
+  --bs-success-rgb: 121, 217, 167;
+}
+.btn-primary {
+  --bs-btn-bg: var(--uf-action);
+  --bs-btn-border-color: var(--uf-action);
+  --bs-btn-color: var(--uf-on-action);
+  --bs-btn-hover-bg: var(--uf-action-hover);
+  --bs-btn-hover-border-color: var(--uf-action-hover);
+  --bs-btn-hover-color: var(--uf-on-action);
+  --bs-btn-active-bg: var(--uf-action-hover);
+  --bs-btn-active-border-color: var(--uf-action-hover);
+  --bs-btn-active-color: var(--uf-on-action);
+}
