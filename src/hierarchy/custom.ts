@@ -49,7 +49,7 @@ export function createHierarchySystem(input: CustomHierarchySystem): Readonly<Cu
     levelIds.add(levelId);
     const semanticRole = item.semanticRole === undefined ? undefined : textField(item.semanticRole, "level.semanticRole");
     if (item.strategies !== undefined && !Array.isArray(item.strategies)) throw new TypeError("strategies must be an array");
-    const strategies = item.strategies?.map((s) => textField(s, "strategy"));
+    const strategies = item.strategies?.map((s: string) => textField(s, "strategy"));
     if (strategies && new Set(strategies).size !== strategies.length) throw new RangeError("duplicate strategies in " + levelId);
     return Object.freeze({ id:levelId, label, priority:item.priority, ...(semanticRole === undefined ? {} : { semanticRole }),
       ...(strategies === undefined ? {} : { strategies: Object.freeze(strategies) }) });

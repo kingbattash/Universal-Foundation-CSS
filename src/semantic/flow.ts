@@ -56,12 +56,12 @@ export function auditReadingOrder(input: SemanticFlowAudit): readonly SemanticFl
     }
     // Only compare complete and unique permutations to avoid misleading warnings.
     if (viewport.visualOrder.length !== ids.length || seen.size !== ids.length ||
-        viewport.visualOrder.some((id) => !idSet.has(id))) continue;
+        viewport.visualOrder.some((id: string) => !idSet.has(id))) continue;
     if (ids.some((id, index) => viewport.visualOrder[index] !== id)) {
       issues.push({ code:"visual-dom-divergence", widthPx, severity:"warning",
         message:"Visual order differs from DOM reading order; manually inspect meaning and focus flow." });
     }
-    const visualFocus = viewport.visualOrder.filter((id) => focusIds.includes(id));
+    const visualFocus = viewport.visualOrder.filter((id: string) => focusIds.includes(id));
     if (visualFocus.some((id, index) => id !== focusIds[index])) {
       issues.push({ code:"focus-dom-divergence", widthPx, severity:"warning",
         message:"Visual focusable order differs from DOM focusable order; test keyboard traversal." });
