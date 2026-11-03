@@ -5,8 +5,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "../../adapters/react-native/tokens.generated.ts"
+    "App.tsx",
+    "generated/native-theme.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "generated/*stylex*.ts"
   ]
 }
