@@ -145,7 +145,7 @@ test("creator grid validator rejects dangerous IDs and invalid breakpoints",()=>
     {id:"ok",grids:[{kind:"tracks",id:"infinity",name:"X",weights:[Infinity]}]},
     {id:"ok",grids:[{kind:"composition",id:"guide",name:"X",guides:[{axis:"x",ratio:2}]}]},
   ];
-  for(const invalid of bad) assert.throws(()=>createGridSystem(invalid),undefined,JSON.stringify(invalid));
+  for(const invalid of bad) assert.throws(()=>createGridSystem(invalid),Error,JSON.stringify(invalid));
 });
 
 test("rendered creator-owned CSS is deterministic, safe and only generates chosen track grids",()=>{

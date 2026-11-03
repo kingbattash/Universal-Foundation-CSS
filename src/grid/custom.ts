@@ -72,7 +72,7 @@ export function createGridSystem(system: CreatorGridSystem): Readonly<CreatorGri
     seen.add(gridId);
     if (item.kind === "composition") {
       if (!Array.isArray(item.guides)) throw new TypeError("composition guides must be an array");
-      const guides=item.guides.map(guide=>{
+      const guides=item.guides.map((guide: {readonly axis:"x"|"y";readonly ratio:number})=>{
         if (!guide || !["x","y"].includes(guide.axis) ||
             typeof guide.ratio !== "number" || !Number.isFinite(guide.ratio) ||
             guide.ratio < 0 || guide.ratio > 1) throw new RangeError("invalid composition guide");
@@ -86,7 +86,7 @@ export function createGridSystem(system: CreatorGridSystem): Readonly<CreatorGri
     const paddingPx=dimension(item.paddingPx??0,"paddingPx");
     if (item.breakpoints !== undefined && !Array.isArray(item.breakpoints)) throw new TypeError("breakpoints must be an array");
     let last=-1;
-    const breakpoints=item.breakpoints?.map(bp=>{
+    const breakpoints=item.breakpoints?.map((bp: CreatorGridBreakpoint)=>{
       if (!bp || typeof bp !== "object") throw new TypeError("invalid breakpoint");
       const minViewportPx=dimension(bp.minViewportPx,"minViewportPx");
       if (minViewportPx <= last) throw new RangeError("breakpoints must be strictly ascending");
