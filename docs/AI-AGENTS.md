@@ -42,3 +42,7 @@ For a project that does not want UF-CSS defaults, agents should use the [custom 
 ## Use the interactive builder safely
 
 An agent can translate user-specified design decisions into `design-system.config.json` following [the builder guide](WIZARD.md). Run `node scripts/cli.mjs init --config FILE --out DIR --dry-run` first, show the planned outputs, and request approval. Only after approval should the agent run `--yes`. Do not invent an obligatory brand palette, grid, hierarchy, type scale, framework or output path. No background installation is performed.
+
+## Token consistency checks
+
+Use [the shared token contract](TOKEN-CONTRACT.md) before writing new token types. A creator can use an entirely original token file without required scales or brand roles. Run `npm run check:tokens` for UF-CSS neutral source changes and `node scripts/cli.mjs generate ... --check` for custom-system output drift, then report the actual test results. Do not claim full DTCG conformance or apply an optional neutral theme without the user's request.

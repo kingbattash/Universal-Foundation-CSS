@@ -87,20 +87,22 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate PASSED on commit `8db67ef` (2026-11-03):** clean GitHub Actions locked installs, 19/19 unit tests, real offline tarball consumer and all three CI workflows passed (foundation, real web toolchains, Expo Android JS export). This is still an experimental library; no npm release has been published.
 
-### Phase 02 — Canonical tokens and normalization (IN PROGRESS)
+### Phase 02 — Canonical tokens and normalization (DONE: supported DTCG profile)
 
-**Goal:** Every generated platform value originates from a validated canonical source, with no hidden independent defaults.
+**Goal met:** All neutral-starter generated values originate from a validated canonical source, and completely independent products can generate their own token systems without inheriting any neutral defaults. Both generator paths share token parsing and formatting. The phase intentionally supports a **documented subset** of DTCG 2025.10; comprehensive standard conformance remains a future capability.
 
-| Step | Work | Location |
+| Step | Result | Exact location |
 | --- | --- | --- |
-| 02.1 | Inventory every existing hardcoded token-like value, classify as canonical or reference guidance | `src/tokens/`, `src/foundation-formular/`, `src/css/`, `tokens/` |
-| 02.2 | **PARTIAL:** Allow arbitrary consumer-owned token paths, typed aliases and explicit adapter mappings; document role and unit rules | `scripts/lib/custom-tokens.mjs`, `docs/CUSTOM_SYSTEMS.md`, `docs/TOKEN-CONTRACT.md` (planned) |
-| 02.3 | Add appropriate typography roles, responsive constraints, density, radii, elevation, z-order, and motion; avoid forcing product brand | `tokens/source.tokens.json` |
-| 02.4 | Prefer official DTCG schema validation plus explicit checks for references, unsupported types, cycles and invalid units | `scripts/lib/token-validator.mjs`, `tests/tokens.test.ts` |
-| 02.5 | Split generator into validators, formatters and per-platform writers while preserving deterministic output | `scripts/lib/tokens/`, `scripts/generate-tokens.mjs` |
-| 02.6 | **PARTIAL:** Test collisions, missing/circular aliases, unsafe input, output parity and real web adapter compilers; official DTCG schema conformance remains | `tests/custom-system.test.ts`, `integration/web/verify.mjs`, `.github/workflows/ci.yml` |
+| 02.1 | **DONE:** Audited optional preset values vs mathematical constants, semantic vocabulary, and opt-in CSS recipe fallbacks | [TOKEN-INVENTORY.md](TOKEN-INVENTORY.md) |
+| 02.2 | **DONE:** Specified consumer-owned arbitrary token paths, typed aliases, output-safe naming rules, units and optional framework mappings | [TOKEN-CONTRACT.md](TOKEN-CONTRACT.md), `scripts/lib/tokens/parse.mjs` |
+| 02.3 | **DONE:** Canonicalized optional typography roles, breakpoints, scale ratio, density, elevation levels, z-layer and easing; removed duplicated foundation defaults | `tokens/source.tokens.json`, `src/foundation-formular/foundation.ts`, `src/tokens/` |
+| 02.4 | **DONE for declared supported profile:** Type and metadata checks, missing/circular alias rejection, type inheritance, collision prevention and safe value validation. The DTCG publication does not yet ship a finalized official JSON Schema; UF-CSS does **not** claim full DTCG conformance | `scripts/lib/tokens/parse.mjs`, `tests/token-validator.test.mjs` |
+| 02.5 | **DONE:** Separated shared validator and formatters from optional neutral and consumer-owned adapter renderers; preserved public command/CLI compatibility | `scripts/lib/tokens/{parse,format,starter-renderer,custom-renderer}.mjs` |
+| 02.6 | **DONE:** Byte-for-byte generated-output parity, in-memory token-mutation tests across web/native mappings, two independent consumer examples, real framework builds and packed-CLI installation checks | `tests/token-parity.test.mjs`, `tests/custom-system.test.ts`, `integration/`, CI |
 
-**Gate:** changing a canonical token regenerates the correct outputs in **all six adapters**. Unchanged inputs produce byte-identical outputs. No adapter must reimplement fundamental token calculations.
+**Acceptance gate passed (2026-11-03):** `npm run check:tokens`, 37 foundation/builder tests, offline packed tarball verification, Tailwind v3/v4 and StyleX/Babel integration, Bootstrap parsing and Expo Android JS export. The neutral starter outputs are deterministic; modifying relevant canonical tokens propagates into all applicable generated mappings. User-defined systems do not inherit a single required style or hierarchy.
+
+**Deferred to later releases (not represented as Phase 02 functionality):** complete DTCG 2025.10 coverage (advanced color spaces, composites, `$extends`, JSON Pointer references, arbitrary Unicode names), package-wide graphical/visual accessibility validation and full component adaptation. These are separate enhancements and must not be misrepresented as currently implemented.
 
 ### Phase 02W — Interactive builder before further expansion (MVP IMPLEMENTED)
 
@@ -363,12 +365,6 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Continue Phase 02.** User-defined tokens now generate without neutral presets, and two independent systems compile through Tailwind v3/v4 and StyleX. Full DTCG schema validation and unifying the two generator implementations are still pending. Phase 01 checks are complete (19/19 tests, 3/3 CI workflows, packed install and committed lockfiles). Work on token normalization and custom consumer-owned design rules **without treating the existing neutral tokens as mandatory**:
+**Proceed to Phase 03: consumer-owned themes and branding isolation.** Phase 02 is complete for the declared supported-token profile; maintain the independent-design philosophy. Next, extend theme generation to typography, density, spacing and motion, formalize override precedence, add stronger contrast/state validation, and verify two independent product themes end-to-end.
 
-- [ ] Inventory all core/hierarchy/grid values and split experimental defaults from reusable validation rules.
-- [ ] Define user-authorable project token manifests, including custom roles and optional/empty presets.
-- [ ] Add official DTCG schema validation or document and test every unsupported type.
-- [ ] Make token generation deterministic for a non-default consumer-defined manifest without modifying the UF-CSS repository defaults.
-- [ ] Add cross-adapter tests and examples demonstrating entirely different project design systems.
-
-Do **not** start rewriting AMGYNA or AmyMail yet. Preserve full consumer ownership of design choices.
+Phase 02's richer DTCG standard-type support remains a separately documented future enhancement, not a blocker for moving to Phase 03. Do not merge the draft PR or publish the npm package without maintainer review and authorization.

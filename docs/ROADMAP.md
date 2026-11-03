@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — step-by-step tasks, paths, dependencies and acceptance criteria. **Phase 01 complete (2026-11-03):** locked npm installs, package exports/side effects, offline packed-package consumer test, and all three CI suites passed (19 unit tests). **Phase 02 underway:** the user-owned token compiler, two independent example systems, packaged CLI and real Tailwind/StyleX checks are implemented. Full DTCG conformance, canonical generator sharing, and richer token types are pending.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phase 00–02 complete for their declared scopes** (2026-11-03); Phase 02 includes a shared token validator, canonical starter values, independent token compilers, deterministic generation, and 37 tests. **Next: Phase 03 — consumer-owned themes.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -28,8 +28,8 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Allow explicit optional Tailwind/Bootstrap adapter aliases without hardcoded design choices
 - [x] Ship safe non-overwriting CLI in packed package, with two distinct custom-system examples
 - [x] Verify editorial and operations systems in real Tailwind v3/v4 and StyleX builds
-- [ ] Unify neutral-starter and custom-system token parsers without losing backwards compatibility
-- [ ] Add official full DTCG schema/reference handling and richer consumer-defined role types
+- [x] Unify neutral-starter and custom-system token parsing and formatting while preserving backwards compatibility
+- [ ] Expand beyond the documented DTCG supported profile; no finalized official JSON Schema is published in the 2025.10 format report
 
 ## Interactive design-system builder (creator-first)
 - [x] Terminal wizard: frameworks, custom color hex values, typography, spacing, layout grids and composition guides
@@ -45,8 +45,8 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Smoke-test the real Tailwind v3/v4 CSS compilers, Bootstrap CSS import pipeline, StyleX Babel plugin and Expo SDK 57 Metro Android JS export
 - [x] Add fixture sources for Tailwind v3/v4, Bootstrap, StyleX and Expo consuming generated tokens
 - [ ] Add browser screenshot, device runtime and interaction/accessibility validation to those fixtures
-- [ ] Canonicalize remaining typography guidance, breakpoints and all optional roles into DTCG tokens
-- [ ] Adopt full DTCG schema validation rather than the current supported-type subset
+- [x] Canonicalize existing starter typography values, responsive bounds, modular ratio, density, motion, z-order and optional elevation-level examples
+- [ ] Pursue complete DTCG 2025.10 validation and resolver behavior when standardized tooling/schema is available; current strict profile is documented in TOKEN-CONTRACT.md
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples
@@ -56,7 +56,7 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [ ] Author and validate full historical grid construction guides where warranted
 
 ## Package release
-- [ ] Commit a package-lock.json and switch CI to `npm ci`
+- [x] Commit root and integration lockfiles and use `npm ci` in CI
 - [ ] Add package publishing workflow and provenance, with maintainer approvals
 - [ ] Release a tested prerelease before a stable 1.0
 - [ ] Publish optional AI skill/plugin distribution for supported hosts

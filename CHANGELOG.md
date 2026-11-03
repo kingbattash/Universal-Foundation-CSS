@@ -4,6 +4,9 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 02 token unification: shared validated DTCG 2025.10 subset parser, formatters and separate starter/custom adapter renderers.
+- Canonicalized starter typography roles, viewport/breakpoints, modular scale, density, motion and z-index/elevation reference values; regenerated CSS/Tailwind/Bootstrap/StyleX/native outputs.
+- Deterministic parity and mutation tests and detailed token contract/inventory documentation (full DTCG conformance explicitly excluded).
 - Interactive `uf-css init` wizard for optional design decisions, grid combinations, hierarchy, file preview and confirmation.
 - Config-driven `--dry-run`/explicit `--yes` automation, selective scaffolding and overwrite/symlink safeguards.
 - Wizard guide, sample configuration, offline packed-CLI test and safety tests.

@@ -23,6 +23,12 @@ UF-CSS is a **framework-neutral toolkit to create design systems**, not a mandat
 
 Consumers can omit any optional preset, supply custom design tokens and define their own hierarchy, grid algorithms and component appearance. The catalog of 20 hierarchy categories and 37 grids is illustrative and expandable—not an exclusive set of recognized methods. Technical validity and accessibility should be tested without enforcing a common look. Current 0.x theme configuration supports semantic colors; further customization and plugin interfaces are planned, not yet implemented.
 
+## Token compiler architecture
+
+The neutral starter at `tokens/source.tokens.json` and every creator-owned token manifest share `scripts/lib/tokens/parse.mjs` and `format.mjs`. They use separate renderers (`starter-renderer.mjs` and `custom-renderer.mjs`) so no product inherits a neutral style merely by generating tokens. All runtime examples consume explicitly chosen adapters.
+
+The [token contract](TOKEN-CONTRACT.md) documents the supported DTCG profile; the [token inventory](TOKEN-INVENTORY.md) distinguishes optional starter defaults from mathematical formulas and CSS recipe details.
+
 ## Dependency policy
 
 1. `src/foundation-formular` is pure TypeScript; no DOM, React or browser APIs.

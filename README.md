@@ -13,7 +13,9 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 ## Implementation status and next steps
 
-See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned. **Phase 01 complete:** reproducible `npm ci` installs, verified package exports, and an actual offline installed-tarball smoke test passed, alongside the framework and Expo build checks. **Next: Phase 02 — allow fully user-defined design token sources and strengthen DTCG schema validation**, without forcing the provided neutral starter tokens.
+See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned.
+
+**Phase 02 complete:** both the optional neutral starter and user-owned generator now share a validated DTCG token subset and deterministic formatting. Type roles, responsive bounds and motion values come from canonical neutral tokens—not independent duplicated constants. See the [token contract](docs/TOKEN-CONTRACT.md) and [token audit](docs/TOKEN-INVENTORY.md). **Phase 03 is next: creator-owned themes and overrides.** **Phase 01 complete:** reproducible `npm ci` installs, verified package exports, and an actual offline installed-tarball smoke test passed, alongside the framework and Expo build checks. **Next: Phase 03 — consumer-owned themes and override rules.** Full DTCG format support remains an explicitly scoped future extension; no starter preset is compulsory.
 
 ## The problem it solves
 

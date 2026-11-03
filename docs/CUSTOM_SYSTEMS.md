@@ -6,7 +6,7 @@ UF-CSS is a toolkit to help anyone **create and validate their own design system
 
 Your token names, token categories, colors, typography families, numeric values, spacing, density, radii, motion, hierarchy, grids, components, and framework choices. This generator does **not import any UF-CSS neutral values**.
 
-It accepts a **supported subset** of [DTCG design tokens](https://www.designtokens.org/TR/2025.10/format/): `color` (opaque sRGB), `dimension` (px/rem), `duration` (ms/s), `number`, `fontFamily`, `fontWeight`, and `cubicBezier`. It supports group `$type` inheritance and typed curly-brace aliases. Unsupported composite types, `$extends`, and JSON Pointer references are rejected or not implemented; this is not yet complete DTCG conformance.
+The supported type/reference/output-name rules are documented in [TOKEN-CONTRACT.md](TOKEN-CONTRACT.md). It accepts a **supported subset** of [DTCG design tokens](https://www.designtokens.org/TR/2025.10/format/): `color` (opaque sRGB), `dimension` (px/rem), `duration` (ms/s), `number`, `fontFamily`, `fontWeight`, and `cubicBezier`. It supports group `$type` inheritance and typed curly-brace aliases. Unsupported composite types, `$extends`, and JSON Pointer references are rejected or not implemented; this is not yet complete DTCG conformance.
 
 For a question-by-question experience, start with the [optional interactive wizard](WIZARD.md). It creates a smaller design-system configuration and lets you preview every file before generation.
 
