@@ -1,0 +1,43 @@
+name: Synchronize generated token outputs (one-time)
+on:
+  push:
+    branches: [feat/foundation-v0]
+    paths:
+      - .github/workflows/sync-tokens-once.yml
+permissions:
+  contents: write
+concurrency:
+  group: uf-css-token-sync-once
+  cancel-in-progress: false
+jobs:
+  regenerate:
+    if: github.repository == 'kingbattash/Universal-Foundation-CSS' && github.ref_name == 'feat/foundation-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/foundation-v0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Regenerate all canonical adapters and verify build
+        run: |
+          npm run generate:tokens
+          npm run check:tokens
+          npm run check
+      - name: Commit generated outputs to the feature branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/css/tokens.generated.css src/tokens/generated.ts adapters/tailwind-v3/preset.generated.cjs adapters/tailwind-v4/theme.generated.css adapters/bootstrap/bootstrap.generated.css adapters/stylex/tokens.generated.stylex.ts adapters/react-native/tokens.generated.ts
+          if git diff --cached --quiet; then
+            echo "All adapters were already current."
+          else
+            git commit -m "build(tokens): regenerate adapters after Phase 02 canonical normalization"
+            git push origin HEAD:feat/foundation-v0
+          fi
