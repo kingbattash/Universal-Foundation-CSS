@@ -4,6 +4,10 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 06 category-specific hierarchy specifications for all 20 optional references, with priorities, relations, constraints, anti-patterns and strategies.
+- Creator-owned hierarchy creation and relationship validation, creator-defined semantic roles and source/visual reading-order audits.
+- Explicitly opt-in CSS hierarchy hooks (`./hierarchy.css`) and two contrasting responsive HTML specimens; no required styling system.
+- Phase 06 static/model validation tests and hierarchy guide documenting support levels and limits.
 - Phase 05 mathematical foundation: user-authored spacing series, responsive numerical interpolation, CSS fluid evaluation, arbitrary padded grid layouts/spans and golden/thirds composition guides.
 - Safe Fibonacci and golden-rectangle helpers; runtime bounds/overflow checks while keeping legacy mathematical exports.
 - Optional calibrated Fitts and Hick–Hyman quantitative models with explicit coefficients and research caveats; no invented universal UX scores.

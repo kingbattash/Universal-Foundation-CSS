@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–04 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 06 — semantic models and hierarchy category specifications.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–06 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 07 — grid catalog to practical, optional grid implementations.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -72,6 +72,15 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Document Fitts/Hick–Hyman calibrated models and qualitative Jakob/Gestalt/progressive-disclosure caveats
 - [x] Add boundary, monotonicity, overflow and geometry tests; see [RESEARCH.md](RESEARCH.md)
 - [ ] Calibrate empirical models on real product users; browser/device visual audits (Phase 09)
+
+## Phase 06 — semantics and hierarchy (DONE for specifications/static scope)
+- [x] Expand optional semantic vocabulary and allow fully custom semantic roles
+- [x] Keep 20 original catalog references; add four family-specific modules with 20 actionable category specifications
+- [x] Every specification distinguishes major hierarchy vs technique and describes priorities, relationships, constraints, examples and anti-patterns
+- [x] Add creator-owned hierarchy model with custom roles, priorities, relationships, safe validation and no required presets
+- [x] Add explicitly imported hierarchy CSS strategy hooks, without global styles or branded defaults
+- [x] Static reading-order audit and two contrasting HTML specimens at three declared viewport widths
+- [ ] Browser screenshot, actual focus order, assistive-technology and device tests (Phase 09)
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples

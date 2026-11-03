@@ -26,7 +26,7 @@ The user or product team has the final say over:
 
 The 4px spacing seed, neutral palette, example 12-column layout, 20 hierarchy categories and 37 grid references are **optional examples or research catalogs**, not the canonical design that every project must adopt. Their existence does not imply a fixed number of legitimate hierarchies or grids.
 
-The canonical `tokens/source.tokens.json` currently holds the **starter's default values** for reproducible output generation. It must not be mistaken for the one palette, scale or theme every consumer must use. A separate `scripts/generate-custom-system.mjs` compiler now accepts a consumer's token file with **no inherited neutral defaults**. Custom hierarchy and grid extension APIs remain future work.
+The canonical `tokens/source.tokens.json` currently holds the **starter's default values** for reproducible output generation. It must not be mistaken for the one palette, scale or theme every consumer must use. A separate `scripts/generate-custom-system.mjs` compiler now accepts a consumer's token file with **no inherited neutral defaults**. Creator-defined hierarchy models and semantic names are supported in Phase 06; custom grid-extension APIs remain Phase 07 work.
 
 ## Core constraints (about interoperability, not design taste)
 

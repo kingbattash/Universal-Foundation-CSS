@@ -171,21 +171,21 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** Public mathematics remain pure TypeScript and independent of DOM, Tailwind, React, StyleX and React Native. Formula outputs are unit-documented and testable. No claims of universal UX rules, model calibration, WCAG certification, browser visual QA or human preference optimization. Follow-on phase: **06 (semantic and hierarchy).**
 
-### Phase 06 — Semantics and hierarchy
+### Phase 06 — Semantics and hierarchy (DONE for specification, fixtures and static-validation scope)
 
-**Goal:** Turn conceptual terminology into usable, testable specification and style strategies.
+**Goal met:** The existing 20 references now have category-specific specifications; creators can define entirely independent hierarchies and arbitrary semantic role names without a compulsory taxonomy or framework.
 
-| Step | Work | Location |
+| Step | Work completed | Location |
 | --- | --- | --- |
-| 06.1 | Expand semantic types for documents, actions, state/feedback, surfaces, navigation, accessibility and responsive meaning | `src/semantic/` |
-| 06.2 | Preserve the 20-category practical hierarchy registry; separate **major types** from techniques | `src/hierarchy/hierarchy.ts` |
-| 06.3 | Add category-specific TS modules for communication, structure, visual techniques and interaction | `src/hierarchy/{communication,structural,visual-techniques,interactive}/` |
-| 06.4 | Specify priority levels, relationships, design constraints, examples and anti-patterns for each type | `src/hierarchy/**`, `docs/HIERARCHY.md` |
-| 06.5 | Define optional style strategies in CSS/adapter layers—**not** StyleX-only code inside universal core | `src/css/`, `adapters/` |
-| 06.6 | Validate semantic reading order and representative hierarchy examples at responsive widths | `examples/`, `tests/` |
-| 06.7 | Accept custom hierarchy names, rules, and extensions in consuming projects; do not force any of the 20 reference categories | `src/hierarchy/`, `docs/HIERARCHY.md`, `tests/` |
+| 06.1 | **DONE:** Expanded optional semantic vocab for documents, regions, feedback, accessibility and responsiveness; creator-defined semantic roles | `src/semantic/semantic.ts` |
+| 06.2 | **DONE:** Preserved original 20-category registry and categorized major types vs techniques explicitly | `src/hierarchy/hierarchy.ts`, `src/hierarchy/specification.ts` |
+| 06.3 | **DONE:** Four family-specific specifications (5 communication, 5 structural, 7 visual techniques, 3 interaction), all independent of presentation code | `src/hierarchy/{communication,structural,visual-techniques,interactive}/` |
+| 06.4 | **DONE:** Each specification has priority rule, relationships, constraints, example, anti-pattern and possible strategies | `src/hierarchy/specifications.ts`, [HIERARCHY.md](HIERARCHY.md) |
+| 06.5 | **DONE:** Strategy catalog maps to independent opt-in vanilla CSS hooks, package subpath `./hierarchy.css`; no global reset or brand palette | `src/hierarchy/strategies.ts`, `src/css/hierarchy-strategies.css`, `package.json` |
+| 06.6 | **DONE for static test scope:** Two unrelated HTML specimens and source/visual-order fixture audits at 320/768/1440 widths. **No rendered browser or screen-reader validation claimed.** | `examples/hierarchy/`, `src/semantic/flow.ts`, `tests/hierarchy.test.ts` |
+| 06.7 | **DONE:** Creator-owned hierarchy IDs, priority levels, arbitrary strategy names and typed relationship definitions with cycle/reference checks; zero levels supported | `src/hierarchy/custom.ts`, `tests/hierarchy.test.ts` |
 
-**Gate:** all 20 categories have implementable specifications or documented reference status. A user can select hierarchy rules and see which style strategies express them, without assuming every category is scientifically independent.
+**Gate:** All 20 references have actionable specifications and explicit support levels. Custom systems can be empty or fully independent of the 20 references and need not include a prescribed font, grid, spacing, hierarchy or CSS class. The optional CSS and semantic audits are **starting points**, not browser QA or an aesthetic compliance score. Phase 09 remains responsible for actual visual, keyboard and assistive technology verification.
 
 ### Phase 07 — Grid catalog to grid implementation
 
