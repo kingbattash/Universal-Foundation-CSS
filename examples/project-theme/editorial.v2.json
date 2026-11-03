@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 2,
+  "name": "copper-editorial",
+  "tokens": {
+    "ui": {
+      "canvas": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.97254902,
+            0.93333333
+          ],
+          "hex": "#fff8ee"
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.16078431,
+            0.14509804,
+            0.14117647
+          ],
+          "hex": "#292524"
+        }
+      },
+      "action": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.54509804,
+            0.14117647,
+            0.25882353
+          ],
+          "hex": "#8b2442"
+        }
+      },
+      "onAction": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff"
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.54509804,
+            0.14117647,
+            0.25882353
+          ],
+          "hex": "#8b2442"
+        }
+      }
+    },
+    "typography": {
+      "heading": {
+        "$type": "fontFamily",
+        "$value": [
+          "Georgia",
+          "serif"
+        ]
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": [
+          "Charter",
+          "serif"
+        ]
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      }
+    },
+    "spacing": {
+      "compact": {
+        "$type": "dimension",
+        "$value": {
+          "value": 7,
+          "unit": "px"
+        }
+      },
+      "comfortable": {
+        "$type": "dimension",
+        "$value": {
+          "value": 29,
+          "unit": "px"
+        }
+      }
+    },
+    "corners": {
+      "card": {
+        "$type": "dimension",
+        "$value": {
+          "value": 3,
+          "unit": "px"
+        }
+      }
+    },
+    "motion": {
+      "enter": {
+        "$type": "duration",
+        "$value": {
+          "value": 270,
+          "unit": "ms"
+        }
+      }
+    }
+  },
+  "modes": {
+    "dark": {
+      "ui": {
+        "canvas": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.12941176,
+              0.10588235,
+              0.1254902
+            ],
+            "hex": "#211b20"
+          }
+        },
+        "ink": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.97647059,
+              0.95686275,
+              0.9254902
+            ],
+            "hex": "#f9f4ec"
+          }
+        },
+        "action": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.95294118,
+              0.71372549,
+              0.78823529
+            ],
+            "hex": "#f3b6c9"
+          }
+        },
+        "onAction": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.12941176,
+              0.10588235,
+              0.1254902
+            ],
+            "hex": "#211b20"
+          }
+        },
+        "link": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.95294118,
+              0.71372549,
+              0.78823529
+            ],
+            "hex": "#f3b6c9"
+          }
+        }
+      }
+    }
+  },
+  "mapping": {
+    "tailwind": {
+      "colors": {
+        "canvas": "ui.canvas",
+        "ink": "ui.ink",
+        "action": "ui.action",
+        "link": "ui.link"
+      },
+      "spacing": {
+        "compact": "spacing.compact",
+        "comfortable": "spacing.comfortable"
+      },
+      "radii": {
+        "card": "corners.card"
+      },
+      "fonts": {
+        "heading": "typography.heading",
+        "body": "typography.body"
+      }
+    },
+    "bootstrap": {
+      "--bs-body-bg": "ui.canvas",
+      "--bs-body-color": "ui.ink",
+      "--bs-primary": "ui.action",
+      "--bs-primary-rgb": "ui.action",
+      "--bs-body-bg-rgb": "ui.canvas",
+      "--bs-body-color-rgb": "ui.ink"
+    }
+  },
+  "contrastChecks": [
+    {
+      "name": "body-copy",
+      "type": "text",
+      "foreground": "ui.ink",
+      "background": "ui.canvas",
+      "minimum": 4.5
+    },
+    {
+      "name": "action-label",
+      "type": "text",
+      "foreground": "ui.onAction",
+      "background": "ui.action",
+      "minimum": 4.5
+    },
+    {
+      "name": "inline-link",
+      "type": "text",
+      "foreground": "ui.link",
+      "background": "ui.canvas",
+      "minimum": 4.5
+    }
+  ]
+}
