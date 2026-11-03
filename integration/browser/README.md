@@ -7,7 +7,7 @@ This suite is deliberately **separate** from the UF-CSS TypeScript core. It uses
 From the repository root, on Node.js 22+:
 
 ```sh
-npm install --prefix integration/browser --no-audit --no-fund --ignore-scripts --package-lock=false
+npm ci --prefix integration/browser --no-audit --no-fund --ignore-scripts
 ./integration/browser/node_modules/.bin/playwright install chromium
 node scripts/generate-project-theme.mjs --config examples/project-theme/editorial.v2.json --out generated/editorial
 node scripts/generate-project-theme.mjs --config examples/project-theme/operations.v2.json --out generated/operations
