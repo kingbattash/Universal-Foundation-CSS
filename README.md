@@ -15,7 +15,18 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned.
 
-**Phases 00–03 complete for their declared experimental scopes.** The neutral starter, independent token generator and creator-owned theme builder now share verified token parsing and platform adapters. Phase 03 introduces custom light/dark themes with any names and values, explicit Tailwind/Bootstrap mappings, StyleX/native outputs, and user-chosen accessibility checks. Two unrelated examples are available in [Copper Editorial](examples/project-theme/editorial.v2.json) and [Harbor Operations](examples/project-theme/operations.v2.json); see [theme guide](docs/THEMES.md) and [theme contract](docs/THEME-CONTRACT.md). **Next: Phase 04, production-ready framework adoption and integration.** Full DTCG support remains outside the current documented profile.
+**Phases 00–03 complete for their declared experimental scopes.** The neutral starter, independent token generator and creator-owned theme builder now share verified token parsing and platform adapters. Phase 03 introduces custom light/dark themes with any names and values, explicit Tailwind/Bootstrap mappings, StyleX/native outputs, and user-chosen accessibility checks. Two unrelated examples are available in [Copper Editorial](examples/project-theme/editorial.v2.json) and [Harbor Operations](examples/project-theme/operations.v2.json); see [theme guide](docs/THEMES.md) and [theme contract](docs/THEME-CONTRACT.md). **Phase 04 now complete for the verified build scope:** packed-package framework consumers, a production Next.js StyleX App Router build, and Expo Android JavaScript export. **Next: Phase 05 — mathematics, formulas and quantified design guidance.** Full DTCG support remains outside the current documented profile.
+
+## Actual framework-consuming projects
+
+Beyond isolated adapters, the feature branch now builds applications consuming the actual **locally packed npm tarball**. [Framework-consumer guide](docs/FRAMEWORK-CONSUMERS.md) explains exactly which imports, compilers and style overrides each project controls.
+
+- [Next.js + StyleX App Router](integration/nextjs/) uses a project-owned editorial theme and produces a production Webpack build.
+- [Expo / React Native](integration/expo/) uses a different independent project theme, safe-area context, font scaling and Metro's Android JavaScript export.
+- [Packed Tailwind v3/v4, Bootstrap, StyleX and native consumer](integration/web/verify-packed.mjs) verifies distribution exports in a separate installed environment.
+- Normal HTML, Vue, Svelte, Angular and Astro can import the same generated CSS custom properties without a framework-specific runtime.
+
+These are verified **build integration tests**, not physical-device, visual-regression or full WCAG audits. The package remains experimental and unpublished. No required brand, grid, hierarchy, font or styling library is imposed.
 
 ## The problem it solves
 

@@ -138,22 +138,24 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Scope note:** Theme v2 consumes the strict supported DTCG profile. It does not automatically rewrite optional neutral starter component styles, generate arbitrary UI components, or implement the full DTCG resolver. Those behaviors are deliberately not part of the Phase 03 acceptance gate.
 
-### Phase 04 — Platform adapters and real consuming examples
+### Phase 04 — Platform adapters and real consuming examples (DONE: locked builds and packaged consumers)
 
-**Goal:** Frameworks consume the foundation naturally, rather than being forced to adopt the foundation's own styling library.
+**Goal met for the declared build scope:** Independent projects use the core naturally, without being forced into a framework or neutral styling system. CI verifies **the real packed UF-CSS artifact**, not only checkout-relative adapter files.
 
-| Step | Output | Location |
+| Step | Verified result | Exact location |
 | --- | --- | --- |
-| 04.1 | Vanilla CSS: standalone import, cascade layers, native custom properties and responsive layout examples | `src/css/`, `examples/vanilla/` |
-| 04.2 | Tailwind v4: functional `@theme` mapping, dark mode, spacing, font and color roles | `adapters/tailwind-v4/`, `integration/web/tailwind-v4/` |
-| 04.3 | Tailwind v3: preset compatibility, utilities and documented limitations | `adapters/tailwind-v3/`, `integration/web/tailwind-v3/` |
-| 04.4 | Bootstrap 5.3: root variables, RGB channels, common controls and accurate theming limitations | `adapters/bootstrap/`, `integration/web/bootstrap/` |
-| 04.5 | StyleX: compiler-safe token output, typed variables and selectable themes, Next.js consuming example | `adapters/stylex/`, `examples/nextjs-stylex/` |
-| 04.6 | React Native/Expo: typed numeric values, light/dark, font scaling and safe-area-aware example | `adapters/react-native/`, `integration/expo/` |
-| 04.7 | Vue, Svelte, Angular, Astro and normal HTML: document use of the same Vanilla CSS variables instead of duplicating framework implementations | `docs/ADAPTERS.md` |
-| 04.8 | Add actual package-consumer builds (not only relative-file fixtures), followed by visual/functional tests | `integration/`, `.github/workflows/` |
+| 04.1 | **DONE:** Standalone Vanilla CSS, native custom properties, optional neutral CSS layers, responsive layout references and independent project light/dark specimens | `examples/vanilla/`, `examples/project-theme/`, `src/css/` |
+| 04.2 | **DONE:** Tailwind v4 `@theme inline` color/type/spacing/radius mapping, light/dark theme variables and actual installed-package CLI compilation | `adapters/tailwind-v4/`, `integration/web/verify-packed.mjs` |
+| 04.3 | **DONE:** Tailwind v3 CJS preset support from actual packed package, real utility compilation and explicit opacity/class-discovery limits | `adapters/tailwind-v3/`, `integration/web/verify-packed.mjs` |
+| 04.4 | **DONE for mapped variables:** Bootstrap 5.3 CSS bundle, explicit semantic/RGB mappings, light/dark values and documented component/Sass limits | `adapters/bootstrap/`, `integration/web/` |
+| 04.5 | **DONE for production build:** StyleX token and theme compilation plus a real Next.js App Router **Webpack** consumer compiled from a locally packed UF-CSS tarball | `adapters/stylex/`, `integration/nextjs/`, `.github/workflows/integration-nextjs.yml` |
+| 04.6 | **DONE for native JS export:** React Native numeric values, independent light/dark theme, text scaling, safe-area context, TypeScript checks and Android Metro JavaScript export from a packed library | `adapters/react-native/`, `integration/expo/`, `.github/workflows/integration-expo.yml` |
+| 04.7 | **DONE:** Vue, Svelte, Angular, Astro and normal HTML consume the same Vanilla CSS variables; no duplicated mandatory runtime | [FRAMEWORK-CONSUMERS.md](FRAMEWORK-CONSUMERS.md), [ADAPTERS.md](ADAPTERS.md) |
+| 04.8 | **DONE for build and packaging gate:** Five locked CI workflows, including packed web consumers, Next.js Webpack build and Expo Metro export; **visual and interactive accessibility tests deferred to Phase 09** | `integration/`, `.github/workflows/` |
 
-**Gate:** every advertised adapter builds against the **packed** UF-CSS package, uses product theme overrides and has clear import instructions. Equivalent semantic tokens resolve to the same meanings; platform layouts may differ legitimately.
+**Gate passed (2026-11-03):** 43/43 foundation and builder tests, all eight web framework integrations, five independent GitHub workflows, a real packed web consumer, a Next.js production static export, an Expo Android JS export and custom semantic light/dark themes. The sample designs differ intentionally; an identical pixel layout is neither required nor expected.
+
+**Explicit limitations:** No automatic browser screenshot or keyboard/screen-reader audit, no physical Android/iOS device verification, no universal component styling system, no full Bootstrap Sass theme and no guarantee for every future Next.js or Expo version. These are outside the Phase 04 build acceptance gate and tracked in Phase 09 / later compatibility work. The Next.js example uses an optional community StyleX SWC plugin, not a core dependency.
 
 ### Phase 05 — Mathematical foundation and UX principles
 
@@ -367,6 +369,6 @@ Universal-Foundation-CSS/
 
 ## 7. Immediate next action
 
-**Proceed to Phase 04: framework adapters and real consuming projects.** Phases 00–03 are complete for their declared experimental scope; theme v2 generator, legacy compatibility and two independent browser specimens are in the feature branch.
+**Proceed to Phase 05: foundation formulas, validated mathematical rules and design guidance.** Phases 00–04 are complete for their explicitly limited experimental scopes. Continue to support independent product decisions; a mathematical relationship or historical canon is a reference, not a required UI template.
 
-Next, harden packed package consumption across stacks, typed StyleX integration, React Native/Expo runtime examples, dark-mode behavior and import precedence. Do **not** merge or publish without maintainer approval. Visual regression and screen-reader certification remain in Phase 09.
+Run all five CI workflows and `npm run verify` after changes. Do **not** merge the draft PR or publish npm without maintainer authorization. Automated browser/device accessibility and visual regression remain Phase 09 work.

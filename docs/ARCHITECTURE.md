@@ -58,3 +58,7 @@ Fitts's Law and Hick–Hyman Law are studied UX models. "Golden canon", Phi, Fib
 ## Compatibility
 
 The TypeScript module is ESM and targets modern JavaScript runtimes; external platform APIs are not used in the core. The CSS adapter requires browser support for modern CSS features like cascade layers, `min()`, `clamp()`, and responsive grid.
+
+## Real platform-consumer boundary (Phase 04)
+
+The actual packed UF-CSS package is consumed by independent `integration/web`, `integration/nextjs`, and `integration/expo` build fixtures. Their lockfiles and optional compiler toolchains are **not dependencies of the core package**. StyleX/Next.js and safe-area/Expo helpers belong in the consuming application. See [FRAMEWORK-CONSUMERS.md](FRAMEWORK-CONSUMERS.md).

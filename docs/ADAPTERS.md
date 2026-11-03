@@ -2,9 +2,11 @@
 
 **Creating an entirely original project?** Use [independent theme v2](THEMES.md) or the [custom token generator](CUSTOM_SYSTEMS.md). The default `--uf-*` examples below are **optional neutral starter adapters**, not required colors, fonts, grids or layout conventions. Independent themes generate their own namespaced variables and optional framework mappings.
 
-All generated adapter values come from [one DTCG-style source](../tokens/source.tokens.json). The core package does not require Tailwind, Bootstrap, StyleX, or React Native.
+The **optional neutral starter** outputs come from [its DTCG-style source](../tokens/source.tokens.json); independent projects instead use **their own** DTCG-style token manifests. These modes share validated compiler machinery, but never impose the neutral starter values. The core package does not require Tailwind, Bootstrap, StyleX, Next.js or React Native.
 
 **Current release state:** these adapter files are available on the `feat/foundation-v0` branch. This repository has **not published an npm version yet**. Code examples below use the intended package entry points after a local workspace link or future publish.
+
+**Real consuming applications and verified package exports:** [Framework Consumer Guide](FRAMEWORK-CONSUMERS.md) covers the packed-package test, independent Next.js + StyleX production build, Expo Android Metro JS export, Vanilla CSS import order, and reuse in Vue/Svelte/Angular/Astro.
 
 ## Generate from source
 
@@ -105,7 +107,7 @@ export function Sample() {
 }
 ```
 
-Apply `ufDarkTheme` on a theme subtree using `stylex.props`. This adapter includes generated variables and a dark theme, but is **not yet verified in a complete Next.js/StyleX production build**. The consuming toolchain must process the distributed `.stylex.ts` file; plain Node cannot execute it without a compatible loader.
+Apply `ufDarkTheme` on a theme subtree using `stylex.props`. This optional starter adapter includes generated variables and a dark theme. A separate **creator-owned v2 theme** is now verified in a Next.js App Router/StyleX production Webpack build using a packed UF-CSS tarball. The consuming toolchain must process the distributed `.stylex.ts` file; plain Node cannot execute it without a compatible loader.
 
 ## React Native / Expo
 
@@ -126,7 +128,7 @@ export function Example() {
 }
 ```
 
-The generated values are numbers appropriate as **density-independent layout starting points**; they are not browser CSS strings. For typography, respect system font scaling, safe areas and platform-specific conventions. The generated adapter is **not a ready-made React Native component library**, and has not yet undergone Expo runtime testing.
+The generated values are numbers appropriate as **density-independent layout starting points**; they are not browser CSS strings. For typography, respect system font scaling, safe areas and platform-specific conventions. The generated adapter is **not a ready-made React Native component library**. A real consuming Expo app now passes TypeScript and Android Metro JavaScript export with a user-owned theme and safe-area handling; native binary/device testing remains unverified.
 
 ## Other technologies
 
@@ -152,9 +154,9 @@ node scripts/generate-project-theme.mjs --config examples/project-theme/theme.js
 - Tailwind CSS v4 CLI: compiles `@theme inline` utilities from the UF-CSS mapping.
 - Bootstrap 5.3: full Bootstrap stylesheet bundles with UF-CSS adapter and semantic overrides using PostCSS.
 - Meta StyleX: Babel compiler transforms both generated tokens and consumer `stylex.create` styles.
-- Expo SDK 57: Metro exports an Android JavaScript bundle importing the generated native token module.
+- Expo SDK 57: Metro exports an Android JavaScript bundle importing the **installed packed native adapter** and an independent user-owned theme.
 
-These are **build integration smoke tests**, not screenshots, device runs, or complete interface accessibility validation. See `integration/web/` and `integration/expo/` for the fixtures.
+These are **build integration smoke tests**, including a real packed-package consumer and Next.js production Webpack export—not screenshots, native-device runs, or complete interface accessibility validation. See `integration/web/` and `integration/expo/` for the fixtures.
 
 ## Source of truth and theme override policy
 

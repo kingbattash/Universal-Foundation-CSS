@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phase 00–03 complete for their declared scopes** (2026-11-03); shared DTCG-subset validation, optional neutral starter, independent design-system generation and creator-owned v2 themes are CI-tested. **Next: Phase 04 — framework adapters and real consumer integration.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–04 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 05 — foundation mathematics and design guidance.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -19,8 +19,8 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Generate neutral CSS, Tailwind v3/v4, Bootstrap, StyleX, React Native and TypeScript token outputs; check drift in CI
 - [x] Generate validated, non-destructive project-specific light/dark semantic color themes and document CSS/Bootstrap/StyleX/native output precedence
 - [x] Extend independent project theme schema to typography, custom density/spacing, radii, motion and arbitrary user-owned roles (legacy neutral themes remain compatible)
-- [x] Generate a StyleX token adapter without tying core to React (consuming-app integration tests pending)
-- [x] Generate a React Native token adapter; runtime Expo example and cross-platform UI contract tests pending
+- [x] Generate a StyleX token adapter without tying core to React; verify the packed package in Babel and Next.js/StyleX production builds
+- [x] Generate a React Native token adapter and verify packed-library import, native theme, safe areas, text scaling and Expo Metro Android JavaScript export (device/runtime behavior remains unverified)
 - [x] Add opt-in color contrast checks for text, links, action, hover and focus for sample project themes (full accessibility audit is Phase 09)
 
 ## User-owned design system extensions
@@ -49,6 +49,14 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] CLI and packaged-tarball smoke tests, non-destructive/scaffold safety tests
 - [ ] Interactive resume/edit, visual palette preview and richer custom grid editor
 - [ ] Full accessibility and visual inspection of builder-generated sample projects
+
+## Phase 04 framework integration
+- [x] Import a real locally packed UF-CSS package into an independent Tailwind v3/v4, Bootstrap, StyleX and native TypeScript consumer
+- [x] Next.js 16 App Router production build with StyleX, packed package import and user-owned themes
+- [x] Expo SDK 57 React Native TypeScript + Android Metro export with a packed library and safe-area-aware independent theme
+- [x] Five CI workflows with locked toolchain installs, public exports and package boundary tests
+- [x] Document framework-neutral CSS reuse for Vue, Svelte, Angular, Astro and plain HTML
+- [ ] Browser screenshots, keyboard accessibility, and physical device tests (Phase 09)
 
 ## Integration gaps
 - [x] Smoke-test the real Tailwind v3/v4 CSS compilers, Bootstrap CSS import pipeline, StyleX Babel plugin and Expo SDK 57 Metro Android JS export

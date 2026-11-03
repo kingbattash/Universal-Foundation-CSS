@@ -50,3 +50,7 @@ Use [the shared token contract](TOKEN-CONTRACT.md) before writing new token type
 ## Phase 03: independently authored themes
 
 For a new product, follow [THEME-CONTRACT.md](THEME-CONTRACT.md) and choose `schemaVersion:2`. Write the user's tokens and explicit light/dark overrides in their own project, choose platform mappings only where requested, and run `node scripts/cli.mjs theme --config FILE --out DIRECTORY`. Use `--check` for verification and `--force` only after approval. Legacy v1 themes inherit neutral example colors, so do not default to v1 for original project design systems. Report which contrast checks were explicitly validated; passing them does not prove WCAG compliance.
+
+## Phase 04 framework usage
+
+Before adapting a product, read [the framework consumer contract](FRAMEWORK-CONSUMERS.md). Prefer the product's existing CSS/JS stack; never introduce Tailwind, Bootstrap, Next.js, StyleX or Expo without a user-owned reason. For original styles, compile a project-owned v2 theme. Distinguish package smoke builds from actual device/browser accessibility validation and never describe CLI compilation as full UX certification.

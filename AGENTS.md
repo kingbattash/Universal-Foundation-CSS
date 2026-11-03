@@ -8,6 +8,7 @@ This is **Universal Foundation CSS**, a toolkit for creating **independent desig
 - All predefined fonts, spacing scales, grids, hierarchy categories, component contracts and neutral themes are optional starter choices. **Accept custom consumer-defined tokens, hierarchy, grids, patterns and components.** The 20 hierarchy categories are not a universal scientific taxonomy and classical canons are optional composition references.
 - Follow `docs/IMPLEMENTATION_PLAN.md` for phase order and module ownership; do not mark a phase complete from folder creation alone.
 - For all token generators, use the shared validator/formatter modules in `scripts/lib/tokens/`. Read `docs/TOKEN-CONTRACT.md` and `docs/TOKEN-INVENTORY.md`; never introduce a second parser or silently hardcode another project’s design values.
+- Platform build examples and framework dependencies live under `integration/`, not in the universal core; test the actual npm tarball and disclose device/browser testing limits. See `docs/FRAMEWORK-CONSUMERS.md`.
 - Keep public APIs small and typed. Validate formulas and reject impossible inputs.
 - Before editing, inspect relevant files and existing tests. Prefer a small PR with reproducible tests.
 - The `uf-css init` wizard is opt-in: show all proposed files and obtain explicit creator confirmation before generating anything. See `docs/WIZARD.md`. Do not force example colors, grids or hierarchy choices.

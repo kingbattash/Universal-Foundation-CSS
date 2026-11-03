@@ -11,10 +11,10 @@ UF-CSS is a **toolkit for creating your own design system**, not a prescribed sy
 | Tailwind v3 | Tailwind v3.4 preset in a consuming fixture | CLI CSS compilation |
 | Tailwind v4 | Tailwind v4.1 `@theme inline` mapping | CLI CSS compilation |
 | Bootstrap 5.3 | Semantic variables and selected component overrides | PostCSS compilation |
-| StyleX | StyleX 0.19.x, typed `.stylex.ts` module | Babel compiler smoke fixture |
-| React Native / Expo | React Native 0.86.x with Expo SDK 57 | Metro Android JavaScript export |
+| StyleX | StyleX 0.19.x, typed `.stylex.ts` module | Babel + Next.js production Webpack compiler fixture |
+| React Native / Expo | React Native 0.86.x with Expo SDK 57 | Packed-library import, TypeScript, safe-area context, Android Metro JavaScript export |
 
-These are **build checks**, not guarantees of pixel parity, physical-device functionality, or full accessibility.
+These are **build checks**, not guarantees of pixel parity, physical-device functionality, or full accessibility. [Framework consumer contracts](FRAMEWORK-CONSUMERS.md) explain the Next.js/StyleX and Expo fixtures, import order, and package boundaries.
 
 ## CLI commands (experimental)
 

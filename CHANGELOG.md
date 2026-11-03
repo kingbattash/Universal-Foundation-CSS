@@ -4,6 +4,10 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 04 packed-package framework consumers verified via real Tailwind v3/v4 CLI, Bootstrap PostCSS bundler, StyleX Babel and native TypeScript compilation.
+- Independent Next.js App Router + community StyleX SWC plugin example, passing a production Webpack build with a locally packed UF-CSS and creator-owned theme.
+- Independent Expo SDK 57 consumer using the locally packed native adapter, safe-area-context, font scaling, light/dark theme and Android Metro JS export.
+- Dedicated locked GitHub CI workflows for packed web, Next.js and Expo consumers plus framework import/compatibility documentation.
 - Phase 03 independent v2 project themes: arbitrary DTCG-style roles, custom type/spacing/density/motion/radii, light/dark mode overrides, and explicit Tailwind v3/v4, Bootstrap, StyleX and native outputs.
 - Mode-aware contrast checks for text, links, button labels, hover states and focus colors; generator never silently alters a consumer's palette.
 - Backward-compatible v1 theme mode, safe packaged `uf-css theme` CLI, check/force and symlink protection, plus two contrasting HTML specimens and real framework build checks.
