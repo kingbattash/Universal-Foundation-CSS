@@ -38,7 +38,7 @@ No required typography scale, brand palette, company identity, UI component kit,
 
 ## Compatibility and versioning
 
-- During `0.x`, interfaces may change. Pin an exact version or Git commit when consuming this library.
+- The source version is `1.0.0` for testing; it has not been published to npm or independently certified stable. Pin an exact Git commit or test a verified local tarball.
 - Any breaking token/adapter/schema change requires a changelog entry and migration instructions.
 - New framework-adapter implementations must ship with a real fixture and CI check.
 - Recommended Node version for contributors is 22, even while the declared engine supports >=20.

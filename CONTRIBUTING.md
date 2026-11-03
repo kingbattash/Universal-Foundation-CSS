@@ -21,7 +21,7 @@ Thank you for considering a contribution. UF-CSS is an independent open-source p
 
 ## Distribution and breaking API changes
 
-The `0.x` public API is experimental, but a breaking change still requires a changelog explanation and migration steps. Check that every new exported path is included in the npm tarball, that TypeScript declarations resolve, and that optional adapters do not impose a visual identity on existing products. Review the [versioning and release policy](docs/RELEASE.md).
+The `1.0.0` source is available for user testing but is not yet a published stable API; breaking changes still require changelog explanations and migration steps. Check that every new exported path is included in the npm tarball, that TypeScript declarations resolve, and that optional adapters do not impose a visual identity on existing products. Review the [versioning and release policy](docs/RELEASE.md).
 
 Release publishing, version bumps, tags and merges are separate maintainer decisions. Opening or updating a PR does not authorize publication. The automated release workflow is manual-only and cannot substitute for the configured GitHub required-reviewer environment.
 

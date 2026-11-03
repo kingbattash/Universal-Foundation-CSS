@@ -7,7 +7,7 @@
 
 Universal Foundation CSS (**UF-CSS**) is an open-source **design-system construction toolkit**: optional mathematical tools, semantic modeling methods, hierarchy and grid references, token generators, framework adapters and component contracts. **It does not prescribe a visual system.** Each developer or product creates and owns its own design language.
 
-> **Status: 0.x experimental.** The repository provides a working TypeScript foundation, canonical token generation, an optional CSS starter adapter, and generated framework mappings. It has **not yet been published to npm**, and some registered grids are references, not implemented CSS layouts. Use the source or a Git dependency until a package release is announced.
+> **Status: v1.0.0 source testing.** The repository and root lockfile declare `1.0.0`, ready for hands-on testing after merge. **This is not an npm publication, Git tag, or certification of production readiness.** Real-device and manual screen-reader checks remain pending. Optional grid references are not all executable CSS recipes.
 
 See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before adopting a preset. All existing scales, grids, categories and starter tokens are optional examples, not mandatory conventions.
 
@@ -15,7 +15,7 @@ See **[the design freedom and extension philosophy](docs/PHILOSOPHY.md)** before
 
 See the **[step-by-step implementation plan](docs/IMPLEMENTATION_PLAN.md)** for all phases, exact folders, dependencies, review gates, and which capabilities are already implemented versus planned.
 
-**Phases 00–08 are implemented for their declared experimental scopes.** Phase 09 has 25 successful Playwright/axe Chromium checks across independent light/dark designs; physical-device, manual screen-reader, approved screenshot baselines and actual browser zoom remain open. **Phase 10** adds an inspect-only project audit and safe CLI preview. **Phase 11** adds release-artifact verification and a manual, guarded prerelease workflow. **No npm release, tag, version bump or PR merge has been performed.** See [roadmap](docs/ROADMAP.md), [release readiness guide](docs/RELEASE.md) and [quality evidence](docs/TESTING.md).
+**Phases 00–08 are implemented for their declared experimental scopes.** Phase 09 has 25 successful Playwright/axe Chromium checks across independent light/dark designs; physical-device, manual screen-reader, approved screenshot baselines and actual browser zoom remain open. **Phase 10** adds an inspect-only project audit and safe CLI preview. **Phase 11** adds release-artifact verification and a manual, guarded prerelease workflow. **The source version has been updated to `1.0.0` for testing; npm publication and Git tagging remain separate, unperformed actions.** See [roadmap](docs/ROADMAP.md), [release readiness guide](docs/RELEASE.md) and [quality evidence](docs/TESTING.md).
 
 ## Actual framework-consuming projects
 
@@ -197,7 +197,7 @@ npm run verify:release             # build + npm pack --dry-run file manifest ch
 node scripts/verify-packed-package.mjs  # independent offline tarball consumer
 ```
 
-The [Phase 11 release process](docs/RELEASE.md) includes a manual-only GitHub Actions workflow with main-branch/version/CI controls, an explicit opt-in flag and protected environment. Configuring npm Trusted Publisher or releasing `0.2.0-beta.1` has **not happened**; no version was changed and the current package remains `0.1.0` experimental source. Package tarballs now exclude compiled unit tests. Never treat `npm run verify:release` as publishing authorization.
+The [Phase 11 release process](docs/RELEASE.md) includes a manual-only prerelease GitHub workflow. The repository package version is **`1.0.0` for source testing**; the prerelease-only workflow will not publish it, and no npm registry release has been authorized.
 
 ## Development quality
 

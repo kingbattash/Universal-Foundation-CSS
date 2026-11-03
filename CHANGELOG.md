@@ -1,10 +1,14 @@
 # Changelog
 
-All notable changes will be documented here. UF-CSS is in early development; APIs are experimental until a stable release.
+All notable changes are documented here. Version 1.0.0 is a source testing milestone, not a published stable npm release.
 
-## Unreleased — prerelease engineering only (not published)
+## Unreleased
 
-> The current checked-in package is `0.1.0`; no `0.2.0-beta.1` release or npm version is asserted. Only create a versioned changelog entry after the maintainer selects and approves that candidate.
+No changes after source v1.0.0 recorded.
+
+## [1.0.0] - 2026-11-03
+
+> **Source testing milestone only.** The package and root lockfile declare `1.0.0` as requested. This does not mean npm publication, a Git tag, full WCAG conformance, stable production certification, or completion of outstanding device tests.
 
 ### Added
 - Phase 11 release-artifact preflight checks (actual npm pack file list; public JavaScript, declarations, CSS, adapters and CLI runtime; exclusion of compiled tests and private-file patterns).

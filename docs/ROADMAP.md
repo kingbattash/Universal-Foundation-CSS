@@ -1,6 +1,6 @@
-# Roadmap (early 0.x)
+# Roadmap (v1.0.0 source testing)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 inspect-only agent automation and explicit-confirmation CLI is implemented. **Phase 11 release-readiness engineering is implemented, but actual npm publishing/versioning is deliberately pending maintainer approval.** Phase 09 manual/device gates and product-specific migrations remain separate. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 inspect-only agent automation and explicit-confirmation CLI is implemented. **Source version `1.0.0` and the matching root lockfile are ready for hands-on testing.** npm publication, tagging, external testing and remaining quality gates are separate. Phase 09 manual/device gates and product-specific migrations remain separate. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -129,7 +129,7 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Add manual-only, exact-version, main/SHA-check, six-CI-check, environment-review and npm OIDC gated workflow
 - [ ] Set up actual GitHub `npm-prerelease` required reviewers and npm Trusted Publisher (maintainer approval required)
 - [ ] Authorize release version and notes; publish a prerelease, independently install actual npm version and gather feedback
-- [ ] Approve any tag/GitHub release and later 1.0 stability gate
+- [ ] Approve any Git tag/GitHub release and independently validate a stable npm release after testing
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples
@@ -141,7 +141,7 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 ## Package release
 - [x] Commit root and integration lockfiles and use `npm ci` in CI
 - [x] Add manual-only prerelease workflow with npm OIDC/provenance readiness and documented maintainer approvals (not yet configured or executed)
-- [ ] Release a tested prerelease before a stable 1.0
+- [ ] Complete independent and manual acceptance tests before a stable npm 1.0.0 release
 - [ ] Publish optional AI skill/plugin distribution for supported hosts
 
 **Not goals:** universal UI styles, forced brand identity, 37 CSS grid overlays, automatic publication, or replacing a project's product-specific UX.

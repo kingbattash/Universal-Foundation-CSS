@@ -1,6 +1,6 @@
 # Phase 11 — UF-CSS prerelease preparation and controlled distribution
 
-**Status:** Release readiness and CI safeguards are implemented on `feat/foundation-v0`. **No package version has been changed, no Git tag created, no npm publication performed, and no draft PR merged.** The current source declares `0.1.0`; `0.2.0-beta.1` is an **illustrative proposed** version, not a released artifact.
+**Status:** UF-CSS source and root lockfile are now versioned `1.0.0` for the user's requested testing and merge. **No npm publication or Git tag has been performed.** The existing `release.yml` workflow is prerelease-only and explicitly rejects a stable-form `1.0.0`; any public stable release needs separate approval and appropriately reviewed release automation.
 
 UF-CSS is a design-system *construction toolkit*. Publishing must not introduce a mandatory grid, brand identity, component appearance, typography or styling framework.
 
@@ -39,12 +39,12 @@ The independent packed-framework, Next.js and Expo workflows and the Playwright/
 
 ## Version and migration policy
 
-The current `0.x` package is experimental. Follow [SemVer 2.0.0](https://semver.org/):
+The release-publishing process is still experimental. The source is versioned `1.0.0` for testing; future registry releases must follow [SemVer 2.0.0](https://semver.org/):
 
 - **Patch** (`0.2.1`): compatible correction where no public behavior contract changes.
 - **Minor** (`0.3.0`): new functionality or deliberate compatibility-breaking experimental changes. Record every breaking change and migration approach in the changelog; no implied stability before 1.0.
 - **Prerelease** (`0.2.0-beta.1` then `0.2.0-beta.2`): successive reviewed candidates, each with immutable version and specific changes; use npm `beta` dist-tag, never automatically change the registry `latest` tag.
-- **1.0 stable** is a separate decision after API review, independent adoption and remaining quality gates—not the automatic next step after a green CI run.
+- **Source `1.0.0` for testing** is not proof of stable runtime compatibility, accessibility conformance, or a published npm release. Formal registry release is a separate decision after testing.
 
 A TypeScript export change, removal or rename of a CSS class/custom property, change to token schema, CLI flag semantics, or adapter behavior **can be breaking**. Document compatibility and any migration for independent projects first. Pin exact prerelease versions in experiments rather than using unconstrained caret ranges.
 

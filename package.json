@@ -1,6 +1,6 @@
 {
   "name": "@kingbattash/universal-foundation-css",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Framework-independent UI design rules, tokens, hierarchy and grid foundations",
   "type": "module",
   "sideEffects": [

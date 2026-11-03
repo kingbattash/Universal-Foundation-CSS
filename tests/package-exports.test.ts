@@ -21,6 +21,12 @@ const expectedExports: Record<string,string> = {
   "./react-native":"./adapters/react-native/tokens.generated.ts",
   "./package.json":"./package.json",
 }
+test("root npm lockfile and source package use the same version",()=>{
+  const lock=JSON.parse(readFileSync(resolve(root,"package-lock.json"),"utf8"))
+  assert.equal(lock.name,pkg.name)
+  assert.equal(lock.version,pkg.version)
+  assert.equal(lock.packages[""].version,pkg.version)
+})
 test("public exports resolve to files actually present after build",async()=>{
   assert.equal(pkg.type,"module")
   assert.equal(pkg.license,"Apache-2.0")
