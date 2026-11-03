@@ -218,19 +218,19 @@ Cross-cutting requirement: add tests and documentation **in each phase**, not on
 
 **Gate:** Web and native may render differently but describe equivalent tasks and outcomes. Passing package compilation and source-level tests is NOT real keyboard/assistive-technology/device validation. User-authored contracts and zero built-in patterns are acceptable. **Next: Phase 09 — accessibility, visual regression and real runtime quality gates.**
 
-### Phase 09 — Accessibility, visual regression and quality gates
+### Phase 09 — Accessibility, visual evidence and quality gates (PARTIAL: browser CI implemented; device/human verification pending)
 
-**Goal:** Make consistent, accessible behavior testable—not merely documented.
+**Goal:** Actual browser operation must be measured; code compilation alone must never be represented as a passed accessibility audit.
 
-| Step | Work | Location |
+| Step | Result | Location |
 | --- | --- | --- |
-| 09.1 | Browser snapshots at phone/tablet/desktop widths, light/dark and selected fonts | `tests/visual/`, `integration/web/` |
-| 09.2 | Automated contrast and semantic/ARIA checks; keyboard navigation and visible focus | `tests/accessibility/` |
-| 09.3 | Test 200% zoom, long/localized text, motion preferences and layout overflow | `tests/accessibility/`, `examples/` |
-| 09.4 | Native runtime validation on representative Android/iOS environments with font scaling/safe areas | `integration/expo/`, `docs/TESTING.md` |
-| 09.5 | Add test evidence and failure thresholds to CI, while keeping nondeterministic or device-only checks documented | `.github/workflows/` |
+| 09.1 | **DONE for screenshot evidence:** 12 full-page light/dark screenshots from two independent product themes at 320/768/1440 CSS px. **NOT DONE:** approved pixel-diff baselines and true cross-browser visual regression. | `integration/browser/tests/browser-quality.spec.mjs`, CI artifacts |
+| 09.2 | **DONE for automated scope:** axe-core A/AA checks (WCAG 2, 2.1, 2.2 tags), real keyboard tests for focus, tabs/dialog/form/table, visible focus and page errors. **NOT DONE:** manual screen readers and all WCAG success criteria. | `integration/browser/`, `docs/TESTING.md` |
+| 09.3 | **DONE for bounded specimens:** real browser narrow and wide layout geometry, overflow, long Arabic text, 200% root-size stress, reduced motion and 320 CSS px (400%-equivalent reflow scenario). **NOT DONE:** native browser 200%/400% zoom verification and full RTL audit. | `integration/browser/tests/`, `examples/` |
+| 09.4 | **DONE for code/build scope only:** safe-area scrolling/metric accessible labels and font-scaling checks in Expo, TypeScript and Android Metro JS export. **NOT DONE:** actual Android/iOS emulator or physical-device runtime; manual checklist supplied. | `integration/expo/App.tsx`, `tests/native-quality.test.mjs`, `docs/TESTING.md` |
+| 09.5 | **DONE for initial CI:** sixth locked Playwright+axe browser workflow, screenshot/trace/HTML report artifacts, failure thresholds and documentation distinguishing code, browser, human and native evidence. | `.github/workflows/integration-browser.yml`, `integration/browser/package-lock.json` |
 
-**Gate:** core examples pass reproducible automated checks; known device-only limitations are recorded. **A successful build is not equivalent to a passed visual/accessibility audit.**
+**Gate status:** browser automation and compilation checks passed on the implementation baseline. Final Phase 09 quality/certification gate is **OPEN** until approved screenshot baselines, manual screen-reader/browser zoom tests and real mobile execution are complete. The system remains user-owned, framework-neutral and free of mandatory UI presets.
 
 ### Phase 10 — AI agent automation and project CLI
 

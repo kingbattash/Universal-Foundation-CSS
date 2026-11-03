@@ -4,6 +4,11 @@ All notable changes will be documented here. UF-CSS is in early development; API
 
 ## Unreleased
 ### Added
+- Phase 09 real Chromium automation: 25 Playwright/axe tests for two unrelated themes, twelve light/dark viewport screenshots, keyboard flows, accessible labels, zoom-equivalent reflow, reduced motion and RTL/long text stress.
+- Separate browser quality CI with a committed Playwright/axe lockfile, Chromium installation, generated theme fixtures and screenshot/trace artifact reporting.
+- Expo specimen safe-area scrolling and accessible metric context; separate static native quality tests and device/manual QA checklist.
+- Browser-discovered fixes for 320px operations-table overflow, editorial large-text wrapping, theme-toggle label mismatch and modal Tab/Shift+Tab focus containment.
+- Explicit Phase 09 test evidence policy and outstanding manual/device/screenshot baseline quality gates.
 - Phase 08 behavior-first contracts for ten components with keyboard, screen reader, native equivalents, constraints and explicit review states.
 - Pure operation state transitions requiring explicit completion, and creator-owned component and pattern contract APIs with no required visual presets.
 - Ten task-based pattern references (five preserved and five added) with platform semantics, reading order and responsive cautions.

@@ -41,7 +41,7 @@ python -m http.server 8000
 
 Then visit `http://localhost:8000/examples/project-theme/preview-editorial.html` and `http://localhost:8000/examples/project-theme/preview-operations.html`. Each example has its own visual layout and light/dark toggle. These examples are optional, contain fictional product identities and do not add product styling to UF-CSS core.
 
-These are browser-viewable demonstrations. The CI tests check their dependency paths and framework compilation; automated browser screenshots, keyboard and screen-reader verification are planned in Phase 09.
+These are browser-viewable demonstrations. Phase 09 Playwright/Chromium CI now captures 12 light/dark responsive screenshots, tests keyboard interactions and performs automated axe checks on both themes. These **do not** replace manual screen-reader tests or approved pixel-diff screenshot baselines; see [TESTING.md](TESTING.md).
 
 ### Preview and use in your project
 

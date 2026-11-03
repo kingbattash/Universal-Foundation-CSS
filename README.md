@@ -189,7 +189,7 @@ npm test       # Formula, registry and contract tests
 npm run verify # Type-check and tests
 ```
 
-CI verifies token parity, the TypeScript suite, compiled **Tailwind v3/v4**, **Bootstrap CSS**, and **StyleX Babel** fixtures, plus an **Expo SDK 57 Android JavaScript export** that consumes generated native tokens. Full browser/device visual QA, WCAG user-flow testing and physical-device validation remain future work. Automated browser-level accessibility and cross-device visual tests remain future work.
+CI verifies token parity, the TypeScript suite, compiled **Tailwind v3/v4**, **Bootstrap CSS**, and **StyleX Babel** fixtures, plus an **Expo SDK 57 Android JavaScript export**. A sixth quality workflow now runs **Playwright Chromium + axe-core** on 25 browser scenarios, captures 12 responsive light/dark screenshots, and checks keyboard interactions and limited WCAG A/AA rules. Use `npm ci --prefix integration/browser` and `npm test --prefix integration/browser` after browser setup. Pixel-diff baselines, manual screen readers, true browser zoom and physical Android/iOS device validation are **pending**; see [testing evidence and checklist](docs/TESTING.md).
 
 ## Architecture and roadmap
 

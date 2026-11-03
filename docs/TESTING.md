@@ -16,7 +16,7 @@ UF-CSS is a framework-neutral design-system *construction* toolkit. It supplies 
 | Screen readers and physical devices | VoiceOver, TalkBack, NVDA, Android/iOS native app | Manual checklists below | **Pending** |
 | Pixel-by-pixel screenshot regression | Committed visual baselines reviewed under a pinned browser | Future browser snapshot fixtures | **Pending** |
 
-The browser suite pins its direct dependency versions in a separate package file but currently installs without a committed `package-lock.json`; dependency lock generation remains an improvement. The root and other integration packages remain separately locked.
+The browser suite now has a committed, separately pinned `integration/browser/package-lock.json`; CI uses `npm ci` rather than silently resolving new dependency versions. Root, Expo and web integration lockfiles remain independent.
 
 ## Human browser accessibility checklist (not yet executed)
 

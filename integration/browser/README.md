@@ -16,7 +16,7 @@ npm test --prefix integration/browser
 
 The two theme-generation steps are necessary because theme previews reference generated CSS deliberately excluded from source control. For a second local run, use `--force` with those two generator commands or keep the generated directories unchanged. CI uses fresh checkouts and does not overwrite user files. On Linux CI, `playwright install --with-deps chromium` installs browser system dependencies as well.
 
-Dependencies are pinned in `integration/browser/package.json`; this early browser-test harness currently installs them without a committed lockfile. It is separate from the **locked** root, Expo and web adapter dependency trees. Dependency-tree pinning remains a reproducibility improvement to complete, not an implied current guarantee.
+Browser test dependencies are pinned in the committed `integration/browser/package-lock.json` and installed with `npm ci`. Root, Expo and other framework toolchains remain independently locked.
 
 ## Current automated checks
 

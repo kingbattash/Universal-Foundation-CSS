@@ -1,6 +1,6 @@
 # Roadmap (early 0.x)
 
-**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03); five CI workflows now include real npm-tarball consumers, a Next.js/StyleX production Webpack build and an Expo Android JavaScript export. **Next: Phase 09 — accessibility, visual regression and runtime quality gates.** Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
+**Detailed execution plan:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — exact phase tasks, source ownership, dependencies, and acceptance gates. **Phases 00–08 complete for their declared experimental scopes** (2026-11-03). **Phase 09 Chromium automation implemented:** 25 real-browser tests plus a sixth CI workflow (Playwright/axe, screenshots, keyboard, responsive reflow and contrast/semantics). **Full Phase 09 is NOT complete:** pixel baselines, real browser zoom, manual screen readers and Android/iOS runtime audits remain. Phase 10 (agent automation) can proceed while manual quality gates are pending. Full DTCG 2025.10 feature coverage is deliberately outside the current supported profile.
 
 The roadmap is a planning aid, not a feature-completeness guarantee.
 
@@ -99,6 +99,18 @@ The roadmap is a planning aid, not a feature-completeness guarantee.
 - [x] Unbranded opt-in layout-only `./patterns.css` and real CSS compiler/package import verification
 - [x] Two interactive local HTML specimens, native-equivalence guidance and source/test audits
 - [ ] Browser screenshot, keyboard/tab/pointer, screen reader, 200% zoom and physical-device QA (Phase 09)
+
+## Phase 09 — browser/accessibility automation (PARTIAL: human and device gates pending)
+- [x] 25 Playwright Chromium tests with 12 responsive light/dark screenshot artifacts (320, 768, 1440 CSS px)
+- [x] axe-core WCAG 2/2.1/2.2 A/AA rule scans on selected interactive, grid and independent theme specimens
+- [x] Actual keyboard flow for tabs, dialog focus confinement/Escape, form errors, skip links, filtering and sorting
+- [x] Browser geometry and overflow checks, 320px reflow, 200% root font-size stress, Arabic long-text case and reduced-motion preference
+- [x] Fix browser-found mobile table overflow, editorial long-heading clipping and mislabeled theme button
+- [x] Make native Expo specimen safe-area scrollable and accessible for scaled text; TypeScript, native static quality tests and Android Metro export
+- [x] Add sixth workflow with pinned `npm ci`, artifact retention and code-level failure gates
+- [ ] Approved cross-version pixel-diff screenshot baselines; images currently provide evidence for review
+- [ ] Manual NVDA/VoiceOver/TalkBack audits and real browser 200%/400% zoom; Firefox/WebKit as applicable
+- [ ] Android and iOS emulator/physical-device runtime validation, safe areas, dynamic fonts, orientations and accessibility
 
 ## Foundation v0.3 — design governance
 - [ ] Expand accessible interaction contracts with platform examples
