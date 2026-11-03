@@ -3,7 +3,7 @@
  * the target, following symlinks, generated output or filesystem mutations.
  */
 import {lstat,readdir,readFile} from "node:fs/promises";
-import {basename,extname,join,relative,resolve,sep} from "node:path";
+import {basename,dirname,extname,join,relative,resolve,sep} from "node:path";
 
 const ignoredDirs=new Set([".git",".next",".nuxt",".expo",".turbo",".cache",".output",".vercel",
   ".svelte-kit",".astro",".angular",".idea",".vscode","node_modules","vendor","dist",
@@ -41,6 +41,15 @@ export async function auditProject(inputPath){
   const root=resolve(inputPath);
   const stat=await lstat(root);
   if(!stat.isDirectory()||stat.isSymbolicLink())throw new Error("Project must be an existing, non-symlink directory");
+  // A symlink in an ancestor can escape the explicit audit scope even when
+  // the final directory itself is not a link.
+  for(let current=root;;){
+    const link=await lstat(current);
+    if(link.isSymbolicLink())throw new Error("Refusing a project path with a symbolic-link ancestor: "+current);
+    const parent=dirname(current);
+    if(parent===current)break;
+    current=parent;
+  }
   const packages=[],sources=[],warnings=[],files=[],skipped=[];
   let paths=0,readFiles=0,totalBytes=0,truncated=false;
   const stack=[{directory:root,depth:0}];
@@ -102,7 +111,7 @@ export async function auditProject(inputPath){
     const key=id+"|"+evidence.path;
     if(seenFrameworks.has(key))return;
     seenFrameworks.add(key);
-    frameworks.push({id,version:version??"unknown",confidence,evidence,adapter:recommendationFor(id)});
+    frameworks.push({id,version:version??"unknown",confidence,evidence,adapter:confidence==="high"?recommendationFor(id):null});
   };
   for(const pkg of packages){
     const deps=pkg.dependencies;
@@ -114,11 +123,13 @@ export async function auditProject(inputPath){
       }else if(name==="bootstrap"){
         addFramework(major===5?"bootstrap":"bootstrap-unknown",ver,{path:pkg.path,signal:"bootstrap dependency"},major===5?"high":"medium");
       }else if(name==="@stylexjs/stylex"){
-        addFramework("stylex",ver,{path:pkg.path,signal:"@stylexjs/stylex dependency"});
+        addFramework("stylex",ver,{path:pkg.path,signal:"@stylexjs/stylex dependency"},
+          major===null?"medium":"high");
       }else if(name==="expo"){
         addFramework("expo",ver,{path:pkg.path,signal:"Expo dependency"});
       }else if(name==="react-native"){
-        addFramework("react-native",ver,{path:pkg.path,signal:"React Native dependency"});
+        addFramework("react-native",ver,{path:pkg.path,signal:"React Native dependency"},
+          major===null?"medium":"high");
       }else if(name==="next"){
         addFramework("nextjs",ver,{path:pkg.path,signal:"Next.js dependency"});
       }
