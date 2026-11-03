@@ -4,12 +4,14 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "export:android": "expo export --platform android --output-dir dist --no-bytecode"
+    "export:android": "expo export --platform android --output-dir dist --no-bytecode",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "expo": "~57.0.19",
     "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.10.1"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",

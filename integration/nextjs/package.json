@@ -1,0 +1,23 @@
+{
+  "name": "uf-css-nextjs-stylex-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "next build --webpack",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "@stylexjs/stylex": "0.19.1"
+  },
+  "devDependencies": {
+    "@stylexswc/nextjs-plugin": "0.20.0",
+    "@stylexswc/webpack-plugin": "0.20.0",
+    "typescript": "~5.9.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/node": "^22.15.0"
+  }
+}
