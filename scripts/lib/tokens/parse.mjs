@@ -3,6 +3,7 @@
  * No color, spacing, typography, semantic role, hierarchy or grid is required.
  */
 const plain = x => x !== null && typeof x === "object" && !Array.isArray(x) && Object.getPrototypeOf(x) === Object.prototype;
+// This output-safe profile permits numeric steps; full DTCG accepts broader Unicode names.
 const validKey = /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/;
 const reserved = new Set(["__proto__", "prototype", "constructor"]);
 const kebab = name => name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/_/g, "-").toLowerCase();
@@ -13,10 +14,11 @@ const finite = n => typeof n === "number" && Number.isFinite(n);
 function validate(type, v, path) {
   if (type === "color") {
     if (!plain(v) || v.colorSpace !== "srgb" || !Array.isArray(v.components) || v.components.length !== 3 ||
-      v.components.some(n => !finite(n) || n < 0 || n > 1) || !/^#[\da-f]{6}$/i.test(v.hex || "") ||
+      v.components.some(n => !finite(n) || n < 0 || n > 1) ||
+      (v.hex !== undefined && !/^#[\da-f]{6}$/i.test(v.hex)) ||
       (v.alpha !== undefined && v.alpha !== 1)) error("Invalid opaque sRGB color: " + path);
     const hex = "#" + v.components.map(n => Math.round(n * 255).toString(16).padStart(2, "0")).join("");
-    if (hex.toLowerCase() !== v.hex.toLowerCase()) error("Color channels disagree with hex: " + path);
+    if (v.hex && hex.toLowerCase() !== v.hex.toLowerCase()) error("Color channels disagree with hex: " + path);
     return hex.toLowerCase();
   }
   if (type === "dimension" || type === "duration") {
@@ -48,10 +50,21 @@ export function parseTokens(source) {
   const tokens = new Map();
   function scan(node, parts = [], inherited) {
     if (!plain(node)) error("Invalid token group: " + parts.join("."));
-    if (Object.hasOwn(node, "$extends")) error("$extends is not supported in the current DTCG subset");
+    if (Object.hasOwn(node, "$extends")) error("$extends is not supported in this DTCG output profile");
+    const isToken = Object.hasOwn(node, "$value");
+    const recognized = new Set(["$description", "$extensions", "$deprecated", "$type", ...(parts.length === 0 ? ["$schema"] : []), ...(isToken ? ["$value"] : [])]);
+    for (const key of Object.keys(node)) {
+      if (key.startsWith("$") && !recognized.has(key)) error("Unsupported DTCG metadata " + key + " at " + (parts.join(".") || "root"));
+    }
+    if (node.$description !== undefined && typeof node.$description !== "string") error("Invalid $description");
+    if (node.$type !== undefined && (typeof node.$type !== "string" || !node.$type)) error("Invalid $type");
+    if (node.$deprecated !== undefined && typeof node.$deprecated !== "boolean" && typeof node.$deprecated !== "string") error("Invalid $deprecated");
+    if (node.$extensions !== undefined && !plain(node.$extensions)) error("Invalid $extensions");
+    if (node.$schema !== undefined && typeof node.$schema !== "string") error("Invalid $schema");
     const type = node.$type ?? inherited;
-    if (Object.hasOwn(node, "$value")) {
+    if (isToken) {
       if (!parts.length) error("Root token is not supported");
+      if (Object.keys(node).some(k => !k.startsWith("$"))) error("A token cannot also contain named child groups: " + parts.join("."));
       tokens.set(parts.join("."), { type, value: node.$value });
       return;
     }
